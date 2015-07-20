@@ -1,0 +1,130 @@
+/*eslint-disable*/
+exports.input = __dirname;
+
+var path = require( 'path' );
+var fs = require('fs');
+exports.output = path.resolve( __dirname, 'output' );
+
+// var moduleEntries = 'html,htm,phtml,tpl,vm,js';
+// var pageEntries = 'html,htm,phtml,tpl,vm';
+
+exports.getProcessors = function () {
+    var lessProcessor = new LessCompiler();
+    var cssProcessor = new CssCompressor();
+    var moduleProcessor = new ModuleCompiler();
+    var jsProcessor = new JsCompressor();
+    var pathMapperProcessor = new PathMapper();
+    var addCopyright = new AddCopyright();
+
+
+    // 对tpl中的smarty输出变量escape
+    var tplEscaper = {
+        files: [
+            'src/**/*.tpl'
+        ],
+        name: 'tplEscaper',
+        process: function (file, processContext, callback) {
+            file.setData(
+                file.data.replace(/(\{%\s*\$.*?)(%\})/g, function (match, start, end) {
+                    if (match.indexOf('escape') == -1 && match.indexOf('=') == -1) {
+                        return start + '|escape:html' + end;
+                    }
+                    return match;
+                })
+            );
+            callback();
+        }
+    };
+
+    var now = new Date();
+    var month = now.getMonth() + 1;
+    var yyyyMMdd = now.getFullYear() + (month < 10 ? '0' : '') + month + now.getDate();
+    var variable = new VariableSubstitution({
+        files: ['*.tpl'],
+        variables: {
+            version: process.env.BUILD_NUMBER || yyyyMMdd
+        }
+    });
+
+    var tplCoper = {
+        files: [
+            '*.tpl'
+        ],
+        name: 'tplCoper',
+        process: function (file, processContext, callback) {
+            var sep = path.sep;
+            var tplPath = file.path.replace('src' + sep, 'output' + sep + 'template' + sep);
+            var pathArr = tplPath.split(sep);
+            var curPath = __dirname;
+            for (var i = 0, len = pathArr.length; i < len - 1; i++) {
+                curPath = path.resolve(curPath, pathArr[i]);
+                if (!fs.existsSync(curPath)) {
+                    fs.mkdirSync(curPath);
+                }
+            }
+            fs.writeFileSync(tplPath, file.data);
+            callback();
+        }
+    }
+
+    var cleanerProcessor = new OutputCleaner({
+        files: ['*.tpl']
+    });
+
+
+    return {
+        'default': [
+            lessProcessor, moduleProcessor, pathMapperProcessor, 
+
+            variable, tplCoper, cleanerProcessor
+        ],
+        'release': [
+            lessProcessor, cssProcessor, moduleProcessor,
+            jsProcessor, pathMapperProcessor, addCopyright,
+
+            // 模板相关
+            variable, addCopyright, tplEscaper, tplCoper, cleanerProcessor
+        ]
+    };
+};
+
+
+exports.exclude = [
+    'tool',
+    'doc',
+    'test',
+    'module.conf',
+    'package.json',
+    'README',
+    'dep/packages.manifest',
+    'dep/*/*/test',
+    'dep/*/*/doc',
+    'dep/*/*/demo',
+    'dep/*/*/tool',
+    'dep/*/*/*.md',
+    'mock/*',
+    'dep/*/*/package.json',
+    'edp-*',
+    '.edpproj',
+    '.svn',
+    '.git',
+    '.gitignore',
+    '.idea',
+    '.project',
+    'Desktop.ini',
+    'Thumbs.db',
+    '.DS_Store',
+    'node_modules',
+    '.scm',
+    '*.sh',
+    '*.tmp',
+    '*.bak',
+    '*.swp'
+];
+
+exports.injectProcessor = function ( processors ) {
+    for ( var key in processors ) {
+        global[ key ] = processors[ key ];
+    }
+};
+

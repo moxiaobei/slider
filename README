@@ -1,0 +1,19 @@
+
+git地址： https://git.baidu.com/mms/graph/graphfe.git
+svn地址： https://svn.baidu.com/mms/trunk/graph/graphfe
+mock git地址：http://gitlab.baidu.com/qingpaife/graph_mock.git
+
+git和svn是同步的
+git提交master分支，代码会自动同步到svn的主干
+svn提交主干也会自动同步到git的master分支
+
+注意：每次git的commit都会转化成svn的一次version, 会被cooder纪录的。所以在commit之前请保证代码质量，先跑一遍最新版的fecs。
+
+
+先git clone https://git.baidu.com/mms/graph/graphfe.git
+然后git clone http://gitlab.baidu.com/qingpaife/graph_mock.git
+
+注意： 一定要保证graphfe和graphfe_mock在同一目录下， 不然mock数据无效（软链接机制）
+
+
+上线， 提测之前， 都执行sh online.sh之后再提交～
