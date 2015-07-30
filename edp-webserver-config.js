@@ -48,7 +48,8 @@ exports.getLocations = function () {
             location: function (req) {
                 var pathname = req.pathname;
                 var paths = [
-                    '/voice/api/hongbao'
+                    '/api/proxy/search',
+                    '/api/log'
                 ];
                 for (var i = 0, len = paths.length; i < len; i++) {
                     if (new RegExp(paths[i]).test(pathname)) {
@@ -58,7 +59,7 @@ exports.getLocations = function () {
                 return false;
             },
             handler: [
-                proxy('cp01-vs-vsc-rd02.cp01.baidu.com', 8288)
+                proxy('dev058.baidu.com', 8092)
             ]
         },
         // ajax
