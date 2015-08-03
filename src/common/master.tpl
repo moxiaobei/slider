@@ -25,8 +25,9 @@
     <link rel="apple-touch-startup-image" sizes="640x960" href="//bcscdn.baidu.com/resource/df9be70cb0d3a133287cddaafa4c0eb5.jpg">
     <link rel="apple-touch-startup-image" sizes="640x1136" href="//bcscdn.baidu.com/resource/d7423d717fa011c01994692aa9089f79.jpg">
     <link rel="shortcut icon" type="image/ico" href="//bcscdn.baidu.com/resource/9f3eadcd4263788593593d82f831940d.ico">
-    <script src="http://s1.bdstatic.com/r/www/cache/ecom/esl/1-8-2/esl.js"></script>
     {%block name="style"%}{%/block%}
+    <script src="http://s1.bdstatic.com/r/www/cache/ecom/esl/2-0-6/esl.js"></script>
+    {%block name="head_js"%}{%/block%}
 </head>
 <body>
     <div id="viewport">

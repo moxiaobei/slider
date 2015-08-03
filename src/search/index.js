@@ -4,9 +4,10 @@
  */
 
 define(function (require) {
-
+    var $ = require('zepto');
     var inviewStatic = require('common/widget/in-view');
-    var initAladdinWise = require('./widget/aladdin');
+    var initAladdinWise = require('./js/aladdin');
+    var initScardenv = require('search/js/scardenv');
 
     var exports = {};
 
@@ -17,6 +18,14 @@ define(function (require) {
     exports.start = function () {
         inviewStatic();
         initAladdinWise();
+        initScardenv();
+
+        $.ajax({
+            url: '/search/list',
+            success: function (data) {
+
+            }
+        });
     };
 
     return exports;

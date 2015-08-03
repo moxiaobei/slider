@@ -86,6 +86,7 @@ define(function (require) {
                 }
             },
             more: function (data) {
+
                 for (var i = 0, n = self._moreFn.length; i < n; i++) {
                     self._moreFn[i].call(null, data.more);
                 }

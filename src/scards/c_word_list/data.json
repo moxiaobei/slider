@@ -1,0 +1,38 @@
+{
+    "tplData": {
+        "ajaxUrl": "",
+        "tags": [
+            {
+                "name": "山竹",
+                "url": "http://m.baidu.com"
+            },
+            {
+                "name": "油桃",
+                "url": "http://m.baidu.com"
+            },
+            {
+                "name": "火龙果",
+                "url": "http://m.baidu.com"
+            },
+            {
+                "name": "苹果",
+                "url": "http://m.baidu.com"
+            },
+            {
+                "name": "海南椰子",
+                "url": "http://m.baidu.com"
+            },
+            {
+                "name": "梨子",
+                "url": "http://m.baidu.com"
+            },
+            {
+                "name": "香蕉",
+                "url": "http://m.baidu.com"
+            }
+        ]
+    },
+    "extData": {
+
+    }
+}

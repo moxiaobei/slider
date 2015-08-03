@@ -1,14 +1,13 @@
 {%strip%}
-<section class="result">
 
-    {%$titleflag = ture%}
-
-    {%block name="data_modifier"%}{%/blcok%}
-
+{%$titleflag = ture%}
+{%$cardName = "nocard"%}
+{%block name="data_modifier"%}{%/block%}
+<section class="result result-{%$cardName%}">
     {%if titleflag eq true%}
         <div class="result-title">{%block name="title"%}{%/block%}</div>
     {%/if%}
 
-    <div class="result-wapper">{%block name="content"%}{%/block%}</div>
+    <div class="result-body">{%block name="content"%}{%/block%}</div>
 </section>
 {%/strip%}

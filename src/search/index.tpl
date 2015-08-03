@@ -4,9 +4,13 @@
     <link rel="stylesheet" href="{%$feRoot%}/src/search/index.css?v={edp-variable:version}"/>
 {%/block%}
 
+{%block name="head_js"%}
+    <script src="{%$feRoot%}/src/common/widget/zepto.js"></script>
+    <script>{%include file="./js/scardenv.js"%}</script>
+{%/block%}
+
 {%block name="main"%}
 {%strip%}
-    <script>{%include file="./widget/alaEnv.js"%}</script>
     <div id="results">
         {%$tplData.html|escape:none%}
     </div>
