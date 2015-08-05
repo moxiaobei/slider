@@ -24,6 +24,7 @@
             card.data = {
                 ajaxUrl: '{%$tplData.ajaxUrl|escape:"javascript"%}'
             };
+
             {%*include file="page.js"*%}
         });
     </script>

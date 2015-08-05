@@ -152,7 +152,9 @@ function remainHandler() {
 }
 
 function isAccessScard(context) {
-    if ((/^\/scards\//).test(context.request.pathname)) {
+    console.log(context.request.pathname);
+    if ((/^\/scards\//).test(context.request.pathname) &&
+        !(/^\/scards\/.+?\/pages\//).test(context.request.pathname) ) {
         return true;
     }
     else {
