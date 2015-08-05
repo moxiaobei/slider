@@ -57,6 +57,8 @@
   background-size: 100%;
   vertical-align: text-bottom;
   -webkit-animation: rotate 1s infinite linear;
+  -o-animation: rotate 1s infinite linear;
+  -moz-animation: rotate 1s infinite linear;
   animation: rotate 1s infinite linear;
 }
 .c-similar .clearfix:after {
@@ -147,6 +149,7 @@
 
 
 var $ = require('zepto');
+var env = require('evn');
 
 /*
     瀑布流构造函数
