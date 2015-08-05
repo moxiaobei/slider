@@ -1,6 +1,5 @@
 {
     "tplData": {
-        "ajaxUrl": "",
         "images": [
             {
                 "name": "海洋1",
@@ -8,31 +7,28 @@
             },
             {
                 "name": "海洋2",
-                "url": "http://static.zhulong.com/database/news/2014/03/14/187078235.jpg"
+                "url": "http://pic.nipic.com/2007-12-12/20071212234322917_2.jpg"
             },
             {
                 "name": "海洋3",
-                "url": "http://static.zhulong.com/database/news/2014/03/14/187078235.jpg"
+                "url": "http://pic.nipic.com/2007-08-23/200782317426131_2.jpg"
             },
             {
                 "name": "海洋4",
-                "url": "http://static.zhulong.com/database/news/2014/03/14/187078235.jpg"
+                "url": "http://pic4.nipic.com/20090807/3001882_095023039_2.jpg"
             },
             {
                 "name": "海洋5",
-                "url": "http://static.zhulong.com/database/news/2014/03/14/187078235.jpg"
+                "url": "http://pic18.nipic.com/20111212/7361508_090142090000_2.jpg"
             },
             {
                 "name": "海洋6",
-                "url": "http://static.zhulong.com/database/news/2014/03/14/187078235.jpg"
+                "url": "http://pic4.nipic.com/20091028/3578899_112248034441_2.jpg"
             },
             {
                 "name": "海洋7",
-                "url": "http://static.zhulong.com/database/news/2014/03/14/187078235.jpg"
+                "url": "http://pic48.nipic.com/file/20140914/12194443_200211670000_2.jpg"
             }
         ]
-    },
-    "extData": {
-
     }
 }

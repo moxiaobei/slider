@@ -71,10 +71,10 @@ exports.getLocations = function () {
         // 处理剩余请求
         {
             location: /^.*$/,
-            handler: [
+            handler: 
                 remainHandler(),
-                livereload()
-            ]
+                
+            
         }
     ];
 };
@@ -103,53 +103,7 @@ function phpHandler() {
     ];
 }
 
-// 处理找不到具体文件的，
-// 若请求路径是一个文件，则返回， 不是，则认为是伪静态路径，转发到php-cgi处理, 如：/search
-function remainHandler() {
 
-    var phpFn = php('php-cgi', '', function (context) {
-        var req = context.request;
-        var path = req.pathname || '';
-        var search = req.search || '';
-
-        search = search
-                + (search.indexOf('?') === -1 ? '?' : '&')
-                + '__mypathname__='
-                + path
-
-        console.log('php request with >>>>', '/mock/lib/main.php' + search);
-
-        return {
-            pathname: '/mock/lib/main.php',
-            search: search
-        };
-    });
-
-    var fileFn = file();
-
-    return [
-        function (context) {
-            var req = context.request;
-            var path = req.pathname;
-            var filepath = exports.documentRoot + req.pathname;
-            if (isAccessScard(context)) {
-                scardHander(context, function () {
-                    phpFn(context);
-                });
-            }
-            else {
-                // 若请求路径是一个文件，则返回， 不是，则认为是伪静态路径，转发到php-cgi处理
-                if (fs.existsSync(filepath) && fs.statSync(filepath).isFile()) {
-                    fileFn(context);
-                }
-                else {
-                    phpFn(context);
-                }
-            }
-
-        }
-    ];
-}
 
 function isAccessScard(context) {
     if ((/^\/scards\//).test(context.request.pathname)) {
@@ -168,14 +122,14 @@ function scardHander(context, callback) {
     var pageDir = path.join(srcDir,  pathname);
     var pageSrcPath = path.join(pageDir,  '_page.tpl');
     var pagePath = path.join(pageDir,  'page.tpl');
-
+    console.log('a1');
     if (!fs.existsSync(pageSrcPath)) {
         callback();
         return;
     }
 
     var content = fs.readFileSync(pageSrcPath, {encoding:'utf8'});
-    // console.log(content);
+    console.log(content);
     var conf = {
         debug: true
     };
@@ -190,6 +144,7 @@ function scardHander(context, callback) {
     var reg = /{%\*include\s+file\s*=\s*"?(.*?)"?\s*\*%}/gi;
 
     function doHandler(result) {
+        console.log('a2');
         var str = result[0];
         var resName = result[1];
         var resPath = path.resolve(pageDir, resName);
@@ -200,7 +155,7 @@ function scardHander(context, callback) {
             console.log('match: ', resPath, ' not exist' );
             next();
         }
-
+        
         var ext = path.extname(resPath);
         var resourceCont = fs.readFileSync(resPath, {encoding:'utf8'});
         console.log(ext);
@@ -249,4 +204,50 @@ function scardHander(context, callback) {
     }
 
     next();
+}
+
+// 处理找不到具体文件的，
+// 若请求路径是一个文件，则返回， 不是，则认为是伪静态路径，转发到php-cgi处理, 如：/search
+function remainHandler() {
+
+    var phpFn = php('php-cgi', '', function (context) {
+        var req = context.request;
+        var path = req.pathname || '';
+        var search = req.search || '';
+
+        search = search
+                + (search.indexOf('?') === -1 ? '?' : '&')
+                + '__mypathname__='
+                + path
+
+        console.log('php request with >>>>', '/mock/lib/main.php' + search);
+
+        return {
+            pathname: '/mock/lib/main.php',
+            search: search
+        };
+    });
+    var fileFn = file();
+    return [
+        function (context) {
+            var req = context.request;
+            var path = req.pathname;
+            var filepath = exports.documentRoot + req.pathname;
+            if (isAccessScard(context)) {
+                scardHander(context, function () {
+                    phpFn(context);
+                });
+            }
+            else {
+                // 若请求路径是一个文件，则返回， 不是，则认为是伪静态路径，转发到php-cgi处理
+                if (fs.existsSync(filepath) && fs.statSync(filepath).isFile()) {
+                    fileFn(context);
+                }
+                else {
+                    phpFn(context);
+                }
+            }
+
+        }
+    ];
 }
