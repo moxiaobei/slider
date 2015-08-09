@@ -1,10 +1,10 @@
 {%strip%}
 
-{%$titleflag = ture%}
+{%$titleflag = true%}
 {%$cardName = "nocard"%}
 {%block name="data_modifier"%}{%/block%}
 <section class="result result-{%$cardName%}">
-    {%if titleflag eq true%}
+    {%if $titleflag eq true%}
         <div class="result-title">{%block name="title"%}{%/block%}</div>
     {%/if%}
 

@@ -188,6 +188,7 @@ define(function (require) {
     }
 
     (function () {
+
         if (document.readyState === 'complete') {
             setTimeout(setReady, 0);
         }

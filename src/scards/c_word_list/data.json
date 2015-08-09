@@ -1,34 +1,18 @@
 {
     "tplData": {
-        "ajaxUrl": "http:///fewaf",
-        "tags": [
+        "order": 1,
+        "words": [
             {
-                "name": "山竹",
-                "url": "http://m.baidu.com"
+                "keyword": "山竹",
+                "type": "shitu"
             },
             {
-                "name": "油桃",
-                "url": "http://m.baidu.com"
+                "keyword": "油桃",
+                "type": "shitu"
             },
             {
-                "name": "火龙果",
-                "url": "http://m.baidu.com"
-            },
-            {
-                "name": "苹果",
-                "url": "http://m.baidu.com"
-            },
-            {
-                "name": "海南椰子",
-                "url": "http://m.baidu.com"
-            },
-            {
-                "name": "梨子",
-                "url": "http://m.baidu.com"
-            },
-            {
-                "name": "香蕉",
-                "url": "http://m.baidu.com"
+                "keyword": "火龙果",
+                "type": "shitu"
             }
         ]
     },

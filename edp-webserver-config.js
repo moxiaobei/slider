@@ -1,4 +1,5 @@
 /*eslint-disable*/
+// node version  v0.12.7
 var fs = require('fs');
 var path = require('path');
 var execSync = require('child_process').execSync;
@@ -177,14 +178,8 @@ function scardHander(context, callback) {
     }
 
     var content = fs.readFileSync(pageSrcPath, {encoding:'utf8'});
-    // console.log(content);
-    var conf = {
-        debug: true
-    };
 
-    //
     function complete(cont) {
-        console.log('cont: ', cont);
         fs.writeFileSync(pagePath, '/*eslint-disable*/\n' + cont);
         callback();
     }
@@ -207,20 +202,23 @@ function scardHander(context, callback) {
         var resourceCont = fs.readFileSync(resPath, {encoding:'utf8'});
         console.log(ext);
         if (ext === '.js') {
-            console.log('js: ', str, '   ',   resPath );
-            console.log(resourceCont);
-            content = content.replace(str, resourceCont);
+            var cmdPath = '/usr/local/lib/node_modules/edp-build/node_modules/uglify-js/bin/uglifyjs';
+            var cmd = [cmdPath, resPath, '--beautify'];
+
+            var output = execSync(
+                cmd.join(' '),
+                {encoding: 'utf-8'}
+            );
+
+            content = content.replace(str, output);
 
             next();
         }
 
         if (ext === '.less' || ext === '.css') {
 
-            // console.log(exec);
             var cmd = ['lessc ', resPath];
-            // if (!conf.debug) {
-            //     cmd.push('-x');
-            // }
+
             var output = execSync(
                 cmd.join(' '),
                 {encoding: 'utf-8'},
@@ -235,7 +233,7 @@ function scardHander(context, callback) {
                 }
             );
             content = content.replace(str, output);
-            console.log('less: ', content);
+            // console.log('less: ', content);
             next();
         }
     }
