@@ -4,6 +4,7 @@
 .c-similar {
     .waterfall-container {
         position:relative;
+        margin-bottom: 10px;
 
         ul {
             width: 100%;
@@ -71,6 +72,17 @@
         clear: both;
         height: 0;
     }
+}
+
+.iframe-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
 }
 
 @-moz-keyframes rotate {            /* Firefox */

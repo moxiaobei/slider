@@ -1,13 +1,25 @@
 {%extends file="../../../common/master.tpl"%}
-
+{%block name="style"%}
+    <link rel="stylesheet" href="{%$feRoot%}/src/scards/c_similar/pages/index.css?v={edp-variable:version}"/>
+{%/block%}
 {%block name="main"%}
 {%strip%}
     <div class="slider-container">
-        <div class="slider-image">
+        <div class="slider-section">
+            <ul class="slider-list clearfix">
+                <!--li class="slider-img">
+                    <img src="{%$tplData.imgUrl%}" />
+                </li-->
+            </ul>
         </div>
-        <div class="slider-introduction">
+        <div class="slider-introduction clearfix">
+            <p class="introduction-title"></p>
+            <p class="introduction-content"></p>
+            <a class="introduction-link" href=""></a>
+            <a class="buttons recognition" href=""><span>识图</span></a>
+            <a class="buttons download" href=""><span>下载</span></a>
         </div>
-        <div class="slider-waterfall">
+        <div class="slider-waterfall" id="sugguestion-waterfall">
             <p>推荐给你的图片</p>
             <ul class="clearfix">
                 <li class="col-1">
@@ -18,7 +30,25 @@
                 <li class="col-2">
                 </li>
             </ul>
+            <div class="waterfall-loading">
+                <i></i>&nbsp;正在加载,请稍后
+            </div>
         </div>
     </div>
 {%/strip%}
+{%/block%}
+
+{%block name='js'%}
+
+<script>
+
+    define('common/data', {
+        imgsInfo: {%$tplData%}
+    });
+
+
+    require(['scards/c_similar/pages/index'], function(index){
+        index.start();
+    });
+</script>
 {%/block%}

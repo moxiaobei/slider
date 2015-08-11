@@ -1,237 +1,243 @@
 /**
- * @file Waterfall瀑布流组件
- * @author Yao Chang(yaochang@baidu.com)
- * @date 2015-7-21
- */
+* @file Waterfall瀑布流
+* @author Dong Hualei(donghualei@baidu.com)
+* @date 2015-8-4
+*/
+
 
 define(function (require) {
-    var $ = require('zepto');
-    var utils = require('common/widget/utils');
 
-    // 用户可配置参数
-    var defaultOptions = {
-        prefix: 'waterfall',
-        colNum: 3,
-        gutterWidth: 10,
-        gutterHeight: 10,
-        resizable: false,
-        // 节流阀间隔时间
-        interval: 500,
-        // 即将绑定在scroll事件上的回调函数列表
-        callbackList: [loadMore],
-        // 异步请求相关参数
-        ajaxConf: {
-            method: 'POST',
-            url: '',
-            // 一次加载多少张卡片
-            limit: 30
-        }
+    var $ = require('zepto');
+
+    var env = require('common/widget/env');
+
+    /*
+        瀑布流构造函数
+    */
+
+    function WaterFall () {
+
+        this.lis = null;
+
+        this.pages = 1;
+
+        this.imgWidth = 0;
+
+        this.flag = false;
+
+        this.loading = null;
+
+        this.done = null;
+
+        this.ajaxUrl = "";
+
+        this.maxPages = 0;
+
+        this.container = null;
+    }
+
+    /*
+        瀑布流初始化
+    */
+    WaterFall.prototype.init = function (option) {
+
+        this.lis = $('#' + option.idName + ' li');
+
+        this.ajaxUrl = option.ajaxUrl;
+
+        this.maxPages = option.maxPages;
+
+        this.imgWidth = this.lis.eq(0).width();
+
+        this.listenScroll();
+
+        this.loading = $('#' + option.idName + ' .waterfall-loading');
+
+        this.loading.css('display', 'block');
+
+        this.container = $('#' + option.containerId);
+        
     };
 
-    // 布局参数
-    var $wfContainer;
-    var $wfCol;
-    var $wfLoading;
-    var wfOffset;
-    var wfWidth;
-    var wfHeight;
-    var colWidth;
+    /*
+        监听window的scroll事件
+    */
 
-    // 计算相关参数
-    var isLoading;
-    var isAllLoaded;
-    var page;
-    var colHeight = [];
+    WaterFall.prototype.listenScroll = function () {
 
-    /**
-     * 加载更多
-     *
-     * @param {number} num 加载卡片的个数
-     */
-    function loadMore(num) {
-        if (caniload() && !isLoading && !isAllLoaded) {
-            isLoading = true;
-            $wfLoading.show();
-            var ajaxConf = defaultOptions.ajaxConf;
-            num = num || ajaxConf.limit;
-            $.ajax({
-                type: ajaxConf.method,
-                url: ajaxConf.url,
-                data: {
-                    page: page,
-                    limit: num
-                },
-                dataType: 'json',
-                success: function (data) {
-                    if (data.errno === 0) {
-                        page++;
-                        dispatchCards(data.dataset);
+        var thisWaterFall = this;
+
+        $(window).on('scroll', scroll);
+
+        function scroll(e) {
+            
+            var liIndex = thisWaterFall.getShortLi();
+
+            var oLi = thisWaterFall.lis.eq(liIndex);
+
+            if($(window).scrollTop() + $(window).height() > oLi.height() + oLi.offset().top) {
+
+             //   alert(thisWaterFall.maxPages + "   " + thisWaterFall.pages);
+
+                if(thisWaterFall.flag === true && thisWaterFall.pages < thisWaterFall.maxPages) {
+
+                    thisWaterFall.flag = false;
+
+                    thisWaterFall.pages++;
+
+                    thisWaterFall.getImages();
+                }
+
+                else if(thisWaterFall.flag === true && thisWaterFall.pages === thisWaterFall.maxPages) {
+
+                    $(window).off('scroll', scroll);
+                }
+            }
+        }
+
+    };
+
+
+    /*
+        ajax获取图片加载数据
+    */
+    WaterFall.prototype.getImages = function () {
+
+        var thisWaterFall = this;
+
+        this.loading.css('display', 'block');
+
+        $.ajax({
+            type: 'GET',
+
+            url: this.ajaxUrl + '?page=' + thisWaterFall.pages,
+
+            dataType: 'jsonp',
+
+            success: function (data) {
+                alert(data);
+
+                for (var i = 0; i < data.length; i++) {
+
+                    var liIndex = thisWaterFall.getShortLi();
+
+                    var img = $('<img />');
+
+                    img.attr('src', data[i].image);
+
+                    var aTag = $('<a></a>');
+
+                    aTag.attr('href', data[i].referer);
+
+                    aTag.attr('target', '_blank');
+
+                    aTag.append(img);
+
+                    var src = data[i].referer;
+
+                    if(env.os.ios) {
+                        aTag.on('click', function (e) {
+                            e.preventDefault();
+
+                            //在iframe中打开结果页
+                            var iframe = $('<iframe></iframe>');
+                            iframe.css('width', '100%');
+                            iframe.css('height','100%');
+                            iframe.attr('src', $(this).attr('href'));
+                            iframe.css('frameborder','0');
+
+                            var iframeWrapper = $('<div></div>');
+                            iframeWrapper.addClass('iframe-wrapper');
+                            iframeWrapper.append(iframe);
+                            $(document.body).append(iframeWrapper);
+                            thisWaterFall.container.hide();
+                            var scrollTop = $(document.body).scrollTop();
+                            var pathname = $(this).attr('href').match(/http\:\/\/[\w\-\.\:]*([\/\-\w]*)/)[1];
+                            history.pushState({},"相似图",pathname);
+
+                            window.onpopstate = function(event) {
+                                iframeWrapper.remove();
+                                thisWaterFall.container.show();
+                                $(document.body).scrollTop(scrollTop);
+                            }
+                        });
                     }
-                    else if (data.errno === 1001) {
-                        isAllLoaded = true;
-                        isLoading = false;
-                        $wfLoading.hide();
-                        alert('没有更多卡片啦');
+
+                    var divTag = $('<div></div>');
+
+                    divTag.addClass('waterfall-img');
+
+                    divTag.css({
+                        height: Math.ceil(data[i].height * thisWaterFall.imgWidth/data[i].width)
+                    });
+
+                    divTag.append(aTag);
+
+                    thisWaterFall.lis.eq(liIndex).append(divTag);
+                }
+
+                thisWaterFall.loading.css('display', 'none');
+
+                thisWaterFall.flag = true;
+                
+            },
+            error: function() {
+                alert('error');
+            }
+
+
+        });
+
+        function isImageLoad (data, callback) {
+
+            var arr = [];
+
+            var sum = data.length;
+
+            for (var i = 0; i < data.length; i++) {
+
+                arr[i] = new Image();
+
+                arr[i].src = data[i].image;
+
+                arr[i].onload = function () {
+
+                    sum--;
+
+                    if(sum==0) {
+
+                        callback(arr);
                     }
                 }
-            });
-        }
-    }
-
-    /**
-     * 计算滚动位置是否到达瀑布流容器的底部
-     *
-     * @return {boolean} true/false 返回是否可以加载
-     */
-    function caniload() {
-        // 首次加载更多，不需要判断
-        if (wfHeight === 0) {
-            return true;
-        }
-
-        var screenHeight = $(window).height();
-        var scrollTop = $(window).scrollTop();
-        var minColHeight = utils.getMin(colHeight).minHeight;
-        // 比较最高列和最低列之差与200的大小，取最小值
-        // 当滚动条滚动位置与最小列高度之差大于refer值，就可以启动加载更多
-        var refer = Math.min(wfHeight - minColHeight, 200);
-        if (screenHeight + scrollTop - (wfOffset + minColHeight) >= refer) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * 加载一批卡片，一般来说一张卡片中包含一张大图
-     * 这里主要是预加载卡片中的图片
-     * 所有图片预加载完成以后再渲染所有卡片
-     *
-     * @param {Array.<Object>} cardList 卡片信息数组
-     */
-    function dispatchCards(cardList) {
-        // imgs 图片DOM数组
-        var imgs = [];
-        for (var i = 0; i < cardList.length; i++) {
-            var img = new Image();
-            img.src = cardList[i].imgSrc;
-            img.alt = cardList[i].tag[0];
-            img.className = 'waterfall-img';
-            img.style.width = '100%';
-            img.style.height = 'auto';
-            imgs.push(img);
-        }
-        utils.imagesLoaded(imgs, function (imgs) {
-            for (var i = 0, len = cardList.length; i < len; i++) {
-                var minIndex = utils.getMin(colHeight).minIndex;
-                var curCol = $wfCol.get(minIndex);
-                render(curCol, imgs[i], cardList[i], minIndex);
             }
 
-            isLoading = false;
-            $wfLoading.hide();
-        });
-    }
-
-    /**
-     * 渲染一个卡片
-     *
-     * @param {HTMLElement} col 瀑布流单列的DOM节点
-     * @param {HTMLImageElement} img 图片DOM
-     * @param {Object} itemData 卡片相关数据
-     * @param {string} itemData.imgType 图片格式
-     * @param {string} itemData.imgSrc 图片地址
-     * @param {string} itemData.bingourl 图片对应的单图结果页URL
-     * @param {Array.<string>} itemData.tag 图片对应的tag数组
-     * @param {number} minIndex 最小高度列的索引
-     */
-    function render(col, img, itemData, minIndex) {
-        // 如果图片加载出错，则设置默认图片高度
-        if (!img.height) {
-            img.style.height = '200px';
-        }
-        var a = document.createElement('a');
-        a.href = itemData.bingourl;
-        a.className = 'waterfall-card';
-        a.appendChild(img);
-        a.target = '_blank';
-        a.style.marginBottom = defaultOptions.gutterHeight + 'px';
-
-        var tagList = itemData.tag;
-        if (tagList && tagList.length !== 0) {
-            var p = document.createElement('p');
-            p.className = 'waterfall-card-tag';
-            var em;
-            for (var i = 0, length = tagList.length; i < length; i++) {
-                em = document.createElement('em');
-                em.className = 'waterfall-card-tag-item';
-                em.innerHTML = tagList[i];
-                p.appendChild(em);
-            }
-            a.insertBefore(p, img);
-        }
-        col.appendChild(a);
-
-        colHeight[minIndex] += a.offsetHeight + defaultOptions.gutterHeight;
-        wfHeight = utils.getMax(colHeight).maxHeight;
-    }
-
-    /**
-     * 初始化瀑布流
-     *
-     * @param {Object} options 用户输入的配置参数
-     */
-    function init(options) {
-
-        // 初始化用户可配置参数
-        utils.extend(defaultOptions, options);
-
-        // 初始化布局参数
-        $wfContainer = $('.waterfall-container');
-        $wfCol = $wfContainer.find('.waterfall-col');
-        $wfLoading = $wfContainer.find('.waterfall-loading');
-        wfOffset = $wfContainer.offset().top;
-        // 在没有设置waterfall-container宽度的时候
-        // 滚动条会占据宽度的一部分，导致宽度计算不准确
-        // 所以减去滚动条的宽度15px
-        wfWidth = $wfContainer.width();
-        wfHeight = 0;
-        colWidth = (wfWidth - (defaultOptions.colNum + 1) * defaultOptions.gutterWidth) / defaultOptions.colNum;
-        $wfCol.css({
-            width: colWidth,
-            paddingLeft: defaultOptions.gutterWidth / 2,
-            paddingRight: defaultOptions.gutterWidth / 2
-        });
-        $wfCol.first().css({
-            paddingLeft: defaultOptions.gutterWidth
-        });
-        $wfCol.last().css({
-            paddingRight: defaultOptions.gutterWidth
-        });
-
-        // 初始化计算相关参数
-        isAllLoaded = false;
-        isLoading = false;
-        page = 1;
-        for (var i = 0, len = defaultOptions.colNum; i < len; i++) {
-            colHeight[i] = 0;
-        }
-
-        // 处理window scroll事件
-        // var throttled = utils.throttle(defaultOptions.callbackList, defaultOptions.interval);
-        // $(window).on('scroll', throttled);
-
-        // 使用setInterval判断触发『加载更多』
-        setInterval(function () {
-            defaultOptions.callbackList.forEach(function (callback) {
-                callback();
-            });
-        }, defaultOptions.interval);
-
-        // 加载首屏瀑布流内容
-        // loadMore();
-    }
-
-    return {
-        init: init
+        };
     };
+
+    /*
+        获取两列中最短的一列，以便于把图片添加到那一列
+    */
+
+    WaterFall.prototype.getShortLi = function () {
+
+        var minHeight = Number.MAX_VALUE;
+
+        var minHeightIndex = -1;
+
+        for (var i = 0; i < this.lis.size(); i++) {
+
+            var h = this.lis.eq(i).height();
+
+            if (h < minHeight) {
+
+                minHeight = h;
+
+                minHeightIndex = i;
+            }
+        }
+
+        return minHeightIndex;
+    };
+
+    return  WaterFall;
 });

@@ -1,13 +1,96 @@
-@import @import '../../../common/master.less';
+@import '../../../common/master.less';
 
 .slider-container {
+    background-color: #fff;
 
-    .slider-image {
-        width:100%;
+    .slider-section {
+        position: relative;
+        overflow: hidden;
+        background-color: #EEE;
+    }
+
+    .slider-list {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    .slider-img {
+        width: 100%;
+        float: left;
+        list-style: none;
+        font-size: 0;
+        background-color: #EEE;
 
         img {
             width: 100%;
         }
+    }
+
+    .slider-introduction {
+        padding: 25px 5% 25px 5%;
+    }
+
+    .introduction-title {
+        font-size: 1.1rem;
+        color: #1D2F9A;
+    }
+
+    .introduction-content {
+        font-size: 0.9rem;
+        color: #333;
+        padding: 10px 0;
+    }
+
+    .introduction-link {
+        color: #1D2F9A;
+        font-size: 0.9rem;
+        display: block;
+        font-weight: 200;
+    }
+
+    .buttons {
+        width: 46%;
+        height: 35px;
+        line-height: 35px;
+        text-align: center;
+        padding: 0;
+        display: block;
+        text-decoration: none;
+        border: 1px solid #BBB;
+        border-radius: 5px;
+        margin-top: 10px;
+        background-color: #F9F9F9;
+        span {
+            font-weight: 100;
+            font-size: 1rem;
+            color: #333;
+            padding-left: 18px;
+        }
+    }
+
+    .recognition {
+        margin-right: 2%;
+        float: left;
+        span {
+            background-image: url(/src/scards/c_similar/img/recognition.png);
+            background-repeat: no-repeat;
+            background-position: left center;
+            background-size: 15px 15px;
+        }
+        
+    }
+
+    .download {
+        margin-left: 2%;
+        float: right;
+        span {
+            background-image: url(/src/scards/c_similar/img/download.png);
+            background-repeat: no-repeat;
+            background-position: left center;
+            background-size: 15px 15px;  
+        }
+        
     }
 
     .slider-waterfall {
@@ -17,7 +100,11 @@
         p {
             height: 57px;
             line-height: 57px;
+            width: 90%;
+            margin: 0 auto;
             margin-top: 7px;
+            font-size: 1.2rem;
+            color: #666;
         }
 
         ul {
@@ -27,6 +114,8 @@
 
         li {
             width: 48%;
+            list-style: none;
+            float: left;
         }
 
         .col-1 {
@@ -41,7 +130,7 @@
             width: 100%;
             font-size: 0;
             margin-bottom: 5px;
-            background-color: #F0F0F0;
+            background-color: #FFF;
 
             img {
                 width: 100%;
@@ -75,14 +164,14 @@
 
             }
         }
+    }
 
-        .clearfix:after {
-            display: block;
-            font-size: 0;
-            content: "";
-            clear: both;
-            height: 0;
-        }
+    .clearfix:after {
+        display: block;
+        font-size: 0;
+        content: "";
+        clear: both;
+        height: 0;
     }
 }
 

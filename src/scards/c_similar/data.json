@@ -1,38 +1,6 @@
 {
     "tplData": {
-        "ajaxUrl": "",
-        "images": [
-            {
-                "name": "海洋1",
-                "url": "http://static.zhulong.com/database/news/2014/03/14/187078235.jpg"
-            },
-            {
-                "name": "海洋2",
-                "url": "http://static.zhulong.com/database/news/2014/03/14/187078235.jpg"
-            },
-            {
-                "name": "海洋3",
-                "url": "http://static.zhulong.com/database/news/2014/03/14/187078235.jpg"
-            },
-            {
-                "name": "海洋4",
-                "url": "http://static.zhulong.com/database/news/2014/03/14/187078235.jpg"
-            },
-            {
-                "name": "海洋5",
-                "url": "http://static.zhulong.com/database/news/2014/03/14/187078235.jpg"
-            },
-            {
-                "name": "海洋6",
-                "url": "http://static.zhulong.com/database/news/2014/03/14/187078235.jpg"
-            },
-            {
-                "name": "海洋7",
-                "url": "http://static.zhulong.com/database/news/2014/03/14/187078235.jpg"
-            }
-        ]
-    },
-    "extData": {
-
+        "ajaxUrl": "http://www.wookmark.com/api/json/popular",
+        "maxPages": 2
     }
 }

@@ -37,7 +37,7 @@
 </body>
 <script>
     require.config({
-        'baseUrl': '../src',
+        'baseUrl': '{%$feRoot%}/src',
         'paths': {
             'common': './common',
             'zepto': './common/widget/zepto',
