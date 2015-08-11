@@ -78,6 +78,8 @@ exports.getProcessors = function () {
         ],
         name: 'buildScards',
         process: function (file, processContext, callback) {
+            var execSync = require('child_process').execSync;
+
             var fs = require('fs');
             var pageSrcPath = file.fullPath;
             var pageDir = path.dirname(file.fullPath);
@@ -118,13 +120,13 @@ exports.getProcessors = function () {
                 }
 
                 if (ext === '.less' || ext === '.css') {
-                    var destPath = path.join(pageDir,  'page.css');
-                    var cmd = ['lessc ', resPath, destPath];
-                    execSync(
+                    // var destPath = path.join(pageDir,  'page.css');
+                    var cmd = ['lessc ', resPath, '--compress'];
+                    var output = execSync(
                         cmd.join(' '),
                         {encoding: 'utf-8'}
                     );
-                    content = content.replace(str, getCompressContent(destPath));
+                    content = content.replace(str, output);
                     // console.log('less: ', content);
                     next();
                 }
@@ -149,12 +151,12 @@ exports.getProcessors = function () {
 
     return {
         'default': [
-            lessProcessor, moduleProcessor, pathMapperProcessor,
+            lessProcessor, buildScards, moduleProcessor, pathMapperProcessor,
 
             variable, tplCoper, cleanerProcessor
         ],
         'release': [
-            lessProcessor, cssProcessor, moduleProcessor,
+            lessProcessor, buildScards, cssProcessor, moduleProcessor,
             jsProcessor, pathMapperProcessor, addCopyright,
 
             // 模板相关
