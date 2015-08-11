@@ -1,0 +1,38 @@
+@import "../../../dep/est/2.0.3/src/all.less";
+
+@prefix: c-download-tip;
+.result-@{prefix} {
+    .@{prefix} {
+        height: 50px;
+        position: relative;
+    }
+
+    .icon {
+        .size(34px);
+        .border-radius(3px);
+        background-color: #ddd;
+        text-align: center;
+        margin-left: 10px;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    p {
+        .box-sizing(border-box);
+        .font-size-rem(14px);
+        line-height: 50px;
+        padding-left: 54px;
+    }
+
+    .close {
+        .size(34px);
+        background-color: #ddd;
+        font-size: 15px;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+}
+
+

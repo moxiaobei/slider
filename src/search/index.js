@@ -8,6 +8,7 @@ define(function (require) {
     var inviewStatic = require('common/widget/in-view');
     var initAladdinWise = require('./js/aladdin');
     var initScardenv = require('search/js/scardenv');
+    var invoker = require('common/ui/invoker');
 
     var exports = {};
 
@@ -20,12 +21,8 @@ define(function (require) {
         initAladdinWise();
         initScardenv();
 
-        $.ajax({
-            url: '/search/list',
-            success: function (data) {
+        invoker.initSetQuery();
 
-            }
-        });
     };
 
     return exports;

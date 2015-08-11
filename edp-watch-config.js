@@ -1,3 +1,4 @@
+/*eslint-disable*/
 /**
  * @file watch默认配置
  * @author firede[firede@firede.us]

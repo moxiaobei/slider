@@ -1,14 +1,92 @@
 @import "../../../dep/est/2.0.3/src/all.less";
 
-.result-c-word-list {
-    a {
-        display: inline-block;
-        border: 1px solid #999;
-        background-color: #fff;
-        padding: 3px 5px;
-        margin-left: 10px;
-        height: 20px;
-        line-height: 20px;
+@prefix: c-word-list;
+@bWidth: 22%;
+
+.result-@{prefix} {
+    .@{prefix} {
+
+    }
+
+    .@{prefix}-item {
+        padding: 10px 0;
+        border-top: 1px solid #f5f5f5;
+
+        &:first-child {
+            border-top: none;
+        }
+    }
+
+
+    .@{prefix}-box {
+        width: @bWidth;
+        position: relative;
+        padding-bottom: @bWidth;
+    }
+
+    .@{prefix}-char {
+        border: 1px solid #92b9f8;
+        background: #e8f4ff;
+
+        .center-box {
+            letter-spacing: -5px;
+            font-size: 0;
+            height: 100%;
+
+            .center-hack {
+                display: inline-block;
+                font-size: 0;
+                width: 0;
+                height: 100%;
+                vertical-align: middle;
+            }
+
+            .center-body {
+                letter-spacing: normal;
+                word-spacing: normal;
+                display: inline-block;
+                font-size: 12px;
+                vertical-align: middle;
+                padding: 0!important;
+                margin: 0!important;
+                width: 100%;
+                white-space: normal;
+                word-wrap: break-word;
+            }
+        }
+    }
+
+    .@{prefix}-img {
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAGXRFW…FnZVJlYWR5ccllPAAAABRJREFUCNdj+IEEGID4HRhg48ABAK1ALgnwLRxbAAAAAElFTkSuQmCC) repeat;
+    }
+
+    .@{prefix}-p {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+
+        background: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .@{prefix}-el {
+        position: absolute;
+        color: #0000cc;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        padding: 3px;
+        text-align: center;
+        overflow: hidden;
+        display: block;
+
+        .center-box .center-body {
+            font-size: 14px;
+        }
     }
 }
 

@@ -6,14 +6,47 @@
 
 {%block name="head_js"%}
     <script src="{%$feRoot%}/src/common/widget/zepto.js"></script>
+    <script>
+        window._t_base64 = '{%$tplData.imgData|escape:"javascript"%}';
+
+        {%if !empty($tplData.imgSrc)%}
+        window._t_url = '{%$tplData.imgSrc|escape:"javascript"%}';;
+        {%/if%}
+    </script>
+    <script>{%include file="./js/initenv.js"%}</script>
     <script>{%include file="./js/scardenv.js"%}</script>
 {%/block%}
 
 {%block name="main"%}
 {%strip%}
+    {%*************** 保存结果页的类型 *****************%}
+    <input type="hidden" id="imageSearchType" value="{%$tplData.imageSearch_type|escape:'html'%}"/>
+
+    {%*************** wise搜索框代码 *****************%}
+    {%if $tplData.resultEnv eq 'wise'%}
+    <div class="#search-box">
+        <form data-formposition="i" class="se-form" id="index-form" action="http://m.baidu.com/s" method="get" autocomplete="off">
+            <div class="con-wrap">
+                <textarea autocomplete="off" autocorrect="off" maxlength="64" id="index-kw" name="word" class="se-input adjust-input" data-sug="1"></textarea>
+                <div class="se-inner">
+
+                    <button id="index-bn" class="se-bn" type="submit">百度一下</button>
+                </div>
+            </div>
+            <input type="hidden" name="ts" value="0">
+            <input type="hidden" name="t_kt" value="0">
+            <input type="hidden" name="sa" value="ib">
+            <input type="hidden" name="ms" value="1">
+        </form>
+    </div>
+    {%/if%}
+
+    {%*************** scards卡片代码 *****************%}
     <div id="results">
         {%$tplData.html|escape:none%}
     </div>
+
+    <div class="copyright">Copyright © 2015 BAIDU Corporation.</div>
 {%/strip%}
 {%/block%}
 

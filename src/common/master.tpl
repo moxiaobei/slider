@@ -41,7 +41,7 @@
         'paths': {
             'common': './common',
             'zepto': './common/widget/zepto',
-            'openjs': '//static1.searchbox.baidu.com/static/searchbox/openjs/aio'
+            'openjs': './common/widget/openjs'
         },
         'packages': [
             {
