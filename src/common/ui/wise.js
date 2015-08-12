@@ -5,7 +5,7 @@
 
 define(function (require) {
 
-    var Q = require('common/widget/q');
+    var Q = require('common/lib/q');
     var Ob = require('common/widget/iframeOb');
 
     /**

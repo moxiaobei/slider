@@ -9,7 +9,7 @@ define(function (require) {
 
     var $ = require('zepto');
 
-    var env = require('common/widget/env');
+    var env = require('common/lib/env');
 
     /*
         瀑布流构造函数
@@ -56,7 +56,7 @@ define(function (require) {
         this.loading.css('display', 'block');
 
         this.container = $('#' + option.containerId);
-        
+
     };
 
     /*
@@ -70,7 +70,7 @@ define(function (require) {
         $(window).on('scroll', scroll);
 
         function scroll(e) {
-            
+
             var liIndex = thisWaterFall.getShortLi();
 
             var oLi = thisWaterFall.lis.eq(liIndex);
@@ -179,7 +179,7 @@ define(function (require) {
                 thisWaterFall.loading.css('display', 'none');
 
                 thisWaterFall.flag = true;
-                
+
             },
             error: function() {
                 alert('error');

@@ -8,7 +8,7 @@ define(function (require) {
     var inviewStatic = require('common/widget/in-view');
     var initAladdinWise = require('./js/aladdin');
     var initScardenv = require('search/js/scardenv');
-    var invoker = require('common/ui/invoker');
+    var invoker = require('common/lib/invoker');
 
     var exports = {};
 

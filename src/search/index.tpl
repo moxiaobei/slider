@@ -5,7 +5,7 @@
 {%/block%}
 
 {%block name="head_js"%}
-    <script src="{%$feRoot%}/src/common/widget/zepto.js"></script>
+    <script src="{%$feRoot%}/src/common/lib/zepto.js"></script>
     <script>
         window._t_base64 = '{%$tplData.imgData|escape:"javascript"%}';
 
@@ -42,7 +42,7 @@
     {%/if%}
 
     {%*************** scards卡片代码 *****************%}
-    <div id="results">
+    <div id="results" style="height:1000px">
         {%$tplData.html|escape:none%}
     </div>
 

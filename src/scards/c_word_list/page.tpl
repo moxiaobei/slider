@@ -6,13 +6,13 @@
 {%/block%}
 
 {%block name="title"%}
-    相似图片
+    你的图片可能是
 {%/block%}
 
 {%block name="content"%}{%strip%}
     <style>
         .result-c-word-list .c-word-list-item {
-  padding: 10px 0;
+  padding: 10px;
   border-top: 1px solid #f5f5f5;
 }
 .result-c-word-list .c-word-list-item:first-child {
@@ -84,7 +84,7 @@
     <div class="{%$cardName%}">
         {%foreach $tplData.words as $key=>$item%}
             {%$order = $item@index + 1%}
-            <div class="{%$cardName%}-item flex flex--justify">
+            <div class="{%$cardName%}-item flex flex-justify">
                 <div class="{%$cardName%}-box {%$cardName%}-char" data-in-view="t:keyword_{%$item.type%},o:{%$tplData.order%}">
                 {%$url = "/bdbox/gsword/word/"|cat:urlencode($item.keyword)|cat:"/"%}
                 {%$redirectType = "bdbox_bingo_keyword_"|cat:$item.type%}
@@ -110,15 +110,11 @@
     </div>
     <script>
         A.init(function (require) {
-            {%* // 把当前卡片所需要的业务数据全部挂载到 card.data 上，保持当前作用域内的变量清晰*%}
-            var card = this;
-            card.data = {
-                ajaxUrl: '{%$tplData.ajaxUrl|escape:"javascript"%}'
-            };
-
+            {%*
+                // 把当前卡片所需要的业务数据全部挂载到 card.data 上，保持当前作用域内的变量清晰
+            *%}
             (function() {
     var $ = require("zepto");
-    var env = require("common/widget/env");
     function getKeywords(needRetry) {
         var wordClass = "c-word-list-s";
         var wordEls = document.getElementsByClassName(wordClass);
@@ -183,6 +179,19 @@
         });
     }
     getKeywords(true);
+    require([ "common/widget/slider/slider" ], function(slider) {
+        var list = document.getElementsByClassName("c-word-list-p");
+        function guessBigImgOnclick(ev) {
+            ev.preventDefault();
+            var that = this;
+            slider.fetchList(that);
+            slider.show(that);
+        }
+        for (var i = 0, n = list.length; i < n; i++) {
+            var item = list[i];
+            item.onclick = guessBigImgOnclick;
+        }
+    });
 })();
         });
     </script>

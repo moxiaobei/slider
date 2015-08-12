@@ -6,7 +6,8 @@
 /* global A Box */
 (function () {
     var $ = require('zepto');
-    var env = require('common/widget/env');
+    var env = require('common/lib/env');
+    var $card = $('#c-download-tip').closest('.result');
 
     function openApp() {
         if (env.os.ios) {
@@ -20,14 +21,18 @@
         else {
             // apk地址： 'http://dl.ops.baidu.com/baidusearch_AndroidPhone_1006979s.apk';
             // 以下为应用宝下载地址
-            var url = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.baidu.searchbox';
             // 必须要使用location.href ，使用iframe在微信和QQ浏览器下跳转不了
-            location.href = url;
+            location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.baidu.searchbox';
         }
     }
 
-    $('#c-download-tip').on('click', function () {
+    $card.on('click', function () {
         openApp();
+    });
+
+    $card.find('.close').on('click', function () {
+        $card.hide();
+        return false;
     });
 })();
 

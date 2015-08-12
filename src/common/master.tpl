@@ -40,8 +40,8 @@
         'baseUrl': '{%$feRoot%}/src',
         'paths': {
             'common': './common',
-            'zepto': './common/widget/zepto',
-            'openjs': './common/widget/openjs'
+            'zepto': './common/lib/zepto',
+            'openjs': './common/lib/openjs'
         },
         'packages': [
             {

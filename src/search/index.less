@@ -1,9 +1,11 @@
 @import '../../dep/est/2.0.3/src/all.less';
+@import (less) '../../dep/fonteditor/icon.css';
 @import '../common/master.less';
 @import '../common/css/flex.less';
 @import './less/nav.less';
 @import './less/searchBox.less';
-
+@import '../common/widget/slider/slider.less';
+@import '../common/widget/toast/toast.less';
 
 #results {
     text-align: left;
@@ -13,11 +15,11 @@
 .result:first-child,
 .ex-result+.result:before,
 .ex-result+.resitem:before {
-    border-top: 0 none;
+    // border-top: 0 none;
 }
 
 .result {
-    padding: 5px 0 9px;
+    // padding: 5px 0 9px;
     margin: 0 6px 6px;
     background: #fff;
     border: 1px solid #e0e0e0;

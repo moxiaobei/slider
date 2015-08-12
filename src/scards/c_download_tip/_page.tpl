@@ -10,9 +10,8 @@
         {%*include file="page.less"*%}
     </style>
     <div class="{%$cardName%}" id="{%$cardName%}">
-        <div class="icon"><i></i></div>
-        <p>下载手机百度，体验完美图像搜索体验！</p>
-        <div class="close"><i></i></div>
+        <p><i class="icon icon-camera"></i>下载手机百度，体验完美图像搜索体验！</p>
+        <div class="close"><i class="icon icon-close"></i></div>
     </div>
     <script>
         A.init(function (require) {

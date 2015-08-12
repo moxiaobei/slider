@@ -5,8 +5,8 @@
 
 define(function (require) {
 
-    var Q = require('common/widget/q');
-    var env = require('common/widget/env');
+    var Q = require('common/lib/q');
+    var env = require('common/lib/env');
 
     // 开关，是否关注 message 事件
     var watchMessage = true;

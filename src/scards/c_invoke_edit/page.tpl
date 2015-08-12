@@ -8,21 +8,61 @@
 
 {%block name="content"%}{%strip%}
     <style>
-        .result-c-invoke-edit .c-invoke-edit{height:50px;position:relative}.result-c-invoke-edit .icon{width:34px;height:34px;border-radius:3px;background-color:#ddd;text-align:center;margin-left:10px;position:absolute;top:0;left:0}.result-c-invoke-edit p{box-sizing:border-box;font-size:14px;font-size:0.875rem;line-height:50px;padding-left:54px}.result-c-invoke-edit .close{width:34px;height:34px;background-color:#ddd;font-size:15px;position:absolute;top:0;right:0}
+        .result-c-invoke-edit .c-invoke-edit {
+  height: 50px;
+  position: relative;
+  line-height: 50px;
+}
+.result-c-invoke-edit p {
+  margin-left: 15px;
+  box-sizing: border-box;
+  font-size: 13px;
+  font-size: 0.8125rem;
+}
+.result-c-invoke-edit p .icon {
+  font-size: 20px;
+  font-size: 1.25rem;
+  padding-right: 8px;
+}
+.result-c-invoke-edit .close {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: center;
+}
+.result-c-invoke-edit .close i {
+  color: #999;
+  font-size: 20px;
+}
+
     </style>
-    <div class="{%$cardName%} {%$cardName%}-btn">
-
-        <div class="icon"><i></i></div>
-        <p>没找到结果？再次编辑框选图中其它内容</p>
-        <div class="close"><i></i></div>
-
+    <div class="{%$cardName%} {%$cardName%}-btn" id="c-invoke-edit">
+        <p><i class="icon icon-edit"></i>没找到结果？再次编辑框选图中其它内容</p>
+        <div class="close"><i class="icon icon-close"></i></div>
     </div>
     <script>
         A.init(function (require) {
             {%*
                 // 把当前卡片所需要的业务数据全部挂载到 card.data 上，保持当前作用域内的变量清晰
             *%}
-            !function(){require(["common/ui/invoker"],function(invoker){invoker.initCallEditor()})}();
+            (function() {
+    require([ "common/ui/invoker", "common/ui/attatch" ], function(invoker, Attatch) {
+        invoker.initCallEditor();
+        var $ = require("zepto");
+        var $card = $("#c-invoke-edit").closest(".result");
+        var attatch = new Attatch({
+            main: $card
+        });
+        $card.find(".close").on("click", function() {
+            $card.hide();
+            attatch.dispose();
+            attatch = null;
+            return false;
+        });
+    });
+})();
         });
     </script>
 {%/strip%}{%/block%}

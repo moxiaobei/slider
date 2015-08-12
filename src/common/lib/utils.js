@@ -4,7 +4,31 @@
  * @date 2015-7-21
  */
 
-define(function (require) {
+define(function (require, exports) {
+
+    /**
+     * 重定向到api/proxy/redirect
+     *
+     * @param {string} url 需要代理的地址
+     * @param {boolean} convert 转换
+     * @param {string} from 来源
+     * @return {string} 代理地址
+     */
+    exports.redirect = function (url, convert, from) {
+        var a = document.createElement('a');
+        convert = !!convert;
+        a.href = url;
+        var qs = 'u=' + encodeURIComponent(a.href);
+        if (convert) {
+            qs += '&c=1';
+        }
+
+        if (from) {
+            qs += '&fr=' + from;
+        }
+
+        return '/api/proxy/redirect?' + qs;
+    };
 
     /**
      * 判断给定所有图片是否都已经加载完成
@@ -12,7 +36,7 @@ define(function (require) {
      * @param {Array.<HTMLImageElement>} imgs 图片DOM数组
      * @param {Function} callback 图片加载完成以后执行的回调函数
      */
-    function imagesLoaded(imgs, callback) {
+    exports.imagesLoaded = function (imgs, callback) {
         var len = imgs.length;
         var tags = [];
         for (var i = 0; i < len; i++) {
@@ -38,7 +62,7 @@ define(function (require) {
                 callback(imgs);
             }
         }, 100);
-    }
+    };
 
     /**
      * 节流阀函数，控制回调函数每指定间隔执行一次
@@ -48,7 +72,7 @@ define(function (require) {
      * @param {number} interval 函数执行时间间隔
      * @return {Function} 闭包
      */
-    function throttle(callbackList, interval) {
+    exports.throttle = function (callbackList, interval) {
         var previous = 0;
         var timerList = [];
 
@@ -84,7 +108,7 @@ define(function (require) {
                 });
             }
         };
-    }
+    };
 
     /**
      * 合并对象，将源对象合并到目标对象中，然后返回目标对象
@@ -94,14 +118,14 @@ define(function (require) {
      * @param {Object} source 源对象
      * @return {Object} target 返回目标对象
      */
-    function extend(target, source) {
+    exports.extend = function (target, source) {
         for (var key in source) {
             if (source.hasOwnProperty(key)) {
-                if (target[key] && isArray(target[key])) {
+                if (target[key] && exports.isArray(target[key])) {
                     target[key] = target[key].concat(source[key]);
                 }
-                else if (target[key] && isObject(target[key])) {
-                    target[key] = extend(target[key], source[key]);
+                else if (target[key] && exports.isObject(target[key])) {
+                    target[key] = exports.extend(target[key], source[key]);
                 }
                 else {
                     target[key] = source[key];
@@ -109,7 +133,7 @@ define(function (require) {
             }
         }
         return target;
-    }
+    };
 
     /**
      * 判断是不是数组
@@ -117,9 +141,9 @@ define(function (require) {
      * @param {Object} arr 对象
      * @return {boolean} 返回真假值
      */
-    function isArray(arr) {
+    exports.isArray = function (arr) {
         return Object.prototype.toString.call(arr) === '[object Array]';
-    }
+    };
 
     /**
      * 判断是不是对象
@@ -127,9 +151,9 @@ define(function (require) {
      * @param {Object} obj 对象
      * @return {boolean} 返回真假值
      */
-    function isObject(obj) {
+    exports.isObject = function (obj) {
         return Object.prototype.toString.call(obj) === '[object Object]';
-    }
+    };
 
     /**
      * 计算数组的最小值和相应索引
@@ -137,7 +161,7 @@ define(function (require) {
      * @param {Array.<number>} arr 待计算数组
      * @return {Object} 返回最小值和索引
      */
-    function getMin(arr) {
+    exports.getMin = function (arr) {
         var minIndex = 0;
         var minHeight = Number.POSITIVE_INFINITY;
         for (var i = 0, len = arr.length; i < len; i++) {
@@ -150,7 +174,7 @@ define(function (require) {
             minIndex: minIndex,
             minHeight: minHeight
         };
-    }
+    };
 
     /**
      * 计算数组的最大值和相应索引
@@ -158,7 +182,7 @@ define(function (require) {
      * @param {Array.<number>} arr 待计算数组
      * @return {Object} 返回最大值和索引
      */
-    function getMax(arr) {
+    exports.getMax = function (arr) {
         var maxIndex = 0;
         var maxHeight = Number.NEGATIVE_INFINITY;
         for (var i = 0, len = arr.length; i < len; i++) {
@@ -171,13 +195,7 @@ define(function (require) {
             maxIndex: maxIndex,
             maxHeight: maxHeight
         };
-    }
-
-    return {
-        imagesLoaded: imagesLoaded,
-        throttle: throttle,
-        extend: extend,
-        getMin: getMin,
-        getMax: getMax
     };
+
+    return exports;
 });
