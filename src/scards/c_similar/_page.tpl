@@ -26,14 +26,15 @@
             <div class="waterfall-loading"><i></i>&nbsp;正在加载,请稍后</div>
         </div>
     </div>
-    
+
     <script>
 
         A.init(function (require) {
 
-            {%* 
+            {%*
                 // 把当前卡片所需要的业务数据全部挂载到 card.data 上，保持当前作用域内的变量清晰
             *%}
+            var masPages = {%$tplData.maxPages%};
             {%*include file="page.js"*%}
         });
     </script>

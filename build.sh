@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#./node_modules/.bin/edp build -f -s release
+edp build -f -s release
 mkdir output
 cd ./output
 rm -rf *
