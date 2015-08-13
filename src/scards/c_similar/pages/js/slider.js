@@ -55,7 +55,7 @@ define(function (require) {
         //根据轮播的图片的数量设置ul的宽度
         this.sliderUl.css('width', option.imgsInfo.length * this.screenWidth);
 
-        for(var i = 1; i < option.imgsInfo.length; i++) {
+        for(var i = 0; i < option.imgsInfo.length; i++) {
 
             var li = $('<li></li>');
             li.addClass('slider-img');
