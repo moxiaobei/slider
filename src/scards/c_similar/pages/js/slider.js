@@ -40,6 +40,7 @@ define(function (require) {
 
         this.introductionLink = $('.slider-introduction .introduction-link');
         this.introductionLink.html(option.imgsInfo[0].fromUrl);
+        this.introductionLink.attr('href', option.imgsInfo[0].fromUrl);
 
         this.screenWidth = $(window).width();
 
