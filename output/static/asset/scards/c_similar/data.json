@@ -1,0 +1,5 @@
+{
+    "tplData": {
+        "simAjaxUrl": "/scards/c_similar/ajax.json"
+    }
+}
