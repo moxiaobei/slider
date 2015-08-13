@@ -89,7 +89,7 @@ define(function (require) {
                     $(window).off('scroll', scroll);
                 }
             }
-        } 
+        }
 
     };
 
@@ -188,7 +188,7 @@ define(function (require) {
 
             },
             error: function() {
-                
+
             }
         });
     };
