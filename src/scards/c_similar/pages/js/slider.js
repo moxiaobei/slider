@@ -33,13 +33,13 @@ define(function (require) {
         this.waterfallDone = $('.waterfall-done');
 
         this.introductionTitle = $('.slider-introduction .introduction-title');
-        this.introductionTitle.html(option.imgsInfo[0].imgTitle);
+        this.introductionTitle.html(option.imgsInfo[0].title);
 
         this.introductionContent = $('.slider-introduction .introduction-content');
-        this.introductionContent.html(option.imgsInfo[0].imgIntroduction);
+        this.introductionContent.html(option.imgsInfo[0].introduction);
 
         this.introductionLink = $('.slider-introduction .introduction-link');
-        this.introductionLink.html(option.imgsInfo[0].moreUrl);
+        this.introductionLink.html(option.imgsInfo[0].fromUrl);
 
         this.screenWidth = $(window).width();
 
@@ -48,7 +48,7 @@ define(function (require) {
         this.imgsInfo = option.imgsInfo;
 
         // 根据图片宽度来设置section的高度
-        this.sliderSection.css('height', Math.ceil(this.screenWidth * option.imgsInfo[0].imgHeight / option.imgsInfo[0].imgWidth));
+        this.sliderSection.css('height', Math.ceil(this.screenWidth * option.imgsInfo[0].thumbHeight / option.imgsInfo[0].thumbWidth));
 
         //根据轮播的图片的数量设置ul的宽度
         this.sliderUl.css('width', option.imgsInfo.length * this.screenWidth);
@@ -59,7 +59,7 @@ define(function (require) {
             li.addClass('slider-img');
             li.css('width', this.screenWidth);
             var img = $('<img />');
-            img.attr('src', option.imgsInfo[i].imgUrl);
+            img.attr('src', option.imgsInfo[i].objUrl);
             img.css('width', this.screenWidth);
             li.append(img);
             this.sliderUl.append(li);
@@ -85,13 +85,13 @@ define(function (require) {
 
             if(thisSlide.page < thisSlide.imgsInfo.length ) {
 
-                thisSlide.introductionTitle.html(thisSlide.imgsInfo[thisSlide.page].imgTitle);
+                thisSlide.introductionTitle.html(thisSlide.imgsInfo[thisSlide.page].title);
 
-                thisSlide.introductionContent.html(thisSlide.imgsInfo[thisSlide.page].imgIntroduction);
+                thisSlide.introductionContent.html(thisSlide.imgsInfo[thisSlide.page].introduction);
 
-                thisSlide.introductionLink.html(thisSlide.imgsInfo[thisSlide.page].moreUrl);
+                thisSlide.introductionLink.html(thisSlide.imgsInfo[thisSlide.page].fromUrl);
 
-                thisSlide.sliderSection.css('height', Math.ceil(thisSlide.screenWidth * thisSlide.imgsInfo[thisSlide.page].imgHeight / thisSlide.imgsInfo[thisSlide.page].imgWidth));
+                thisSlide.sliderSection.css('height', Math.ceil(thisSlide.screenWidth * thisSlide.imgsInfo[thisSlide.page].thumbHeight / thisSlide.imgsInfo[thisSlide.page].thumbWidth));
 
                 thisSlide.sugguestionImgLis.html('');
                 thisSlide.waterfallDone.css('display','none');
@@ -99,8 +99,7 @@ define(function (require) {
                 var wf = new waterfall();
                 wf.init({
                     idName: 'sugguestion-waterfall',
-                    ajaxUrl: thisSlide.imgsInfo[thisSlide.page].ajaxUrl,
-                    maxPages: thisSlide.imgsInfo[thisSlide.page].maxPages
+                    ajaxUrl: thisSlide.imgsInfo[thisSlide.page].ajaxUrl
                 });
                 wf.getImages();
 
@@ -117,13 +116,13 @@ define(function (require) {
 
                 thisSlide.page--;
 
-                thisSlide.introductionTitle.html(thisSlide.imgsInfo[thisSlide.page - 1].imgTitle);
+                thisSlide.introductionTitle.html(thisSlide.imgsInfo[thisSlide.page - 1].title);
 
-                thisSlide.introductionContent.html(thisSlide.imgsInfo[thisSlide.page - 1].imgIntroduction);
+                thisSlide.introductionContent.html(thisSlide.imgsInfo[thisSlide.page - 1].introduction);
 
-                thisSlide.introductionLink.html(thisSlide.imgsInfo[thisSlide.page - 1].moreUrl);
+                thisSlide.introductionLink.html(thisSlide.imgsInfo[thisSlide.page - 1].fromUrl);
 
-                thisSlide.sliderSection.css('height', Math.ceil(thisSlide.screenWidth * thisSlide.imgsInfo[thisSlide.page - 1].imgHeight / thisSlide.imgsInfo[thisSlide.page - 1].imgWidth));
+                thisSlide.sliderSection.css('height', Math.ceil(thisSlide.screenWidth * thisSlide.imgsInfo[thisSlide.page - 1].thumbHeight / thisSlide.imgsInfo[thisSlide.page - 1].thumbWidth));
 
                 $(this).css('left', -thisSlide.screenWidth * (thisSlide.page - 1));
 
@@ -133,8 +132,7 @@ define(function (require) {
                 var wf = new waterfall();
                 wf.init({
                     idName: 'sugguestion-waterfall',
-                    ajaxUrl: thisSlide.imgsInfo[thisSlide.page - 1].ajaxUrl,
-                    maxPages: thisSlide.imgsInfo[thisSlide.page - 1].maxPages
+                    ajaxUrl: thisSlide.imgsInfo[thisSlide.page - 1].ajaxUrl
                 });
                 wf.getImages();
             }

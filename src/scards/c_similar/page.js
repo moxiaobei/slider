@@ -6,12 +6,12 @@
 
 
 require(['common/widget/waterfall'], function (waterfall) {
+
     var wf = new waterfall();
 
     wf.init({
         idName: 'waterfall',
-        ajaxUrl: '{%$tplData.ajaxUrl%}',
-        maxPages: {%$tplData.maxPages%},
+        ajaxUrl: {%json_encode($tplData.simAjaxUrl)%},
         containerId: 'viewport'
     });
 

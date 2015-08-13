@@ -32,7 +32,6 @@ define(function(require) {
         wf.init({
             idName: 'sugguestion-waterfall',
             ajaxUrl: data.imgsInfo[0].ajaxUrl,
-            maxPages: data.imgsInfo[0].maxPages,
             containerId: 'viewport'
         });
         wf.getImages();

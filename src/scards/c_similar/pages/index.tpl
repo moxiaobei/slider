@@ -43,7 +43,7 @@
 <script>
 
     define('common/data', {
-        imgsInfo: {%$tplData%}
+        imgsInfo: {%json_encode($tplData.images)%}
     });
 
 
