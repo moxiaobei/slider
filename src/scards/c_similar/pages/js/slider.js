@@ -71,7 +71,7 @@ define(function (require) {
         var wf = new waterfall();
         wf.init({
             idName: 'sugguestion-waterfall',
-            ajaxUrl: data.imgsInfo[0].ajaxUrl,
+            ajaxUrl: option.imgsInfo[0].ajaxUrl,
             containerId: 'viewport'
         });
         this.ajax = wf.getImages();
