@@ -16,9 +16,6 @@
     </div>
     <script>
         A.init(function (require) {
-            {%*
-                // 把当前卡片所需要的业务数据全部挂载到 card.data 上，保持当前作用域内的变量清晰
-            *%}
             !function(){require(["common/lib/invoker","common/widget/attatch"],function(invoker,Attatch){invoker.initCallEditor();var $=require("zepto"),$card=$("#c-invoke-edit").closest(".result"),attatch=new Attatch({main:$card});$card.find(".close").on("click",function(){return $card.hide(),attatch.dispose(),attatch=null,!1})})}();
         });
     </script>

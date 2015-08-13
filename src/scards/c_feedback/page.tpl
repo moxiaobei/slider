@@ -17,8 +17,7 @@
     </div>
     <script>
         A.init(function (require) {
-            {%* // 把当前卡片所需要的业务数据全部挂载到 card.data 上，保持当前作用域内的变量清晰*%}
-
+            !function(){var env=require("common/lib/env"),Box=require("openjs"),feedback=document.querySelector(".c-feedback-a");if(feedback){var url="http://ufosdk.baidu.com/?m=Client&a=postView&appid=284&needEmail=false&webURL="+encodeURIComponent(window.location.href)+"&placeholder="+encodeURIComponent("请输入您的问题或建议")+"&ajax=0";feedback.setAttribute("href",url),env.ready(function(){Box.os.ios&&Box.version_compare(Box.version,"6.2")>=0&&feedback.addEventListener("click",function(ev){Box.ios.invokeApp("utilsfeedback",{params:encodeURIComponent(JSON.stringify({source:"image",refer:window.top.location.href})),minver:encodeURIComponent("6.2.0.0")}),ev.preventDefault()})})}}();
         });
     </script>
 {%/strip%}{%/block%}

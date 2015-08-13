@@ -42,9 +42,6 @@
     </div>
     <script>
         A.init(function (require) {
-            {%*
-                // 把当前卡片所需要的业务数据全部挂载到 card.data 上，保持当前作用域内的变量清晰
-            *%}
             !function(){function getKeywords(needRetry){for(var wordClass="c-word-list-s",wordEls=document.getElementsByClassName(wordClass),words=[],wordsMap={},trim=function(){if("".trim)return function(str){return str.trim()};var reg=/^\s+|\s+$/g;return function(str){return str.replace(reg,"")}}(),i=0,n=wordEls.length;n>i;i++){var wd=trim(wordEls[i].innerHTML);words.push(wd),wordsMap[wd]={cls:$(wordEls[i]).data("for")}}if(0!==words.length){var keyword=words.join(","),url="/bdboxn/1/sims/words/";$.ajax({type:"GET",url:url,data:{keywords:keyword,offset:0,limit:3},dataType:"json",timeout:4e3,success:function(data){var responseParams=data.response_params||{};for(var k in responseParams)if(responseParams.hasOwnProperty(k)){var wd=trim(k);if(!wordsMap[wd].cls)continue;for(var els=document.getElementsByClassName(wordsMap[wd].cls),i=0,n=Math.min(els.length,3,responseParams[k].list.length);n>i;i++){var el=els[i],src=responseParams[k].list[i].url;el.style.backgroundImage="url("+src+")",$(el).data("src",src)}}},error:function(){needRetry&&getKeywords(!1)}})}}var $=require("zepto");getKeywords(!0),require(["common/widget/slider/slider"],function(slider){function guessBigImgOnclick(ev){ev.preventDefault();var that=this;slider.fetchList(that),slider.show(that)}for(var list=document.getElementsByClassName("c-word-list-p"),i=0,n=list.length;n>i;i++){var item=list[i];item.onclick=guessBigImgOnclick}})}();
         });
     </script>

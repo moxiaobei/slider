@@ -1,6 +1,7 @@
 #!/bin/bash
 
 edp build -f -s release
+mkdir -p output
 cd ./output
 mkdir static
 mv ./asset ./static/asset

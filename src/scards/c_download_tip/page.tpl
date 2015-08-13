@@ -16,14 +16,6 @@
     </div>
     <script>
         A.init(function (require) {
-            {%*
-                // 把当前卡片所需要的业务数据全部挂载到 card.data 上，保持当前作用域内的变量清晰
-            *%}
-            var card = this;
-            card.data = {
-                ajaxUrl: '{%$tplData.ajaxUrl|escape:"javascript"%}'
-            };
-
             !function(){function openApp(){if(env.os.ios){var url="http://m.baidu.com/searchbox?action=reserve&type=baiduchannel&from=1000715p",iframe=$("<iframe>").hide().attr("src",url).appendTo("body");setTimeout(function(){iframe.remove()},3e3)}else location.href="http://a.app.qq.com/o/simple.jsp?pkgname=com.baidu.searchbox"}var $=require("zepto"),env=require("common/lib/env"),$card=$("#c-download-tip").closest(".result");$card.on("click",function(){openApp()}),$card.find(".close").on("click",function(){return $card.hide(),!1})}();
         });
     </script>
