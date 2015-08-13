@@ -50,12 +50,12 @@ define(function (require) {
         this.imgsInfo = option.imgsInfo;
 
         // 根据图片宽度来设置section的高度
-        this.sliderSection.css('height', Math.ceil(this.screenWidth * option.imgsInfo[0].thumbHeight / option.imgsInfo[0].thumbWidth));
+        this.sliderSection.css('height', Math.ceil(this.screenWidth * option.imgsInfo[0].imageOriginHeight / option.imgsInfo[0].imageOriginWidth));
 
         //根据轮播的图片的数量设置ul的宽度
         this.sliderUl.css('width', option.imgsInfo.length * this.screenWidth);
 
-        for(var i = 0; i < option.imgsInfo.length; i++) {
+        for(var i = 1; i < option.imgsInfo.length; i++) {
 
             var li = $('<li></li>');
             li.addClass('slider-img');
@@ -99,7 +99,7 @@ define(function (require) {
 
                 thisSlide.introductionLink.html(thisSlide.imgsInfo[thisSlide.page].fromUrl);
 
-                thisSlide.sliderSection.css('height', Math.ceil(thisSlide.screenWidth * thisSlide.imgsInfo[thisSlide.page].thumbHeight / thisSlide.imgsInfo[thisSlide.page].thumbWidth));
+                thisSlide.sliderSection.css('height', Math.ceil(thisSlide.screenWidth * thisSlide.imgsInfo[thisSlide.page].imageOriginHeight / thisSlide.imgsInfo[thisSlide.page].imageOriginWidth));
 
                 thisSlide.sugguestionImgLis.html('');
                 thisSlide.waterfallDone.css('display','none');
@@ -132,7 +132,7 @@ define(function (require) {
 
                 thisSlide.introductionLink.html(thisSlide.imgsInfo[thisSlide.page - 1].fromUrl);
 
-                thisSlide.sliderSection.css('height', Math.ceil(thisSlide.screenWidth * thisSlide.imgsInfo[thisSlide.page - 1].thumbHeight / thisSlide.imgsInfo[thisSlide.page - 1].thumbWidth));
+                thisSlide.sliderSection.css('height', Math.ceil(thisSlide.screenWidth * thisSlide.imgsInfo[thisSlide.page - 1].imageOriginHeight / thisSlide.imgsInfo[thisSlide.page - 1].imageOriginWidth));
 
                 $(this).css('left', -thisSlide.screenWidth * (thisSlide.page - 1));
 
