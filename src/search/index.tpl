@@ -10,18 +10,28 @@
 
     {%*************** 在此保存搜索图片信息 base64或图片src *****************%}
     <script>
+        // 该处目前为了兼容老代码
         window._t_base64 = '{%$tplData.imgData|escape:"javascript"%}';
 
         {%if !empty($tplData.imgSrc)%}
-        window._t_url = '{%$tplData.imgSrc|escape:"javascript"%}';;
+        window._t_url = '{%$tplData.imgSrc|escape:"javascript"%}';
+
+        define('common/conf', {
+            searchEnv: '{%$tplData.searchEnv|escape:javascript%}',
+            imageSearchType: '{%$tplData.imageSearchType|escape:javascript%}',
+            sign: '{%$tplData.sign|escape:javascript%}',
+            imgData: window._t_base64,
+            imgUrl: window._t_url
+        });
+
         {%/if%}
     </script>
 
     {%*************** 搜索结果页的通用初始化，如检测当前系统并添加标识到html标签 *****************%}
-    <script>{%*include file="./js/initenv.js"*%}</script>
+    <script>{%include file="./js/initenv.js"%}</script>
 
     {%*************** 搜索结果页的卡片环境的初始化，为卡片的js提供运行环境 *****************%}
-    <script>{%*include file="./js/initscardenv.js"*%}</script>
+    <script>{%include file="./js/initscardenv.js"%}</script>
 {%/block%}
 
 {%block name="main"%}
@@ -30,7 +40,7 @@
     <input type="hidden" id="imageSearchType" value="{%$tplData.imageSearch_type|escape:'html'%}"/>
 
     {%*************** wise搜索框代码 *****************%}
-    {%if $tplData.resultEnv eq 'wise'%}
+    {%if $tplData.searchEnv eq 'wise'%}
     <div class="#search-box">
         <form data-formposition="i" class="se-form" id="index-form" action="http://m.baidu.com/s" method="get" autocomplete="off">
             <div class="con-wrap">
@@ -49,7 +59,7 @@
     {%/if%}
 
     {%*************** scards卡片代码 *****************%}
-    <div id="results" style="height:1000px">
+    <div id="results">
         {%$tplData.html|escape:none%}
     </div>
 

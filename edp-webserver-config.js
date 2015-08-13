@@ -18,14 +18,14 @@ exports.getLocations = function () {
         {
             location: /\.css($|\?)/,
             handler: [
-                publicResourceHandler(),
+                publicHandler(),
                 autocss()
             ]
         },
         {
             location: /\.(less)($|\?)/,
             handler: [
-                publicResourceHandler(),
+                publicHandler(),
                 file(),
                 less()
             ]
@@ -33,7 +33,7 @@ exports.getLocations = function () {
         {
             location: /\.(styl|stylus)($|\?)/,
             handler: [
-                publicResourceHandler(),
+                publicHandler(),
                 file(),
                 stylus()
             ]
@@ -72,8 +72,7 @@ exports.getLocations = function () {
         // 处理剩余请求
         {
             location: /^.*$/,
-            handler:
-                remainHandler(),
+            handler: remainHandler()
         }
     ];
 };
@@ -85,13 +84,11 @@ exports.injectResource = function (res) {
 };
 
 // 对每一次资源文件请求进行处理
-function publicResourceHandler() {
+function publicHandler() {
     return function (context) {
         // 禁止浏览器端缓存
         context.header['Cache-Control'] = 'no-cache, must-revalidate';
-        var req = context.request;
-        var path = req.pathname;
-        // context.request.pathname = path.replace(/^\/public\//, '/');
+        context.header['Access-Control-Allow-Origin'] = '*';
     };
 }
 
@@ -115,40 +112,25 @@ function isAccessScard(context) {
     }
 }
 
-function scardHander(context, callback) {
-
-    var req = context.request;
-    var pathname = req.pathname;
-    var srcDir = path.join(exports.documentRoot, 'src');
-    var pageDir = path.join(srcDir,  pathname);
-    var pageSrcPath = path.join(pageDir,  '_page.tpl');
-    var pagePath = path.join(pageDir,  'page.tpl');
-    console.log('a1');
-    if (!fs.existsSync(pageSrcPath)) {
-        callback();
-        return;
+function replaceFile(filepath) {
+    if (!fs.existsSync(filepath)) {
+        // callback();
+        return false;
     }
-
-    var content = fs.readFileSync(pageSrcPath, {encoding:'utf8'});
-
-    function complete(cont) {
-        fs.writeFileSync(pagePath, '/*eslint-disable*/\n' + cont);
-        callback();
-    }
-
+    var dir = path.dirname(filepath);
+    var content = fs.readFileSync(filepath, {encoding:'utf8'});
     var reg = /{%\*include\s+file\s*=\s*"?(.*?)"?\s*\*%}/gi;
+    var result = reg.exec(content);
 
-    function doHandler(result) {
-        console.log('a2');
+    while (result != null) {
         var str = result[0];
         var resName = result[1];
-        var resPath = path.resolve(pageDir, resName);
+        var resPath = path.resolve(dir, resName);
         console.log('match: ', resPath);
 
         // 文件不存在
         if (!fs.existsSync(resPath)) {
             console.log('match: ', resPath, ' not exist' );
-            next();
         }
 
         var ext = path.extname(resPath);
@@ -164,12 +146,9 @@ function scardHander(context, callback) {
             );
 
             content = content.replace(str, output);
-
-            next();
         }
 
         if (ext === '.less' || ext === '.css') {
-
             var cmd = ['lessc ', resPath];
 
             var output = execSync(
@@ -184,22 +163,25 @@ function scardHander(context, callback) {
                 }
             );
             content = content.replace(str, output);
-            // console.log('less: ', content);
-            next();
         }
-    }
 
-    function next() {
         result = reg.exec(content);
-        if (result != null) {
-            doHandler(result);
-        }
-        else {
-            complete(content);
-        }
     }
 
-    next();
+    return content;
+}
+
+function scardHander(context, callback) {
+    var req = context.request;
+    var pathname = req.pathname;
+    var srcDir = path.join(exports.documentRoot, 'src');
+    var pageDir = path.join(srcDir,  pathname);
+    var pageSrcPath = path.join(pageDir,  '_page.tpl');
+    var pagePath = path.join(pageDir,  'page.tpl');
+
+    var content = replaceFile(pageSrcPath);
+    fs.writeFileSync(pagePath, '/*eslint-disable*/\n' + content);
+    callback && callback();
 }
 
 // 处理找不到具体文件的，
@@ -224,7 +206,9 @@ function remainHandler() {
         };
     });
     var fileFn = file();
+    var publicHandlerFn = publicHandler();
     return [
+
         function (context) {
             var req = context.request;
             var path = req.pathname;
@@ -237,6 +221,7 @@ function remainHandler() {
             else {
                 // 若请求路径是一个文件，则返回， 不是，则认为是伪静态路径，转发到php-cgi处理
                 if (fs.existsSync(filepath) && fs.statSync(filepath).isFile()) {
+                    publicHandlerFn(context);
                     fileFn(context);
                 }
                 else {

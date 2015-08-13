@@ -58,10 +58,6 @@
         'urlArgs': 'v={edp-variable:version}'
     });
 
-    define('common/conf', {
-        query: '{%$tplData.query|escape:javascript|default:""%}'
-    });
-
     require(['common/master'], function (master) {
         master.start();
     });

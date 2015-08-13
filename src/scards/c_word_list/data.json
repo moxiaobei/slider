@@ -1,5 +1,6 @@
 {
     "tplData": {
+        "ajaxUrl": "http://10.95.39.39:8081/bdboxn/1/sims/words?keywords=%E5%9C%B0%E6%AF%AF&limit=3",
         "order": 1,
         "words": [
             {

@@ -71,97 +71,19 @@ exports.getProcessors = function () {
         files: ['*.tpl']
     });
 
-    // 把第二步生成的tpl.js文件从src目录移除
-    var buildScards = {
-        files: [
-            'src/scards/**/_page.tpl'
-        ],
-        name: 'buildScards',
-        process: function (file, processContext, callback) {
-            var execSync = require('child_process').execSync;
-
-            var fs = require('fs');
-            var pageSrcPath = file.fullPath;
-            var pageDir = path.dirname(file.fullPath);
-            var pagePath = path.join(pageDir,  'page.tpl');
-            var content = file.data;
-
-            var reg = /{%\*include\s+file\s*=\s*"?(.*?)"?\s*\*%}/gi;
-
-            function getCompressContent(path) {
-                var cmdPath = '/usr/local/lib/node_modules/edp-build/node_modules/uglify-js/bin/uglifyjs';
-                var cmd = [cmdPath, path, '--compress'];
-
-                var output = execSync(
-                    cmd.join(' '),
-                    {encoding: 'utf-8'}
-                );
-                return output;
-            }
-
-            function doHandler(result) {
-                var str = result[0];
-                var resName = result[1];
-                var resPath = path.resolve(pageDir, resName);
-                console.log('match: ', resPath);
-
-                // 文件不存在
-                if (!fs.existsSync(resPath)) {
-                    console.log('match: ', resPath, ' not exist' );
-                    next();
-                }
-
-                var ext = path.extname(resPath);
-                var resourceCont = fs.readFileSync(resPath, {encoding:'utf8'});
-                // console.log(ext);
-                if (ext === '.js') {
-                    content = content.replace(str, getCompressContent(resPath));
-                    next();
-                }
-
-                if (ext === '.less' || ext === '.css') {
-                    // var destPath = path.join(pageDir,  'page.css');
-                    var cmd = ['lessc ', resPath, '--compress'];
-                    var output = execSync(
-                        cmd.join(' '),
-                        {encoding: 'utf-8'}
-                    );
-                    content = content.replace(str, output);
-                    // console.log('less: ', content);
-                    next();
-                }
-            }
-
-            function next() {
-                result = reg.exec(content);
-                if (result != null) {
-                    doHandler(result);
-                }
-                else {
-                    fs.writeFileSync(pagePath, '/*eslint-disable*/\n' + content);
-                    callback();
-                    // complete(content);
-                }
-            }
-
-            next();
-        }
-    };
-
+    // 将tpl里的形如 {%*include file="./js/initenv.js"*%} 或者{%include file="./js/initenv.js"%} 的资源文件引用直接替换成文件内容
     var replaceFile = {
         files: [
-            'src/search/**/*.tpl'
+            'src/**/*.tpl'
         ],
         name: 'replaceFile',
         process: function (file, processContext, callback) {
-            var execSync = require('child_process').execSync;
-
-            var fs = require('fs');
             var dir = path.dirname(file.fullPath);
             var content = file.data;
 
-            var reg = /{%\*include\s+file\s*=\s*"?(.*?)"?\s*\*%}/gi;
+            var reg = /{%\*?include\s+file\s*=\s*"?(.*?)"?\s*\*?%}/gi;
 
+            var execSync = require('child_process').execSync;
             function getCompressContent(path) {
                 var cmdPath = '/usr/local/lib/node_modules/edp-build/node_modules/uglify-js/bin/uglifyjs';
                 var cmd = [cmdPath, path, '--compress'];
@@ -173,7 +95,8 @@ exports.getProcessors = function () {
                 return output;
             }
 
-            function doHandler(result) {
+            var result = reg.exec(content);
+            while (result != null) {
                 var str = result[0];
                 var resName = result[1];
                 var resPath = path.resolve(dir, resName);
@@ -182,44 +105,43 @@ exports.getProcessors = function () {
                 // 文件不存在
                 if (!fs.existsSync(resPath)) {
                     console.log('match: ', resPath, ' not exist' );
-                    next();
                 }
 
                 var ext = path.extname(resPath);
                 var resourceCont = fs.readFileSync(resPath, {encoding:'utf8'});
-                // console.log(ext);
+
                 if (ext === '.js') {
                     content = content.replace(str, getCompressContent(resPath));
-                    next();
                 }
 
                 if (ext === '.less' || ext === '.css') {
-                    // var destPath = path.join(pageDir,  'page.css');
                     var cmd = ['lessc ', resPath, '--compress'];
                     var output = execSync(
                         cmd.join(' '),
                         {encoding: 'utf-8'}
                     );
                     content = content.replace(str, output);
-                    // console.log('less: ', content);
-                    next();
                 }
-            }
 
-            function next() {
                 result = reg.exec(content);
-                if (result != null) {
-                    doHandler(result);
-                }
-                else {
-                    file.setData(content);
-                    // fs.writeFileSync(pagePath, '/*eslint-disable*/\n' + content);
-                    callback();
-                    // complete(content);
-                }
             }
 
-            next();
+            file.setData(content);
+            callback();
+        }
+    };
+
+    // 将_page.tpl复制到page.tpl
+    var buildScards = {
+        files: [
+            'src/scards/**/_page.tpl'
+        ],
+        name: 'buildScards',
+        process: function (file, processContext, callback) {
+            var pageDir = path.dirname(file.fullPath);
+            var pagePath = path.join(pageDir,  'page.tpl');
+            fs.writeFileSync(pagePath, '/*eslint-disable*/\n' + file.data);
+            callback();
         }
     };
 

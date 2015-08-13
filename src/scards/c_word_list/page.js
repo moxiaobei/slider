@@ -40,7 +40,7 @@
         var keyword = words.join(',');
         // var cls = dom.data(el, 'for');
 
-        var url = '/bdboxn/1/sims/words/';
+        var url = ajaxUrl;
 
         $.ajax({
             type: 'GET',
