@@ -103,7 +103,7 @@ define(function (require) {
 
         this.loading.css('display', 'block');
 
-        $.ajax({
+        var ajax = $.ajax({
             type: 'GET',
 
             data: {
@@ -115,7 +115,6 @@ define(function (require) {
             dataType: 'json',
 
             success: function (data) {
-                alert(data);
                 var imgs = data.data;
 
                 if(imgs.length === 0) {
@@ -173,7 +172,7 @@ define(function (require) {
                         divTag.addClass('waterfall-img');
 
                         divTag.css({
-                            height: Math.ceil(imgs[i].imageHeight * thisWaterFall.imgWidth/imgs[i].imageWidth)
+                            height: Math.ceil(imgs[i].thumbHeight * thisWaterFall.imgWidth/imgs[i].thumbWidth)
                         });
 
                         divTag.append(aTag);
@@ -191,6 +190,7 @@ define(function (require) {
 
             }
         });
+        return ajax;
     };
 
     /*

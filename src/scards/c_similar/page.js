@@ -5,7 +5,7 @@
 */
 
 
-require(['common/widget/waterfall'], function (waterfall) {
+require(['common/widget/Waterfall'], function (waterfall) {
 
     var wf = new waterfall();
 
