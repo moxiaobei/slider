@@ -179,8 +179,11 @@ function scardHander(context, callback) {
     var pageSrcPath = path.join(pageDir,  '_page.tpl');
     var pagePath = path.join(pageDir,  'page.tpl');
 
-    var content = replaceFile(pageSrcPath);
-    fs.writeFileSync(pagePath, '/*eslint-disable*/\n' + content);
+    if (fs.existsSync(pageSrcPath)) {
+        var content = replaceFile(pageSrcPath);
+        fs.writeFileSync(pagePath, '/*eslint-disable*/\n' + content);
+    }
+
     callback && callback();
 }
 

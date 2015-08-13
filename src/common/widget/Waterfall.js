@@ -89,7 +89,7 @@ define(function (require) {
                     $(window).off('scroll', scroll);
                 }
             }
-        } 
+        }
 
     };
 
@@ -112,7 +112,7 @@ define(function (require) {
 
             url: thisWaterFall.ajaxUrl,
 
-            dataType: 'jsonp',
+            // dataType: 'jsonp',
 
             success: function (data) {
                 var imgs = data.data;
@@ -187,7 +187,7 @@ define(function (require) {
 
             },
             error: function() {
-                
+
             }
         });
     };
