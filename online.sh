@@ -17,7 +17,7 @@ mv ./dep ./static/dep
 
 tar -czf template-graphfe.tar.gz ./template
 tar -czf static-graphfe.tar.gz ./static
-# rm -rf ./static ./template
+rm -rf ./static ./template
 
 # cd ..
 # rm -rf product

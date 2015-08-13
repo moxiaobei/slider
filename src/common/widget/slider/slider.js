@@ -259,6 +259,7 @@ define(function (require) {
         }
 
         setTimeout(function () {
+            $('#viewport').css('display', 'none');
             that.el.style.display = 'block';
 
             if (!currEl) {
@@ -288,6 +289,7 @@ define(function (require) {
 
         setTimeout(function () {
             that.el.style.display = 'none';
+            $('#viewport').css('display', '');
             window.scrollTo(0, that.scrollTop);
 
             that.empty();
