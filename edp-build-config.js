@@ -148,6 +148,81 @@ exports.getProcessors = function () {
         }
     };
 
+    var replaceFile = {
+        files: [
+            'src/search/**/*.tpl'
+        ],
+        name: 'replaceFile',
+        process: function (file, processContext, callback) {
+            var execSync = require('child_process').execSync;
+
+            var fs = require('fs');
+            var dir = path.dirname(file.fullPath);
+            var content = file.data;
+
+            var reg = /{%\*include\s+file\s*=\s*"?(.*?)"?\s*\*%}/gi;
+
+            function getCompressContent(path) {
+                var cmdPath = '/usr/local/lib/node_modules/edp-build/node_modules/uglify-js/bin/uglifyjs';
+                var cmd = [cmdPath, path, '--compress'];
+
+                var output = execSync(
+                    cmd.join(' '),
+                    {encoding: 'utf-8'}
+                );
+                return output;
+            }
+
+            function doHandler(result) {
+                var str = result[0];
+                var resName = result[1];
+                var resPath = path.resolve(dir, resName);
+                console.log('match: ', resPath);
+
+                // 文件不存在
+                if (!fs.existsSync(resPath)) {
+                    console.log('match: ', resPath, ' not exist' );
+                    next();
+                }
+
+                var ext = path.extname(resPath);
+                var resourceCont = fs.readFileSync(resPath, {encoding:'utf8'});
+                // console.log(ext);
+                if (ext === '.js') {
+                    content = content.replace(str, getCompressContent(resPath));
+                    next();
+                }
+
+                if (ext === '.less' || ext === '.css') {
+                    // var destPath = path.join(pageDir,  'page.css');
+                    var cmd = ['lessc ', resPath, '--compress'];
+                    var output = execSync(
+                        cmd.join(' '),
+                        {encoding: 'utf-8'}
+                    );
+                    content = content.replace(str, output);
+                    // console.log('less: ', content);
+                    next();
+                }
+            }
+
+            function next() {
+                result = reg.exec(content);
+                if (result != null) {
+                    doHandler(result);
+                }
+                else {
+                    file.setData(content);
+                    // fs.writeFileSync(pagePath, '/*eslint-disable*/\n' + content);
+                    callback();
+                    // complete(content);
+                }
+            }
+
+            next();
+        }
+    };
+
 
     return {
         'default': [
@@ -156,7 +231,7 @@ exports.getProcessors = function () {
             variable, tplCoper, cleanerProcessor
         ],
         'release': [
-            lessProcessor, buildScards, cssProcessor, moduleProcessor,
+            lessProcessor, replaceFile, buildScards, cssProcessor, moduleProcessor,
             jsProcessor, pathMapperProcessor, addCopyright,
 
             // 模板相关

@@ -5,11 +5,10 @@
 
 /* global A Box */
 (function () {
-    var $ = require('zepto');
-    var env = require('common/widget/env');
+    var env = require('common/lib/env');
     var Box = require('openjs');
-    console.log(Box);
-    var feedback = document.querySelector('.bdbox_feedback-a');
+    var feedback = document.querySelector('.c-feedback-a');
+
     if (feedback) {
         var url = 'http://ufosdk.baidu.com/'
             + '?m=Client'

@@ -3,16 +3,12 @@
         "order": 1,
         "words": [
             {
-                "keyword": "山竹",
-                "type": "shitu"
+                "keyword": "地毯",
+                "type": "ditan"
             },
             {
                 "keyword": "油桃",
-                "type": "shitu"
-            },
-            {
-                "keyword": "火龙果",
-                "type": "shitu"
+                "type": "youtao"
             }
         ]
     },

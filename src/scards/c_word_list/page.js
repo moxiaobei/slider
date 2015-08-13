@@ -3,10 +3,8 @@
  * @author wukaifang(wukaifang@baidu.com)
  */
 
-/* global A */
 (function () {
     var $ = require('zepto');
-    var env = require('common/widget/env');
 
     function getKeywords(needRetry) {
         var wordClass = 'c-word-list-s';
@@ -85,6 +83,23 @@
     }
 
     getKeywords(true);
+
+    // 依赖slider
+    require(['common/widget/slider/slider'], function (slider) {
+        var list = document.getElementsByClassName('c-word-list-p');
+
+        function guessBigImgOnclick(ev) {
+            ev.preventDefault();
+
+            var that = this;
+            slider.fetchList(that);
+            slider.show(that);
+        }
+        for (var i = 0, n = list.length; i < n; i++) {
+            var item = list[i];
+            item.onclick = guessBigImgOnclick;
+        }
+    });
 
 })();
 

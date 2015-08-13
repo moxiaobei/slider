@@ -19,8 +19,7 @@
         // }
     };
 
-    define('search/js/scardenv', function (require, exports) {
-
+    define('search/js/initscardenv', function (require, exports) {
         exports = function () {
             for (var i = 0; i <= funcs.length - 1; i++) {
                 var fn = funcs[i];

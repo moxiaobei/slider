@@ -6,7 +6,7 @@
 define(function (require) {
 
     var selector = '[data-in-view]';
-    var raf = require('common/utils/animationFrame').requestAnimationFrame;
+    var raf = require('common/lib/animationFrame').requestAnimationFrame;
     var $ = require('zepto');
 
     var statStep = 1000;

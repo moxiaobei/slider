@@ -8,24 +8,15 @@
 
 {%block name="content"%}{%strip%}
     <style>
-        .result-c-download-tip .c-download-tip{height:50px;position:relative}.result-c-download-tip .icon{width:34px;height:34px;border-radius:3px;background-color:#ddd;text-align:center;margin-left:10px;position:absolute;top:0;left:0}.result-c-download-tip p{box-sizing:border-box;font-size:14px;font-size:0.875rem;line-height:50px;padding-left:54px}.result-c-download-tip .close{width:34px;height:34px;background-color:#ddd;font-size:15px;position:absolute;top:0;right:0}
+        .result-c-download-tip .c-download-tip{height:50px;position:relative;line-height:50px}.result-c-download-tip p{margin-left:15px;box-sizing:border-box;font-size:13px;font-size:0.8125rem}.result-c-download-tip p .icon-camera{color:#87b9fd;font-size:30px;font-size:1.875rem;padding-right:8px}.result-c-download-tip .close{width:50px;height:50px;position:absolute;top:0;right:0;text-align:center}.result-c-download-tip .close i{color:#999;font-size:20px}
     </style>
     <div class="{%$cardName%}" id="{%$cardName%}">
-        <div class="icon"><i></i></div>
-        <p>下载手机百度，体验完美图像搜索体验！</p>
-        <div class="close"><i></i></div>
+        <p><i class="icon icon-camera"></i>下载手机百度，体验完美图像搜索体验！</p>
+        <div class="close"><i class="icon icon-close"></i></div>
     </div>
     <script>
         A.init(function (require) {
-            {%*
-                // 把当前卡片所需要的业务数据全部挂载到 card.data 上，保持当前作用域内的变量清晰
-            *%}
-            var card = this;
-            card.data = {
-                ajaxUrl: '{%$tplData.ajaxUrl|escape:"javascript"%}'
-            };
-
-            !function(){function openApp(){if(env.os.ios){var url="http://m.baidu.com/searchbox?action=reserve&type=baiduchannel&from=1000715p",iframe=$("<iframe>").hide().attr("src",url).appendTo("body");setTimeout(function(){iframe.remove()},3e3)}else{var url="http://a.app.qq.com/o/simple.jsp?pkgname=com.baidu.searchbox";location.href=url}}var $=require("zepto"),env=require("common/widget/env");$("#c-download-tip").on("click",function(){openApp()})}();
+            !function(){function openApp(){if(env.os.ios){var url="http://m.baidu.com/searchbox?action=reserve&type=baiduchannel&from=1000715p",iframe=$("<iframe>").hide().attr("src",url).appendTo("body");setTimeout(function(){iframe.remove()},3e3)}else location.href="http://a.app.qq.com/o/simple.jsp?pkgname=com.baidu.searchbox"}var $=require("zepto"),env=require("common/lib/env"),$card=$("#c-download-tip").closest(".result");$card.on("click",function(){openApp()}),$card.find(".close").on("click",function(){return $card.hide(),!1})}();
         });
     </script>
 {%/strip%}{%/block%}

@@ -6,7 +6,7 @@
  /* global Box */
 define(function (require, exports) {
     var $ = require('zepto');
-    var env = require('common/widget/env');
+    var env = require('common/lib/env');
     var Box = require('openjs');
 
     // 获取ID
