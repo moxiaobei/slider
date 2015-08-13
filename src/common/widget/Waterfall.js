@@ -112,9 +112,10 @@ define(function (require) {
 
             url: thisWaterFall.ajaxUrl,
 
-            dataType: 'jsonp',
+            dataType: 'json',
 
             success: function (data) {
+                alert(data);
                 var imgs = data.data;
 
                 if(imgs.length === 0) {
