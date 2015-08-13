@@ -146,7 +146,7 @@ define(function (require) {
                     idName: 'sugguestion-waterfall',
                     ajaxUrl: thisSlide.imgsInfo[thisSlide.page - 1].ajaxUrl
                 });
-                thisSliide.ajax = wf.getImages();
+                thisSlide.ajax = wf.getImages();
             }
 
         });
