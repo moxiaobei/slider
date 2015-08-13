@@ -37,7 +37,7 @@
 {%block name="main"%}
 {%strip%}
     {%*************** 保存结果页的类型 *****************%}
-    <input type="hidden" id="imageSearchType" value="{%$tplData.imageSearch_type|escape:'html'%}"/>
+    <input type="hidden" id="imageSearchType" value="{%$tplData.imageSearchType|escape:'html'%}"/>
 
     {%*************** wise搜索框代码 *****************%}
     {%if $tplData.searchEnv eq 'wise'%}
