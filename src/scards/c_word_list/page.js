@@ -52,11 +52,12 @@
             },
             dataType: 'json',
             timeout: 4000,
-            success: function (data) {
-                var responseParams = data.response_params || {};
-                // console.log(responseParams);
-                for (var k in responseParams) {
-                    if (responseParams.hasOwnProperty(k)) {
+            success: function (res) {
+                var data = res.data;
+
+                for (var k in data) {
+                    if (data.hasOwnProperty(k)) {
+                        var item = data[k];
                         var wd = trim(k);
                         if (!wordsMap[wd].cls) {
                             // 找不到元素
@@ -64,9 +65,9 @@
                         }
 
                         var els = document.getElementsByClassName(wordsMap[wd].cls);
-                        for (var i = 0, n = Math.min(els.length, 3, responseParams[k].list.length); i < n; i++) {
+                        for (var i = 0, n = Math.min(els.length, 3, item.list.length); i < n; i++) {
                             var el = els[i];
-                            var src = responseParams[k].list[i].url;
+                            var src = item.list[i].url;
                             el.style.backgroundImage = 'url(' + src + ')';
                             $(el).data('src', src);
                         }
