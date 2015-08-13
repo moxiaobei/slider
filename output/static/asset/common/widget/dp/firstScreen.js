@@ -1,0 +1,2 @@
+/*! 2015 Baidu Inc. All Rights Reserved */
+void function(e,t){for(var n=t.getElementsByTagName("img"),r=+new Date,i=[],o=function(){this.removeEventListener&&this.removeEventListener("load",o,!1),i.push({img:this,time:+new Date})},a=0;a<n.length;a++)!function(){var e=n[a];e.addEventListener?!e.complete&&e.addEventListener("load",o,!1):e.attachEvent&&e.attachEvent("onreadystatechange",function(){"complete"==e.readyState&&o.call(e,o)})}();alog("speed.set",{fsItems:i,fs:r})}(window,document);

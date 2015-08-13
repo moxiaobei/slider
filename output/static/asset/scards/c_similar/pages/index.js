@@ -1,0 +1,2 @@
+/*! 2015 Baidu Inc. All Rights Reserved */
+define("scards/c_similar/pages/index",["require","common/widget/waterfall","./js/slider","zepto","common/data"],function(require){var e=require("common/widget/waterfall"),t=require("./js/slider"),exports=(require("zepto"),{}),n=require("common/data");return exports.start=function(){var r=new t;r.init({imgsInfo:n.imgsInfo,idName:"sugguestion-waterfall"});var i=new e;i.init({idName:"sugguestion-waterfall",ajaxUrl:n.imgsInfo[0].ajaxUrl,containerId:"viewport"}),i.getImages()},exports});
