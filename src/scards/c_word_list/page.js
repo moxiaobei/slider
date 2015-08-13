@@ -40,7 +40,7 @@
         var keyword = words.join(',');
         // var cls = dom.data(el, 'for');
 
-        var url = ajaxUrl;
+        var url = '/sims';
 
         $.ajax({
             type: 'GET',

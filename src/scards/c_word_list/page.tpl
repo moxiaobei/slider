@@ -110,10 +110,6 @@
     </div>
     <script>
         A.init(function (require) {
-            {%*
-                // 把当前卡片所需要的业务数据全部挂载到 card.data 上，保持当前作用域内的变量清晰
-            *%}
-            var ajaxUrl = '{%$tplData.ajaxUrl|escape:"javascript"%}';
             (function() {
     var $ = require("zepto");
     function getKeywords(needRetry) {
@@ -143,7 +139,7 @@
             return;
         }
         var keyword = words.join(",");
-        var url = ajaxUrl;
+        var url = "/sims";
         $.ajax({
             type: "GET",
             url: url,
