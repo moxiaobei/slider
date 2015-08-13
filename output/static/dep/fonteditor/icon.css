@@ -1,0 +1,9 @@
+/*! 2015 Baidu Inc. All Rights Reserved */
+@font-face{font-family:fonteditor;src:url(fonteditor.eot);src:url(fonteditor.eot?#iefix) format("embedded-opentype"),url(fonteditor.woff) format("woff"),url(fonteditor.ttf) format("truetype"),url(fonteditor.svg#uxfonteditor) format("svg")}
+.icon{font-family:fonteditor!important;speak:none;font-style:normal;font-weight:400;font-variant:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+.icon-camera:before{content:"\e001"}
+.icon-close:before{content:"\e002"}
+.icon-download:before{content:"\e003"}
+.icon-edit:before{content:"\e004"}
+.icon-map:before{content:"\e005"}
+.icon-tip:before{content:"\e006"}

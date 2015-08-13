@@ -1,0 +1,2 @@
+/*! 2015 Baidu Inc. All Rights Reserved */
+define("common/ui/viewport",["require","zepto"],function(require){var e=require("zepto"),t={},n=e(window),r=e(document),i=[],o=[];return t.init=function(){n.on("scroll.viewport",function(){if(n.scrollTop()+n.height()>r.height())for(var e=0;e<i.length;e++){var t=i[e];t.call(null)}}),n.on("orientationchange.viewport",function(){for(var e=0;e<o.length;e++){var t=o[e];t.call(null)}})},t.onArrivalBottom=function(e){i.push(e)},t.onWindowRotate=function(e){o.push(e)},t});
