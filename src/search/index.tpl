@@ -5,7 +5,10 @@
 {%/block%}
 
 {%block name="head_js"%}
+    {%*************** 提前加载zepto，并且暴露了$变量，供后续的代码使用 *****************%}
     <script src="{%$feRoot%}/src/common/lib/zepto.js"></script>
+
+    {%*************** 在此保存搜索图片信息 base64或图片src *****************%}
     <script>
         window._t_base64 = '{%$tplData.imgData|escape:"javascript"%}';
 
@@ -13,7 +16,11 @@
         window._t_url = '{%$tplData.imgSrc|escape:"javascript"%}';;
         {%/if%}
     </script>
+
+    {%*************** 搜索结果页的通用初始化，如检测当前系统并添加标识到html标签 *****************%}
     <script>{%include file="./js/initenv.js"%}</script>
+
+    {%*************** 搜索结果页的卡片环境的初始化，为卡片的js提供运行环境 *****************%}
     <script>{%include file="./js/scardenv.js"%}</script>
 {%/block%}
 
@@ -46,6 +53,7 @@
         {%$tplData.html|escape:none%}
     </div>
 
+    {%*************** 版权信息 *****************%}
     <div class="copyright">Copyright © 2015 BAIDU Corporation.</div>
 {%/strip%}
 {%/block%}

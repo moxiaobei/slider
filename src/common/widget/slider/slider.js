@@ -1,5 +1,5 @@
 /**
- * @file 卡片（猜词强展示，你的图片可能是）的大图显示
+ * @file 卡片（猜词强展示，你的图片可能是）的大图显示组件
  *       需要包含slider.less
  * @author wukaifang(wukaifang@baidu.com)
  */
@@ -55,7 +55,6 @@ define(function (require) {
     var TOUCH_END = touchNames[2];
     var TOUCH_CANCEL = touchNames[3];
 
-
     window.addEventListener('hashchange', function () {
         var cls = location.hash.replace('#', '');
         if (cls !== 'imgView') {
@@ -64,10 +63,18 @@ define(function (require) {
         }
     }, false);
 
-    /* function tempLog(val) {
-          var img = document.createElement('img');
-          img.src = 'http://cq01-rdqa-dev047.cq01.baidu.com:8097/val--' + val;
-    */
+    // 其他函数定义
+    function picTpl(obj) {
+        return '<div class="slider-pic">'
+            // slider-pic-left
+            + '<div class="slider-pic_view" style="background-image: url('
+            + obj.src
+            // 'http://ww3.sinaimg.cn/bmiddle/85c5336ctw1ecmub42p64j20bx0hsgoe.jpg' +
+            + ')"><img src="'
+            + obj.src
+            + '"></div></div>';
+    }
+
 
     var ImgView = function () {
         var win = $(window);
@@ -75,7 +82,6 @@ define(function (require) {
         el.innerHTML = htmlRaw;
         el.style.cssText = 'position:absolute;left:0;right:0;top:0;display:none;overflow:hidden;';
         el.style.height = win.height() + 'px';
-        // tempLog(vp.getRect().height);
 
         win.on('resize', function () {
             el.style.height = win.height() + 'px';
@@ -108,6 +114,13 @@ define(function (require) {
 
         var isDrag = false;
         var startPoint = false;
+
+        var $pics = $(picsEl);
+
+        picsEl.addEventListener('click', function (ev) {
+            history.back();
+        });
+
         picsEl.addEventListener(TOUCH_START, function (ev) {
 
             ev.touches = ev.touches || [];
@@ -166,7 +179,7 @@ define(function (require) {
                 that.isAbort = true;
                 that.loading.abort();
                 that.loading = false;
-                $(that.el).removeClass('slider--loading');
+                $(that.el).removeClass('slider-loading');
 
                 that.btn.innerHTML = '识别此图';
             }
@@ -179,7 +192,7 @@ define(function (require) {
                 }
 
                 // 此处应该有 loading
-                $(that.el).addClass('slider--loading');
+                $(that.el).addClass('slider-loading');
                 that.btn.innerHTML = '取消';
 
                 that.loading = $.ajax({
@@ -194,7 +207,7 @@ define(function (require) {
 
                         var r = data.response_params || {};
 
-                        $(that.el).removeClass('slider--loading');
+                        $(that.el).removeClass('slider-loading');
                         that.btn.innerHTML = '识别此图';
 
                         that.loading = false;
@@ -213,7 +226,7 @@ define(function (require) {
                             // console.warn('服务器出错了');
                         }
                         that.isAbort = false;
-                        $(that.el).removeClass('slider--loading');
+                        $(that.el).removeClass('slider-loading');
                         that.btn.innerHTML = '识别此图';
                     }
                 });
@@ -240,7 +253,7 @@ define(function (require) {
         }
 
         if (!this.showTitle) {
-            this.el.className = 'slider--no_head';
+            this.el.className = 'slider-no_head';
         }
         else {
             this.el.className = '';
@@ -248,12 +261,13 @@ define(function (require) {
 
         setTimeout(function () {
             that.el.style.display = 'block';
+
             if (!currEl) {
                 that._order(0);
                 return;
             }
 
-            var targetSrc = $().data(currEl, 'src');
+            var targetSrc = $(currEl).data('src');
             if (targetSrc) {
                 for (i = 0, n = that.imgList.length; i < n; i++) {
                     var item = that.imgList[i];
@@ -283,6 +297,7 @@ define(function (require) {
     };
 
     ImgView.prototype._order = function (index) {
+
         if (index < 0 || index >= this.imgList.length) {
             return;
         }
@@ -398,18 +413,6 @@ define(function (require) {
     };
 
     var imgView = new ImgView();
-
-    // 其他函数定义
-    function picTpl(obj) {
-        return '<div class="slider-pic">'
-            // slider-pic-left
-            + '<div class="slider-pic_view" style="background-image: url('
-            + obj.src
-            // 'http://ww3.sinaimg.cn/bmiddle/85c5336ctw1ecmub42p64j20bx0hsgoe.jpg' +
-            + ')"><img src="'
-            + obj.src
-            + '"></div></div>';
-    }
 
     // 模块输出
     return imgView;
