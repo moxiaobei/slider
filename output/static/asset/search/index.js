@@ -1,2 +1,0 @@
-/*! 2015 Baidu Inc. All Rights Reserved */
-define("search/index",["require","exports","common/widget/in-view","./js/aladdin","search/js/initscardenv","common/lib/invoker"],function(require,exports){var e=require("common/widget/in-view"),t=require("./js/aladdin"),n=require("search/js/initscardenv"),i=require("common/lib/invoker");return exports.start=function(){n(),t(),e(),i.initSetQuery()},exports});

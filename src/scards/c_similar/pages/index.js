@@ -5,7 +5,7 @@
  */
 
 define(function(require) {
-    var waterfall = require('common/widget/waterfall');
+    var waterfall = require('common/widget/Waterfall');
     var slider = require('./js/slider');
     var $ = require('zepto');
     var exports = {};
@@ -26,15 +26,6 @@ define(function(require) {
             imgsInfo: data.imgsInfo,
             idName: 'sugguestion-waterfall'
         });
-
-        
-        var wf = new waterfall();
-        wf.init({
-            idName: 'sugguestion-waterfall',
-            ajaxUrl: data.imgsInfo[0].ajaxUrl,
-            containerId: 'viewport'
-        });
-        wf.getImages();
     };
 
     return exports;

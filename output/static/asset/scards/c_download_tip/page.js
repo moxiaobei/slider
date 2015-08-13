@@ -1,2 +1,0 @@
-/*! 2015 Baidu Inc. All Rights Reserved */
-!function(){function e(){if(n.os.ios){var e="http://m.baidu.com/searchbox?action=reserve&type=baiduchannel&from=1000715p",r=t("<iframe>").hide().attr("src",e).appendTo("body");setTimeout(function(){r.remove()},3e3)}else location.href="http://a.app.qq.com/o/simple.jsp?pkgname=com.baidu.searchbox"}var t=require("zepto"),n=require("common/lib/env"),r=t("#c-download-tip").closest(".result");r.on("click",function(){e()}),r.find(".close").on("click",function(){return r.hide(),!1})}();

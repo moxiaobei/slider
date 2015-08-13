@@ -7,7 +7,7 @@
 define(function (require) {
 
     var $ = require('zepto');
-    var waterfall = require('common/widget/waterfall');
+    var waterfall = require('common/widget/Waterfall');
 
     function Slider () {
         this.screenWidth = 0;
@@ -18,6 +18,7 @@ define(function (require) {
         this.imgsInfo = null;
         this.sugguestionImgLis = null;
         this.waterfallDone = null;
+        this.ajax = null;
     }
 
     Slider.prototype.init = function (option) {
@@ -67,7 +68,13 @@ define(function (require) {
             li = null;
         }
 
-        
+        var wf = new waterfall();
+        wf.init({
+            idName: 'sugguestion-waterfall',
+            ajaxUrl: data.imgsInfo[0].ajaxUrl,
+            containerId: 'viewport'
+        });
+        this.ajax = wf.getImages();
 
         this.slide();
 
@@ -97,12 +104,14 @@ define(function (require) {
                 thisSlide.sugguestionImgLis.html('');
                 thisSlide.waterfallDone.css('display','none');
 
+                thisSlide.ajax.abort();
+
                 var wf = new waterfall();
                 wf.init({
                     idName: 'sugguestion-waterfall',
                     ajaxUrl: thisSlide.imgsInfo[thisSlide.page].ajaxUrl
                 });
-                wf.getImages();
+                thisSlide.ajax = wf.getImages();
 
                 $(this).css('left', -thisSlide.screenWidth * thisSlide.page);
 
@@ -130,12 +139,14 @@ define(function (require) {
                 thisSlide.sugguestionImgLis.html('');
                 thisSlide.waterfallDone.css('display','none');
 
+                thisSlide.ajax.abort();
+
                 var wf = new waterfall();
                 wf.init({
                     idName: 'sugguestion-waterfall',
                     ajaxUrl: thisSlide.imgsInfo[thisSlide.page - 1].ajaxUrl
                 });
-                wf.getImages();
+                thisSliide.ajax = wf.getImages();
             }
 
         });
