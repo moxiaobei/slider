@@ -16,8 +16,8 @@
             <p class="introduction-title"></p>
             <p class="introduction-content"></p>
             <a class="introduction-link" href=""></a>
-            <a class="buttons recognition" href=""><span>识图</span></a>
-            <a class="buttons download" href=""><span>下载</span></a>
+            <a class="buttons recognition" href=""><i class="icon icon-camera"></i><span>识图</span></a>
+            <a class="buttons download" href=""><i class="icon icon-camera"></i><span>下载</span></a>
         </div>
         <div class="slider-waterfall" id="sugguestion-waterfall">
             <p>推荐给你的图片</p>
@@ -34,11 +34,6 @@
                 <i></i>&nbsp;正在加载,请稍后
             </div>
         </div>
-    </div>
-    <div class="tell-me">
-        <a class="{%$cardName%}-a" href="#" target="_blank">
-            <i class="icon icon-tip"></i>告诉我们你想要的
-        </a>
     </div>
 {%/strip%}
 {%/block%}
