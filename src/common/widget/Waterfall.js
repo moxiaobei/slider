@@ -115,27 +115,29 @@ define(function (require) {
             dataType: 'jsonp',
 
             success: function (data) {
-                if(data.length === 0) {
+                var imgs = data.data;
+
+                if(imgs.length === 0) {
                     this.done = true;
                 }
                 else {
-                    for (var i = 0; i < data.length; i++) {
+                    for (var i = 0; i < imgs.length; i++) {
 
                         var liIndex = thisWaterFall.getShortLi();
 
                         var img = $('<img />');
 
-                        img.attr('src', data[i].thumbUrl);
+                        img.attr('src', imgs[i].thumbUrl);
 
                         var aTag = $('<a></a>');
 
-                        aTag.attr('href', data[i].objUrl);
+                        aTag.attr('href', imgs[i].objUrl);
 
                         aTag.attr('target', '_blank');
 
                         aTag.append(img);
 
-                        var src = data[i].objUrl;
+                        var src = imgs[i].objUrl;
 
                         if(env.os.ios) {
                             aTag.on('click', function (e) {
@@ -170,7 +172,7 @@ define(function (require) {
                         divTag.addClass('waterfall-img');
 
                         divTag.css({
-                            height: Math.ceil(data[i].imageHeight * thisWaterFall.imgWidth/data[i].imageWidth)
+                            height: Math.ceil(imgs[i].imageHeight * thisWaterFall.imgWidth/imgs[i].imageWidth)
                         });
 
                         divTag.append(aTag);
