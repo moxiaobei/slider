@@ -34,11 +34,8 @@
             {%*
                 // 把当前卡片所需要的业务数据全部挂载到 card.data 上，保持当前作用域内的变量清晰
             *%}
-<<<<<<< HEAD
 
-=======
-            var masPages = {%$tplData.maxPages%};
->>>>>>> 7788a2f38c7a0b11b9154f395ef9ee0fc47cc831
+            var simAjaxUrl = {%json_encode($tplData.simAjaxUrl)%};
             {%*include file="page.js"*%}
         });
     </script>

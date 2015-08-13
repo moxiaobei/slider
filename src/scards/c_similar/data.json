@@ -1,6 +1,5 @@
 {
     "tplData": {
-        "ajaxUrl": "http://www.wookmark.com/api/json/popular",
-        "maxPages": 2
+        "ajaxUrl": "http://www.wookmark.com/api/json/popular"
     }
 }
