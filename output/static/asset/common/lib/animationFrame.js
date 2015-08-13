@@ -1,2 +1,0 @@
-/*! 2015 Baidu Inc. All Rights Reserved */
-define("common/lib/animationFrame",["require"],function(require){for(var e,t,r=0,n=["ms","moz","webkit","o"],a=0;a<n.length&&!window.requestAnimationFrame;++a)e=window[n[a]+"RequestAnimationFrame"],t=window[n[a]+"CancelAnimationFrame"]||window[n[a]+"CancelRequestAnimationFrame"];if(!e)e=function(e){var t=(new Date).getTime(),n=Math.max(0,16-(t-r)),a=window.setTimeout(function(){e(t+n)},n);return r=t+n,a};if(!t)t=function(e){clearTimeout(e)};return{requestAnimationFrame:e,cancelAnimationFrame:t}});

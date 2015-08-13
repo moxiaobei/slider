@@ -1,2 +1,0 @@
-/*! 2015 Baidu Inc. All Rights Reserved */
-define("scards/c_similar/pages/index",["require","common/widget/Waterfall","./js/slider","zepto","common/data"],function(require){var e=(require("common/widget/Waterfall"),require("./js/slider")),exports=(require("zepto"),{}),t=require("common/data");return exports.start=function(){var n=new e;n.init({imgsInfo:t.imgsInfo,idName:"sugguestion-waterfall"})},exports});

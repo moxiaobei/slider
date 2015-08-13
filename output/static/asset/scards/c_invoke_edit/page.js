@@ -1,2 +1,0 @@
-/*! 2015 Baidu Inc. All Rights Reserved */
-!function(){require(["common/lib/invoker","common/widget/attatch"],function(e,t){e.initCallEditor();var n=require("zepto"),r=n("#c-invoke-edit").closest(".result"),i=new t({main:r});r.find(".close").on("click",function(){return r.hide(),i.dispose(),i=null,!1})})}();

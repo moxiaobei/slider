@@ -1,2 +1,0 @@
-/*! 2015 Baidu Inc. All Rights Reserved */
-var path=require("path"),functions=null;module.exports={install:function(e,t){var r=this.getInstance(e),n=e.functions.functionRegistry;for(var a in r)if(r.hasOwnProperty(a)&&!n.get(a))n.add(a,r[a])},getInstance:function(e){var t=e.tree.Keyword,r=e.tree.DetachedRuleset,n=function(e,r){return e instanceof r?t.True:t.False};if(!functions)functions={isruleset:function(e){return n(e,r)}};return functions}};

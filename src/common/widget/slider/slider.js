@@ -196,24 +196,23 @@ define(function (require) {
                 that.btn.innerHTML = '取消';
 
                 that.loading = $.ajax({
-                    type: 'POST',
-                    url: '/bdbox/ir/url',
+                    type: 'GET',
+                    url: '/ir',
                     data: {
                         url: imgSrc
                     },
                     dataType: 'json',
                     timeout: 10000,
-                    success: function (data, status, xhr) {
-
-                        var r = data.response_params || {};
+                    success: function (res, status, xhr) {
+                        var r = res.data;
 
                         $(that.el).removeClass('slider-loading');
                         that.btn.innerHTML = '识别此图';
 
                         that.loading = false;
 
-                        if (r.returl) {
-                            location.href = r.returl;
+                        if (r.url) {
+                            location.href = r.url;
                         }
                         else {
                             toast.makeText('服务器开小差了，请稍候重试');
@@ -260,6 +259,7 @@ define(function (require) {
         }
 
         setTimeout(function () {
+            $('#viewport').css('display', 'none');
             that.el.style.display = 'block';
 
             if (!currEl) {
@@ -289,6 +289,7 @@ define(function (require) {
 
         setTimeout(function () {
             that.el.style.display = 'none';
+            $('#viewport').css('display', '');
             window.scrollTo(0, that.scrollTop);
 
             that.empty();
