@@ -138,9 +138,9 @@ exports.getProcessors = function () {
         ],
         name: 'buildScards',
         process: function (file, processContext, callback) {
-            var pageDir = path.dirname(file.fullPath);
-            var pagePath = path.join(pageDir,  'page.tpl');
-            fs.writeFileSync(pagePath, '/*eslint-disable*/\n' + file.data);
+            var pagePath = path.join(path.dirname(file.path), 'page.tpl');
+            var pageFile = processContext.getFileByPath(pagePath);
+            pageFile.setData(file.data);
             callback();
         }
     };
