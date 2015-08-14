@@ -135,9 +135,10 @@ define(function (require) {
                     type: 'POST',
                     data: {
                         image: encodeURIComponent(thisSlide.imgsInfo[thisSlide.page].objUrl),
+                        carousel: 2,
                         tn: 'wise'
                     },
-                    url: '/upload',
+                    url: '/details',
                     dataType: 'json',
                     success: function(res) {
                         var data = res.data;
@@ -179,6 +180,7 @@ define(function (require) {
                     type: 'POST',
                     data: {
                         image: encodeURIComponent(thisSlide.imgsInfo[thisSlide.page - 1].objUrl),
+                        carousel: 2,
                         tn: 'wise'
                     },
                     url: '/upload',
