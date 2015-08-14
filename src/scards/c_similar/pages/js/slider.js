@@ -19,6 +19,7 @@ define(function (require) {
         this.sugguestionImgLis = null;
         this.waterfallDone = null;
         this.ajax = null;
+        this.recognition = null;
     }
 
     Slider.prototype.init = function (option) {

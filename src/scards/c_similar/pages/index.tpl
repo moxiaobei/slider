@@ -7,8 +7,8 @@
     <div class="slider-container">
         <div class="slider-section" id="iSlider">
             <ul class="slider-list clearfix" id="iSlider">
-                <li class="slider-img">
-                </li>
+                <!--li class="slider-img">
+                </li-->
             </ul>
         </div>
         <div class="slider-introduction clearfix">
