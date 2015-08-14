@@ -7,16 +7,18 @@
     <div class="slider-container">
         <div class="slider-section" id="iSlider">
             <ul class="slider-list clearfix" id="iSlider">
-                <li class="slider-img">
-                </li>
+                <!--li class="slider-img">
+                </li-->
             </ul>
         </div>
         <div class="slider-introduction clearfix">
             <p class="introduction-title"></p>
             <p class="introduction-content"></p>
             <a class="introduction-link" href=""></a>
+
             <a class="buttons recognition" href=""><i class="icon icon-map"></i><span>识图</span></a>
             <a class="buttons download" href=""><i class="icon icon-download"></i><span>下载</span></a>
+
         </div>
         <div class="slider-waterfall" id="sugguestion-waterfall">
             <p>推荐给你的图片</p>

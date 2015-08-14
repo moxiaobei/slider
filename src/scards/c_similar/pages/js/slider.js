@@ -19,6 +19,7 @@ define(function (require) {
         this.sugguestionImgLis = null;
         this.waterfallDone = null;
         this.ajax = null;
+        this.recognition = null;
     }
 
     Slider.prototype.init = function (option) {
@@ -42,6 +43,9 @@ define(function (require) {
         this.introductionLink = $('.slider-introduction .introduction-link');
         this.introductionLink.html(option.imgsInfo[0].fromUrl);
         this.introductionLink.attr('href', option.imgsInfo[0].fromUrl);
+
+        this.recognition = $('.slider-introduction .recognition');
+        this.recognition.attr('href', option.imgsInfo[0].regzUrl);
 
         this.screenWidth = $(window).width();
 
@@ -84,8 +88,32 @@ define(function (require) {
         var thisSlide = this;
 
         var startPosition = 0;
+        var startPosition = 0;
+        var startTime = 0;
+        var endPosition = 0;
+        var endTime = 0;
+        this.sliderUl.on('touchstart', function(e) {
+            var touch = e.changedTouches[0];
+            startPosition = touch.pageX;
+            startTime = (new Date()).getTime();
+            console.log(startPosition);
+        });
 
-        this.sliderUl.swipeLeft(function () {
+        this.sliderUl.on('touchend', function(e) {
+            var touch = e.changedTouches[0];
+            endPosition = touch.pageX;
+            endTime = (new Date()).getTime();
+            console.log(endPosition);
+            console.log(endTime - startTime);
+            if((startPosition - endPosition) > 50 && (endTime - startTime) > 200 || (startPosition - endPosition) < 20 && (endTime - startTime) < 100) {
+                leftMove();
+            }
+            else if ((endPosition - startPosition) > 50 && (endTime - startTime) > 200 || (endPosition - startPosition) < 20 && (endTime - startTime) < 100) {
+                rightMove();
+            }
+        });
+
+        function leftMove() {
 
             if(thisSlide.page < thisSlide.imgsInfo.length ) {
 
@@ -102,21 +130,36 @@ define(function (require) {
 
                 thisSlide.ajax.abort();
 
-                var wf = new waterfall();
-                wf.init({
-                    idName: 'sugguestion-waterfall',
-                    ajaxUrl: thisSlide.imgsInfo[thisSlide.page].ajaxUrl
+
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        image: encodeURIComponent(thisSlide.imgsInfo[thisSlide.page].objUrl),
+                        tn: 'wise'
+                    },
+                    url: '/upload',
+                    dataType: 'json',
+                    success: function(res) {
+                        var data = res.data;
+                        thisSlide.recognition.attr('href', data.regzUrl);
+
+                        var wf = new waterfall();
+                        wf.init({
+                            idName: 'sugguestion-waterfall',
+                            ajaxUrl: data.ajaxUrl
+                        });
+                        thisSlide.ajax = wf.getImages();
+                    }
                 });
-                thisSlide.ajax = wf.getImages();
 
                 $(this).css('left', -thisSlide.screenWidth * thisSlide.page);
 
                 thisSlide.page++;
             }
 
-        });
+        }
 
-        this.sliderUl.swipeRight(function () {
+        function rightMove() {
 
             if(thisSlide.page > 1) {
 
@@ -132,20 +175,34 @@ define(function (require) {
 
                 $(this).css('left', -thisSlide.screenWidth * (thisSlide.page - 1));
 
+                 $.ajax({
+                    type: 'POST',
+                    data: {
+                        image: encodeURIComponent(thisSlide.imgsInfo[thisSlide.page - 1].objUrl),
+                        tn: 'wise'
+                    },
+                    url: '/upload',
+                    success: function(res) {
+                        var data = res.data;
+                        thisSlide.recognition.attr('href', data.regzUrl);
+
+                        var wf = new waterfall();
+                        wf.init({
+                            idName: 'sugguestion-waterfall',
+                            ajaxUrl: data.ajaxUrl
+                        });
+                        thisSlide.ajax = wf.getImages();
+                    }
+                });
+
                 thisSlide.sugguestionImgLis.html('');
                 thisSlide.waterfallDone.css('display','none');
 
                 thisSlide.ajax.abort();
 
-                var wf = new waterfall();
-                wf.init({
-                    idName: 'sugguestion-waterfall',
-                    ajaxUrl: thisSlide.imgsInfo[thisSlide.page - 1].ajaxUrl
-                });
-                thisSlide.ajax = wf.getImages();
             }
 
-        });
+        }
     };
 
     return Slider;

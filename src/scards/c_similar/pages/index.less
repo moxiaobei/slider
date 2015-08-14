@@ -1,10 +1,13 @@
 @import '../../../common/master.less';
-@import "../../../../dep/est/2.0.3/src/all.less";
+@import '../../../../dep/est/2.0.3/src/all.less';
 @import (less) '../../../../dep/fonteditor/icon.css';
 @import '../../../common/widget/feedback/feedback.less';
+@import '../../../common/widget/toast/toast.less';
 
-
-
+body {
+    width: 100%;
+    overflow: hidden;
+}
 
 .slider-container {
     background-color: #fff;
@@ -190,7 +193,7 @@
     .clearfix:after {
         display: block;
         font-size: 0;
-        content: "";
+        content: '';
         clear: both;
         height: 0;
     }
