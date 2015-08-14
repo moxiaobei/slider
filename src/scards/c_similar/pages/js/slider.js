@@ -176,6 +176,8 @@ define(function (require) {
 
                 thisSlide.sliderUl.css('left', -thisSlide.screenWidth * (thisSlide.page - 1));
 
+                thisSlide.ajax.abort();
+                
                  $.ajax({
                     type: 'POST',
                     data: {
@@ -199,8 +201,6 @@ define(function (require) {
 
                 thisSlide.sugguestionImgLis.html('');
                 // thisSlide.waterfallDone.css('display','none');
-
-                thisSlide.ajax.abort();
 
             }
 

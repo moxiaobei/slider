@@ -164,7 +164,7 @@ define(function (require) {
 
                                     window.onpopstate = function(event) {
                                         iframeWrapper.remove();
-                                        thisWaterFall.isIframe = false;
+                                    //    thisWaterFall.isIframe = false;
                                         thisWaterFall.container.show();
                                         $(document.body).scrollTop(scrollTop);
                                     }
