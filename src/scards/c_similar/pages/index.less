@@ -13,7 +13,6 @@ body {
 
 .slider-container {
     background-color: #fff;
-    width: 100%;
 
     .slider-section {
         position: relative;
@@ -64,12 +63,16 @@ body {
     }
 
     .introduction-link {
-        .ellipsis();
+        width: 100%;
+        word-break:break-all;
+        overflow: hidden;
+        word-wrap: break-word;
+        text-overflow: ellipsis;
+
         color: #1D2F9A;
         font-size: 0.9rem;
         display: block;
         font-weight: 200;
-        word-wrap: break-word;
     }
 
     .buttons {

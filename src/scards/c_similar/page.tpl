@@ -13,6 +13,8 @@
     <style>
         .iframe-wrapper {
   width: 100%;
+  position: relative;
+  overflow-x: hidden;
 }
 .iframe-wrapper iframe {
   width: 100%;
@@ -21,6 +23,7 @@
 .c-similar .waterfall-container {
   position: relative;
   margin-bottom: 10px;
+  width: 100%;
 }
 .c-similar .waterfall-container ul {
   width: 100%;
