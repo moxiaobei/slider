@@ -83,6 +83,9 @@
 {%/block%}
 
 {%block name="js" append%}
+
+{%* 该模块构建后将会打包common/ui/* common/lib/**等模块，在此完全加载，避免后续模块单独加载已打包模块 *%}
+<script src="{%$feRoot%}/src/search/common/base.js"></script>
 <script>
     require(['search/common/base'], function (base) {
         base.init();

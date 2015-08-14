@@ -14,7 +14,7 @@
         <div class="close"><i class="icon icon-close"></i></div>
     </div>
     <script>
-        A.init(function (require) {
+        A.init(function () {
             {%*include file="page.js"*%}
         });
     </script>

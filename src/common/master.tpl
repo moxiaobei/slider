@@ -27,6 +27,29 @@
     <link rel="shortcut icon" type="image/ico" href="//bcscdn.baidu.com/resource/9f3eadcd4263788593593d82f831940d.ico">
     {%block name="style"%}{%/block%}
     <script src="http://s1.bdstatic.com/r/www/cache/ecom/esl/2-0-6/esl.js"></script>
+    <script>
+        require.config({
+            'baseUrl': '{%$feRoot%}/src',
+            'paths': {
+                'common': './common',
+                'zepto': './common/lib/zepto',
+                'openjs': './common/lib/openjs'
+            },
+            'packages': [
+                {
+                    'name': 'est',
+                    'location': '../dep/est/2.0.3/src',
+                    'main': 'lib/index'
+                },
+                {
+                    'name': 'fastclick',
+                    'location': '../dep/fastclick/1.0.6/src',
+                    'main': 'fastclick'
+                }
+            ],
+            'urlArgs': 'v={edp-variable:version}'
+        });
+    </script>
     {%block name="head_js"%}{%/block%}
 </head>
 <body>
@@ -35,29 +58,9 @@
         {%/block%}
     </div>
 </body>
+{%* master模块：该模块构建后将会打包common/ui/* common/lib/**等模块，在此完全加载，避免后续模块单独加载已打包模块 *%}
+<script src="{%$feRoot%}/src/common/master.js"></script>
 <script>
-    require.config({
-        'baseUrl': '{%$feRoot%}/src',
-        'paths': {
-            'common': './common',
-            'zepto': './common/lib/zepto',
-            'openjs': './common/lib/openjs'
-        },
-        'packages': [
-            {
-                'name': 'est',
-                'location': '../dep/est/2.0.3/src',
-                'main': 'lib/index'
-            },
-            {
-                'name': 'fastclick',
-                'location': '../dep/fastclick/1.0.6/src',
-                'main': 'fastclick'
-            }
-        ],
-        'urlArgs': 'v={edp-variable:version}'
-    });
-
     require(['common/master'], function (master) {
         master.start();
     });

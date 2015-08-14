@@ -36,13 +36,14 @@ exports.getProcessors = function () {
         }
     };
 
-    var now = new Date();
-    var month = now.getMonth() + 1;
-    var yyyyMMdd = now.getFullYear() + (month < 10 ? '0' : '') + month + now.getDate();
+    // var now = new Date();
+    // var month = now.getMonth() + 1;
+    // var yyyyMMdd = now.getFullYear() + (month < 10 ? '0' : '') + month + now.getDate();
+    var time = +new Date();
     var variable = new VariableSubstitution({
         files: ['*.tpl'],
         variables: {
-            version: process.env.BUILD_NUMBER || yyyyMMdd
+            version: process.env.BUILD_NUMBER || time
         }
     });
 
@@ -155,7 +156,8 @@ exports.getProcessors = function () {
         ],
         'release': [
             lessProcessor, replaceFile, buildScards, cssProcessor, moduleProcessor,
-            jsProcessor, pathMapperProcessor, addCopyright,
+            // jsProcessor,
+            pathMapperProcessor, addCopyright,
 
             // 模板相关
             variable, addCopyright, tplEscaper, tplCoper, cleanerProcessor

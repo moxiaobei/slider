@@ -3,9 +3,7 @@
  * @author wukaifang(wukaifang@baidu.com)
  */
 
-(function () {
-    var $ = require('zepto');
-
+require(['zepto', 'common/widget/slider/slider'], function ($, slider) {
     function getKeywords(needRetry) {
         var wordClass = 'c-word-list-s';
         var wordEls = document.getElementsByClassName(wordClass);
@@ -86,22 +84,19 @@
     getKeywords(true);
 
     // 依赖slider
-    require(['common/widget/slider/slider'], function (slider) {
-        var list = document.getElementsByClassName('c-word-list-p');
 
-        function guessBigImgOnclick(ev) {
-            ev.preventDefault();
+    var list = document.getElementsByClassName('c-word-list-p');
 
-            var that = this;
-            slider.fetchList(that);
-            slider.show(that);
-        }
-        for (var i = 0, n = list.length; i < n; i++) {
-            var item = list[i];
-            item.onclick = guessBigImgOnclick;
-        }
-    });
+    function guessBigImgOnclick(ev) {
+        ev.preventDefault();
 
-})();
+        var that = this;
+        slider.fetchList(that);
+        slider.show(that);
+    }
+    for (var i = 0, n = list.length; i < n; i++) {
+        var item = list[i];
+        item.onclick = guessBigImgOnclick;
+    }
 
-
+});
