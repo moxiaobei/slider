@@ -199,7 +199,8 @@ define(function (require) {
                     type: 'POST',
                     url: '/upload',
                     data: {
-                        url: imgSrc
+                        image: imgSrc,
+                        guessData: 1,
                     },
                     dataType: 'json',
                     timeout: 10000,

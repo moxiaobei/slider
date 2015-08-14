@@ -155,7 +155,7 @@
                     if (data.hasOwnProperty(k)) {
                         var item = data[k];
                         var wd = trim(k);
-                        if (!wordsMap[wd].cls) {
+                        if (!wordsMap[wd] || !wordsMap[wd].cls) {
                             continue;
                         }
                         var els = document.getElementsByClassName(wordsMap[wd].cls);

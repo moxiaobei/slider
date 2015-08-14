@@ -57,7 +57,7 @@ require(['zepto', 'common/widget/slider/slider'], function ($, slider) {
                     if (data.hasOwnProperty(k)) {
                         var item = data[k];
                         var wd = trim(k);
-                        if (!wordsMap[wd].cls) {
+                        if (!wordsMap[wd] || !wordsMap[wd].cls) {
                             // 找不到元素
                             continue;
                         }
@@ -70,7 +70,6 @@ require(['zepto', 'common/widget/slider/slider'], function ($, slider) {
                             $(el).data('src', src);
                         }
                     }
-
                 }
             },
             error: function () {
