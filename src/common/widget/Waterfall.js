@@ -32,6 +32,8 @@ define(function (require) {
         this.container = null;
 
         this.done = false;
+
+        this.isIframe = null;
     }
 
     /*
@@ -70,7 +72,7 @@ define(function (require) {
 
             var oLi = thisWaterFall.lis.eq(liIndex);
 
-            if($(window).scrollTop() + $(window).height() > oLi.height() + oLi.offset().top) {
+            if($(window).scrollTop() + $(window).height() > oLi.height() + oLi.offset().top + 10) {
 
              //   alert(thisWaterFall.maxPages + "   " + thisWaterFall.pages);
 
@@ -142,27 +144,30 @@ define(function (require) {
                             aTag.on('click', function (e) {
                                 e.preventDefault();
 
-                                //在iframe中打开结果页
-                                var iframe = $('<iframe></iframe>');
-                                iframe.css('width', '100%');
-                                iframe.css('height','100%');
-                                iframe.attr('src', $(this).attr('href'));
-                                iframe.css('frameborder','0');
+                                if (thisWaterFall.isIframe !== null) {
+                                    //在iframe中打开结果页
+                                    var iframe = thisWaterFall.isIframe = $('<iframe></iframe>');
+                                    iframe.css('width', '100%');
+                                    iframe.css('height','100%');
+                                    iframe.attr('src', $(this).attr('href'));
+                                    iframe.css('frameborder','0');
 
-                                var iframeWrapper = $('<div></div>');
-                                iframeWrapper.addClass('iframe-wrapper');
-                                iframeWrapper.append(iframe);
-                                $(document.body).append(iframeWrapper);
-                                thisWaterFall.container.hide();
-                                var scrollTop = $(document.body).scrollTop();
-                                var pathname = $(this).attr('href').match(/http\:\/\/[\w\-\.\:]*([\/\-\w]*)/)[1];
-                                history.pushState({},"相似图",pathname);
+                                    var iframeWrapper = $('<div></div>');
+                                    iframeWrapper.addClass('iframe-wrapper');
+                                    iframeWrapper.append(iframe);
+                                    $(document.body).append(iframeWrapper);
+                                    thisWaterFall.container.hide();
+                                    var scrollTop = $(document.body).scrollTop();
+                                    var pathname = $(this).attr('href').match(/http\:\/\/[\w\-\.\:]*([\/\-\w]*)/)[1];
+                                    history.pushState({},"相似图",pathname);
 
-                                window.onpopstate = function(event) {
-                                    iframeWrapper.remove();
-                                    thisWaterFall.container.show();
-                                    $(document.body).scrollTop(scrollTop);
+                                    window.onpopstate = function(event) {
+                                        iframeWrapper.remove();
+                                        thisWaterFall.container.show();
+                                        $(document.body).scrollTop(scrollTop);
+                                    }
                                 }
+                                
                             });
                         }
 
@@ -171,7 +176,7 @@ define(function (require) {
                         divTag.addClass('waterfall-img');
 
                         divTag.css({
-                            height: Math.ceil(imgs[i].thumbHeight * thisWaterFall.imgWidth/imgs[i].thumbWidth)
+                            height: Math.ceil(parseInt(imgs[i].thumbHeight) * thisWaterFall.imgWidth/parseInt(imgs[i].thumbWidth))
                         });
 
                         divTag.append(aTag);
