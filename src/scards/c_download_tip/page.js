@@ -3,10 +3,7 @@
  * @author wukaifang(wukaifang@baidu.com)
  */
 
-/* global A Box */
-(function () {
-    var $ = require('zepto');
-    var env = require('common/lib/env');
+require(['zepto', 'common/lib/env'], function ($, env) {
     var $card = $('#c-download-tip').closest('.result');
 
     function openApp() {
@@ -34,6 +31,5 @@
         $card.hide();
         return false;
     });
-})();
-
+});
 

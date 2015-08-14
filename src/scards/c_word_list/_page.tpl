@@ -40,7 +40,7 @@
         {%/foreach%}
     </div>
     <script>
-        A.init(function (require) {
+        A.init(function () {
             {%*include file="page.js"*%}
         });
     </script>

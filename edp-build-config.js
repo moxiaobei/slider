@@ -36,13 +36,14 @@ exports.getProcessors = function () {
         }
     };
 
-    var now = new Date();
-    var month = now.getMonth() + 1;
-    var yyyyMMdd = now.getFullYear() + (month < 10 ? '0' : '') + month + now.getDate();
+    // var now = new Date();
+    // var month = now.getMonth() + 1;
+    // var yyyyMMdd = now.getFullYear() + (month < 10 ? '0' : '') + month + now.getDate();
+    var time = +new Date();
     var variable = new VariableSubstitution({
         files: ['*.tpl'],
         variables: {
-            version: process.env.BUILD_NUMBER || yyyyMMdd
+            version: process.env.BUILD_NUMBER || time
         }
     });
 
@@ -95,8 +96,8 @@ exports.getProcessors = function () {
                 return output;
             }
 
-            var result = reg.exec(content);
-            while (result != null) {
+            // var result = reg.exec(content);
+            while ((result = reg.exec(content))  != null) {
                 var str = result[0];
                 var resName = result[1];
                 var resPath = path.resolve(dir, resName);
@@ -105,6 +106,7 @@ exports.getProcessors = function () {
                 // 文件不存在
                 if (!fs.existsSync(resPath)) {
                     console.log('match: ', resPath, ' not exist' );
+                    continue;
                 }
 
                 var ext = path.extname(resPath);
@@ -123,7 +125,7 @@ exports.getProcessors = function () {
                     content = content.replace(str, output);
                 }
 
-                result = reg.exec(content);
+                // result = reg.exec(content);
             }
 
             file.setData(content);
@@ -154,7 +156,8 @@ exports.getProcessors = function () {
         ],
         'release': [
             lessProcessor, replaceFile, buildScards, cssProcessor, moduleProcessor,
-            jsProcessor, pathMapperProcessor, addCopyright,
+            // jsProcessor,
+            pathMapperProcessor, addCopyright,
 
             // 模板相关
             variable, addCopyright, tplEscaper, tplCoper, cleanerProcessor

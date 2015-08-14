@@ -1,10 +1,6 @@
-{%extends file="../common/master.tpl"%}
+{%extends file="../../common/master.tpl"%}
 
-{%block name="style"%}
-    <link rel="stylesheet" href="{%$feRoot%}/src/search/index.css?v={edp-variable:version}"/>
-{%/block%}
-
-{%block name="head_js"%}
+{%block name="head_js" append%}
     {%*************** 提前加载zepto，并且暴露了$变量，供后续的代码使用 *****************%}
     <script src="{%$feRoot%}/src/common/lib/zepto.js"></script>
 
@@ -34,17 +30,17 @@
     <script>{%include file="./js/initscardenv.js"%}</script>
 {%/block%}
 
-{%block name="main"%}
+{%block name="main" append%}
 {%strip%}
     {%*************** 保存结果页的类型 *****************%}
     <input type="hidden" id="imageSearchType" value="{%$tplData.imageSearchType|escape:'html'%}"/>
 
     {%*************** wise搜索框代码 *****************%}
     {%if $tplData.searchEnv eq 'wise'%}
-    <div class="#search-box">
+    <div id="search-box">
         <form data-formposition="i" class="se-form" id="index-form" action="http://m.baidu.com/s" method="get" autocomplete="off">
             <div class="con-wrap">
-                <textarea autocomplete="off" autocorrect="off" maxlength="64" id="index-kw" name="word" class="se-input adjust-input" data-sug="1"></textarea>
+                <input autocomplete="off" autocorrect="off" maxlength="64" id="index-kw" name="word" class="se-input adjust-input"/>
                 <div class="se-inner">
 
                     <button id="index-bn" class="se-bn" type="submit">百度一下</button>
@@ -58,20 +54,41 @@
     </div>
     {%/if%}
 
-    {%*************** scards卡片代码 *****************%}
-    <div id="results">
-        {%$tplData.html|escape:none%}
+    {%if $tplData.noresult%}
+    <div class="noresult">
+        <div class="noresult-center">
+            <div class="noresult-msg">
+                <div class="noresult-img"></div>
+                <div>抱歉</div>
+                <div>没有在{%$tplData.imageSearchTypeName|escape:'html'%}类里</div>
+                <div>找到此图片相关信息</div>
+            </div>
+            <div class="noresult-tip">
+                <div>建议</div>
+                <div class="noresult-tip-item">尽量保证图片清晰</div>
+                <div class="noresult-tip-item">尽量使用目标物体正面</div>
+                <div class="noresult-tip-item">保证主体面积占画面70%以上</div>
+            </div>
+        </div>
     </div>
 
-    {%*************** 版权信息 *****************%}
-    <div class="copyright">Copyright © 2015 BAIDU Corporation.</div>
+    {%else%}
+        {%block name="content"%}{%/block%}
+        {%*************** 版权信息 *****************%}
+        <div class="copyright">Copyright © 2015 BAIDU Corporation.</div>
+    {%/if%}
+
+
 {%/strip%}
 {%/block%}
 
-{%block name="js"%}
+{%block name="js" append%}
+
+{%* 该模块构建后将会打包common/ui/* common/lib/**等模块，在此完全加载，避免后续模块单独加载已打包模块 *%}
+<script src="{%$feRoot%}/src/search/common/base.js"></script>
 <script>
-    require(['search/index'], function (search) {
-        search.start();
+    require(['search/common/base'], function (base) {
+        base.init();
     });
 </script>
 {%/block%}

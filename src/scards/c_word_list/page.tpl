@@ -109,9 +109,8 @@
         {%/foreach%}
     </div>
     <script>
-        A.init(function (require) {
-            (function() {
-    var $ = require("zepto");
+        A.init(function () {
+            require([ "zepto", "common/widget/slider/slider" ], function($, slider) {
     function getKeywords(needRetry) {
         var wordClass = "c-word-list-s";
         var wordEls = document.getElementsByClassName(wordClass);
@@ -156,7 +155,7 @@
                     if (data.hasOwnProperty(k)) {
                         var item = data[k];
                         var wd = trim(k);
-                        if (!wordsMap[wd].cls) {
+                        if (!wordsMap[wd] || !wordsMap[wd].cls) {
                             continue;
                         }
                         var els = document.getElementsByClassName(wordsMap[wd].cls);
@@ -177,20 +176,18 @@
         });
     }
     getKeywords(true);
-    require([ "common/widget/slider/slider" ], function(slider) {
-        var list = document.getElementsByClassName("c-word-list-p");
-        function guessBigImgOnclick(ev) {
-            ev.preventDefault();
-            var that = this;
-            slider.fetchList(that);
-            slider.show(that);
-        }
-        for (var i = 0, n = list.length; i < n; i++) {
-            var item = list[i];
-            item.onclick = guessBigImgOnclick;
-        }
-    });
-})();
+    var list = document.getElementsByClassName("c-word-list-p");
+    function guessBigImgOnclick(ev) {
+        ev.preventDefault();
+        var that = this;
+        slider.fetchList(that);
+        slider.show(that);
+    }
+    for (var i = 0, n = list.length; i < n; i++) {
+        var item = list[i];
+        item.onclick = guessBigImgOnclick;
+    }
+});
         });
     </script>
 {%/strip%}{%/block%}

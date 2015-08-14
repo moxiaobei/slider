@@ -120,9 +120,8 @@ function replaceFile(filepath) {
     var dir = path.dirname(filepath);
     var content = fs.readFileSync(filepath, {encoding:'utf8'});
     var reg = /{%\*include\s+file\s*=\s*"?(.*?)"?\s*\*%}/gi;
-    var result = reg.exec(content);
 
-    while (result != null) {
+    while ((result = reg.exec(content)) != null) {
         var str = result[0];
         var resName = result[1];
         var resPath = path.resolve(dir, resName);
@@ -131,6 +130,7 @@ function replaceFile(filepath) {
         // 文件不存在
         if (!fs.existsSync(resPath)) {
             console.log('match: ', resPath, ' not exist' );
+            continue;
         }
 
         var ext = path.extname(resPath);
@@ -164,8 +164,6 @@ function replaceFile(filepath) {
             );
             content = content.replace(str, output);
         }
-
-        result = reg.exec(content);
     }
 
     return content;
