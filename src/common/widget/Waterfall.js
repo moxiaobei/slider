@@ -32,8 +32,6 @@ define(function (require) {
         this.container = null;
 
         this.done = false;
-
-        this.isIframe = null;
     }
 
     /*
@@ -143,10 +141,11 @@ define(function (require) {
                         if(env.os.ios) {
                             aTag.on('click', function (e) {
                                 e.preventDefault();
+                                if(window.top === window) {console.log(1);
 
-                                if (thisWaterFall.isIframe !== null) {
+                                    thisWaterFall.isIframe = true;
                                     //在iframe中打开结果页
-                                    var iframe = thisWaterFall.isIframe = $('<iframe></iframe>');
+                                    var iframe = $('<iframe></iframe>');
                                     iframe.css('width', '100%');
                                     iframe.css('height','100%');
                                     iframe.attr('src', $(this).attr('href'));
@@ -163,11 +162,15 @@ define(function (require) {
 
                                     window.onpopstate = function(event) {
                                         iframeWrapper.remove();
+                                        thisWaterFall.isIframe = false;
                                         thisWaterFall.container.show();
                                         $(document.body).scrollTop(scrollTop);
                                     }
                                 }
-                                
+                                else {
+                                    console.log(2);
+                                    window.location.href = $(this).attr('href');
+                                }
                             });
                         }
 
