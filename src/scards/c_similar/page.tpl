@@ -11,13 +11,7 @@
 
 {%block name="content"%}{%strip%}
     <style>
-        .iframe-wrapper {
-  overflow: hidden;
-}
-.iframe-wrapper iframe {
-  overflow: hidden;
-}
-.c-similar .waterfall-container {
+        .c-similar .waterfall-container {
   position: relative;
   margin-bottom: 10px;
 }
@@ -59,9 +53,7 @@
   display: inline-block;
   width: 19px;
   height: 19px;
-  background-image: url(/src/scards/c_similar/img/loading.png);
-  background-repeat: no-repeat;
-  background-size: 100%;
+  font-size: 19px;
   vertical-align: text-bottom;
   -webkit-animation: rotate 1s infinite linear;
   -o-animation: rotate 1s infinite linear;
@@ -145,7 +137,7 @@
                 <li class="col-2">
                 </li>
             </ul>
-            <div class="waterfall-loading"><i></i>&nbsp;正在加载,请稍后</div>
+            <div class="waterfall-loading"><i class="icon icon-loading"></i>&nbsp;正在加载,请稍后</div>
         </div>
     </div>
 

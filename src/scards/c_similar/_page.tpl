@@ -23,7 +23,7 @@
                 <li class="col-2">
                 </li>
             </ul>
-            <div class="waterfall-loading"><i></i>&nbsp;正在加载,请稍后</div>
+            <div class="waterfall-loading"><i class="icon icon-loading"></i>&nbsp;正在加载,请稍后</div>
         </div>
     </div>
 

@@ -66,7 +66,6 @@ define(function (require) {
         $(window).on('scroll', scroll);
 
         function scroll(e) {
-
             var liIndex = thisWaterFall.getShortLi();
 
             var oLi = thisWaterFall.lis.eq(liIndex);

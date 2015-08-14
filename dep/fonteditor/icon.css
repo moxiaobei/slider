@@ -49,5 +49,9 @@
   content: "\e006";
 }
 
+.icon-loading:before {
+  content: "\e61d";
+}
+
 
 
