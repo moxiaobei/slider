@@ -201,6 +201,7 @@ define(function (require) {
                     data: {
                         image: imgSrc,
                         guessData: 1,
+                        tn: 'wise'
                     },
                     dataType: 'json',
                     timeout: 10000,
