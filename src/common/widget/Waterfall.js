@@ -106,7 +106,7 @@ define(function (require) {
             type: 'GET',
 
             data: {
-                offset: thisWaterFall.pages
+                page: thisWaterFall.pages
             },
 
             url: thisWaterFall.ajaxUrl,
