@@ -1,6 +1,6 @@
 /**
  * @file
- * @author 
+ * @author
  *
  */
 /*
@@ -17,14 +17,14 @@ define(function(require) {
         list[i] = {};
         list[i].content = '<div class="content"><img src="' + data.imgsInfo[i].objUrl + '" />' +
                          '<div class="slider-introduction clearfix">' +
-                         '<p class="introduction-title">' + data.imgsInfo[i].title +'</p>' + 
+                         '<p class="introduction-title">' + data.imgsInfo[i].title +'</p>' +
                          '<p class="introduction-content">' + data.imgsInfo[i].introduction + '</p>' +
                             '<a class="introduction-link" href="'+ data.imgsInfo[i].fromUrl +'">' + data.imgsInfo[i].fromUrl + '</a>' +
                             '<a class="buttons recognition" href=""><i class="icon icon-camera"></i><span>识图</span></a>' +
                             '<a class="buttons download" href=""><i class="icon icon-camera"></i><span>下载</span></a>' +
                         '</div>' +
                         '<div class="slider-waterfall" id="sugguestion-waterfall">' +
-                            '<p>推荐给你的图片</p>' + 
+                            '<p>推荐给你的图片</p>' +
                             '<ul class="clearfix">' +
                                 '<li class="col-1">' +
                                 '</li>' +
@@ -36,9 +36,9 @@ define(function(require) {
                         '</div></div>';
 
     }
-    
+
     console.log($('#iSlider').css('height'));
-    
+
     exports.start = function() {
 
       var islider = new iSlider({
@@ -51,7 +51,7 @@ define(function(require) {
         onslidestart: function() {
         },
         onslidechange: function() {
-            
+
         }
       });
 
@@ -62,6 +62,7 @@ define(function(require) {
 
 define(function(require) {
     var waterfall = require('common/widget/Waterfall');
+    var toast = require('common/widget/toast/toast');
     var slider = require('./js/slider');
     var $ = require('zepto');
     var exports = {};
@@ -81,6 +82,16 @@ define(function(require) {
         s.init({
             imgsInfo: data.imgsInfo,
             idName: 'sugguestion-waterfall'
+        });
+
+        $('.recognition').on('click', function () {
+            window.top.location.href = $(this).attr('href');
+            return false;
+        });
+
+        $('.download').on('click', function () {
+            toast.makeText('请长按图片保存');
+            return false;
         });
     };
 
