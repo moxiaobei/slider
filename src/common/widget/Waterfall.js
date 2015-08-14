@@ -70,7 +70,7 @@ define(function (require) {
 
             var oLi = thisWaterFall.lis.eq(liIndex);
 
-            if($(window).scrollTop() + $(window).height() > oLi.height() + oLi.offset().top) {
+            if($(window).scrollTop() + $(window).height() > oLi.height() + oLi.offset().top + 10) {
 
              //   alert(thisWaterFall.maxPages + "   " + thisWaterFall.pages);
 
@@ -171,7 +171,7 @@ define(function (require) {
                         divTag.addClass('waterfall-img');
 
                         divTag.css({
-                            height: Math.ceil(imgs[i].thumbHeight * thisWaterFall.imgWidth/imgs[i].thumbWidth)
+                            height: Math.ceil(parseInt(imgs[i].thumbHeight) * thisWaterFall.imgWidth/parseInt(imgs[i].thumbWidth))
                         });
 
                         divTag.append(aTag);
