@@ -141,7 +141,7 @@ define(function (require) {
                         if(env.os.ios) {
                             aTag.on('click', function (e) {
                                 e.preventDefault();
-                                debugger;
+
                                 if(window.top === window) {
                                     console.log(1);
 
