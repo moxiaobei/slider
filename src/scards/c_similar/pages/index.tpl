@@ -15,8 +15,8 @@
             <p class="introduction-title"></p>
             <p class="introduction-content"></p>
             <a class="introduction-link" href=""></a>
-            <a class="buttons recognition" href=""><i class="icon icon-camera"></i><span>识图</span></a>
-            <a class="buttons download" href=""><i class="icon icon-camera"></i><span>下载</span></a>
+            <a class="buttons recognition" href=""><i></i><span>识图</span></a>
+            <a class="buttons download" href=""><i></i><span>下载</span></a>
         </div>
         <div class="slider-waterfall" id="sugguestion-waterfall">
             <p>推荐给你的图片</p>
