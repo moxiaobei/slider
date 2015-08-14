@@ -32,6 +32,8 @@ define(function (require) {
         this.container = null;
 
         this.done = false;
+
+        this.isIframe = null;
     }
 
     /*
@@ -142,27 +144,30 @@ define(function (require) {
                             aTag.on('click', function (e) {
                                 e.preventDefault();
 
-                                //在iframe中打开结果页
-                                var iframe = $('<iframe></iframe>');
-                                iframe.css('width', '100%');
-                                iframe.css('height','100%');
-                                iframe.attr('src', $(this).attr('href'));
-                                iframe.css('frameborder','0');
+                                if (thisWaterFall.isIframe !== null) {
+                                    //在iframe中打开结果页
+                                    var iframe = thisWaterFall.isIframe = $('<iframe></iframe>');
+                                    iframe.css('width', '100%');
+                                    iframe.css('height','100%');
+                                    iframe.attr('src', $(this).attr('href'));
+                                    iframe.css('frameborder','0');
 
-                                var iframeWrapper = $('<div></div>');
-                                iframeWrapper.addClass('iframe-wrapper');
-                                iframeWrapper.append(iframe);
-                                $(document.body).append(iframeWrapper);
-                                thisWaterFall.container.hide();
-                                var scrollTop = $(document.body).scrollTop();
-                                var pathname = $(this).attr('href').match(/http\:\/\/[\w\-\.\:]*([\/\-\w]*)/)[1];
-                                history.pushState({},"相似图",pathname);
+                                    var iframeWrapper = $('<div></div>');
+                                    iframeWrapper.addClass('iframe-wrapper');
+                                    iframeWrapper.append(iframe);
+                                    $(document.body).append(iframeWrapper);
+                                    thisWaterFall.container.hide();
+                                    var scrollTop = $(document.body).scrollTop();
+                                    var pathname = $(this).attr('href').match(/http\:\/\/[\w\-\.\:]*([\/\-\w]*)/)[1];
+                                    history.pushState({},"相似图",pathname);
 
-                                window.onpopstate = function(event) {
-                                    iframeWrapper.remove();
-                                    thisWaterFall.container.show();
-                                    $(document.body).scrollTop(scrollTop);
+                                    window.onpopstate = function(event) {
+                                        iframeWrapper.remove();
+                                        thisWaterFall.container.show();
+                                        $(document.body).scrollTop(scrollTop);
+                                    }
                                 }
+                                
                             });
                         }
 
