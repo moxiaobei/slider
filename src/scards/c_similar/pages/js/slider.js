@@ -175,12 +175,12 @@ define(function (require) {
                  $.ajax({
                     type: 'GET',
                     data: {
-                        image: encodeURIComponent(thisSlide.imgsInfo[thisSlide.page].objUrl)
+                        image: encodeURIComponent(thisSlide.imgsInfo[thisSlide.page - 1].objUrl)
                     }
                     url: '/upload',
                     success: function(data) {
                         thisSlide.recognition.attr('href', data.regzUrl);
-                        
+
                         var wf = new waterfall();
                         wf.init({
                             idName: 'sugguestion-waterfall',
