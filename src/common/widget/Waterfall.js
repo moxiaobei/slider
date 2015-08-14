@@ -141,9 +141,11 @@ define(function (require) {
                         if(env.os.ios) {
                             aTag.on('click', function (e) {
                                 e.preventDefault();
-                                if(window.top === window) {console.log(1);
+                                debugger;
+                                if(window.top === window) {
+                                    console.log(1);
 
-                                    thisWaterFall.isIframe = true;
+                                    // thisWaterFall.isIframe = true;
                                     //在iframe中打开结果页
                                     var iframe = $('<iframe></iframe>');
                                     iframe.css('width', '100%');
@@ -168,7 +170,7 @@ define(function (require) {
                                     }
                                 }
                                 else {
-                                    console.log(2);
+                                    // console.log(2);
                                     window.location.href = $(this).attr('href');
                                 }
                             });
