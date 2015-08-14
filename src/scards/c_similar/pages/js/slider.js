@@ -105,10 +105,10 @@ define(function (require) {
             endTime = (new Date()).getTime();
             // console.log(endPosition);
             // console.log(endTime - startTime);
-            if((startPosition - endPosition) > 50 && (endTime - startTime) > 200 || (startPosition - endPosition) < 20 && (endTime - startTime) < 100) {
+            if( startPosition - endPosition  > 0) {
                 leftMove();
             }
-            else if ((endPosition - startPosition) > 50 && (endTime - startTime) > 200 || (endPosition - startPosition) < 20 && (endTime - startTime) < 100) {
+            else if (endPosition - startPosition > 0) {
                 rightMove();
             }
         });
