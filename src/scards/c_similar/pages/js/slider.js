@@ -85,10 +85,6 @@ define(function (require) {
 
         var startPosition = 0;
 
-        this.sliderUl.on('touchmove',function (e) {
-            e.preventDefault();
-        });
-
         this.sliderUl.swipeLeft(function () {
 
             if(thisSlide.page < thisSlide.imgsInfo.length ) {
