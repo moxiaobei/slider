@@ -196,8 +196,8 @@ define(function (require) {
                 that.btn.innerHTML = '取消';
 
                 that.loading = $.ajax({
-                    type: 'GET',
-                    url: '/ir',
+                    type: 'POST',
+                    url: '/upload',
                     data: {
                         url: imgSrc
                     },

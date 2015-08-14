@@ -35,6 +35,12 @@
             </div>
         </div>
     </div>
+
+    {%*************** 反馈 *****************%}
+    {%include file="common/widget/feedback/feedback.tpl"%}
+
+    {%*************** 版权信息 *****************%}
+    <div class="copyright">Copyright © 2015 BAIDU Corporation.</div>
 {%/strip%}
 {%/block%}
 

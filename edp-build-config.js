@@ -95,8 +95,8 @@ exports.getProcessors = function () {
                 return output;
             }
 
-            var result = reg.exec(content);
-            while (result != null) {
+            // var result = reg.exec(content);
+            while ((result = reg.exec(content))  != null) {
                 var str = result[0];
                 var resName = result[1];
                 var resPath = path.resolve(dir, resName);
@@ -105,6 +105,7 @@ exports.getProcessors = function () {
                 // 文件不存在
                 if (!fs.existsSync(resPath)) {
                     console.log('match: ', resPath, ' not exist' );
+                    continue;
                 }
 
                 var ext = path.extname(resPath);
@@ -123,7 +124,7 @@ exports.getProcessors = function () {
                     content = content.replace(str, output);
                 }
 
-                result = reg.exec(content);
+                // result = reg.exec(content);
             }
 
             file.setData(content);

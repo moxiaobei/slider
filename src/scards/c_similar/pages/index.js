@@ -1,11 +1,12 @@
 /**
  * @file
- * @author 
+ * @author
  *
  */
 
 define(function(require) {
     var waterfall = require('common/widget/Waterfall');
+    var feedback = require('common/widget/feedback/feedback');
     var slider = require('./js/slider');
     var $ = require('zepto');
     var exports = {};
@@ -26,6 +27,8 @@ define(function(require) {
             imgsInfo: data.imgsInfo,
             idName: 'sugguestion-waterfall'
         });
+
+        feedback.init();
     };
 
     return exports;
