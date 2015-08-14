@@ -11,7 +11,14 @@
 
 {%block name="content"%}{%strip%}
     <style>
-        .c-similar .waterfall-container {
+        .iframe-wrapper {
+  width: 100%;
+}
+.iframe-wrapper iframe {
+  width: 100%;
+  overflow-x: hidden;
+}
+.c-similar .waterfall-container {
   position: relative;
   margin-bottom: 10px;
 }

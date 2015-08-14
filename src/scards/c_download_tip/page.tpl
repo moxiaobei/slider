@@ -14,7 +14,7 @@
   line-height: 50px;
 }
 .result-c-download-tip p {
-  margin-left: 15px;
+  margin-left: 8px;
   box-sizing: border-box;
   font-size: 13px;
   font-size: 0.8125rem;
@@ -23,8 +23,8 @@
   color: #87b9fd;
   font-size: 22px;
   font-size: 1.375rem;
-  padding-right: 8px;
-  padding-right: 0.5rem;
+  padding-right: 4px;
+  padding-right: 0.25rem;
 }
 .result-c-download-tip .close {
   width: 30px;
