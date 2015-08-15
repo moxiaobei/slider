@@ -32,6 +32,8 @@ define(function (require) {
         this.container = null;
 
         this.done = false;
+
+        this.ajax = null;
     }
 
     /*
@@ -45,13 +47,13 @@ define(function (require) {
 
         this.imgWidth = this.lis.eq(0).width();
 
-        this.listenScroll();
-
         this.loading = $('#' + option.idName + ' .waterfall-loading');
 
         this.loading.css('display', 'block');
 
         this.container = $('#' + option.containerId);
+
+        this.listenScroll();
 
     };
 
@@ -63,34 +65,37 @@ define(function (require) {
 
         var thisWaterFall = this;
 
-        $(window).on('scroll', scroll);
+        $(window).on('scroll', $.proxy(thisWaterFall.scroll, thisWaterFall));
+    };
 
-        function scroll(e) {
-            var liIndex = thisWaterFall.getShortLi();
 
-            var oLi = thisWaterFall.lis.eq(liIndex);
+    WaterFall.prototype.scroll = function (e) {
+        var thisWaterFall = this;
 
-            if($(window).scrollTop() + $(window).height() > oLi.height() + oLi.offset().top + 10) {
+        var liIndex = thisWaterFall.getShortLi();
 
-             //   alert(thisWaterFall.maxPages + "   " + thisWaterFall.pages);
+        var oLi = thisWaterFall.lis.eq(liIndex);
 
-                if(thisWaterFall.flag === true) {
+        if($(window).scrollTop() + $(window).height() > oLi.height() + oLi.offset().top) {
 
-                    thisWaterFall.flag = false;
+         //   alert(thisWaterFall.maxPages + "   " + thisWaterFall.pages);
 
-                    thisWaterFall.pages++;
+            if(thisWaterFall.flag === true) {
 
-                    thisWaterFall.getImages();
-                }
+                thisWaterFall.flag = false;
 
-                if(thisWaterFall.done === true) {
+                thisWaterFall.pages++;
 
-                    $(window).off('scroll', scroll);
-                }
+                thisWaterFall.getImages();
+            }
+
+            if(thisWaterFall.done === true) {
+
+                $(window).off('scroll', scroll);
             }
         }
+    }
 
-    };
 
 
     /*
@@ -102,7 +107,7 @@ define(function (require) {
 
         this.loading.css('display', 'block');
 
-        var ajax = $.ajax({
+        this.ajax = $.ajax({
             type: 'GET',
 
             data: {
@@ -117,7 +122,9 @@ define(function (require) {
                 var imgs = data.data;
 
                 if(imgs.length === 0) {
+
                     this.done = true;
+                    thisWaterFall.loading.css('display', 'none');
                 }
                 else {
                     for (var i = 0; i < imgs.length; i++) {
@@ -143,7 +150,9 @@ define(function (require) {
                                 e.preventDefault();
 
                                 if(window.top === window) {
-                                    console.log(1);
+
+                                    $(window).off('scroll');
+                                    thisWaterFall.ajax.abort();
 
                                     // thisWaterFall.isIframe = true;
                                     //在iframe中打开结果页
@@ -167,11 +176,13 @@ define(function (require) {
                                     //    thisWaterFall.isIframe = false;
                                         thisWaterFall.container.show();
                                         $(document.body).scrollTop(scrollTop);
+                                        $(window).on('scroll', $.proxy(thisWaterFall.scroll, thisWaterFall));
                                     }
                                 }
                                 else {
                                     // console.log(2);
                                     window.location.href = $(this).attr('href');
+
                                 }
                             });
                         }
@@ -180,9 +191,7 @@ define(function (require) {
 
                         divTag.addClass('waterfall-img');
 
-                        divTag.css({
-                            height: Math.ceil(parseInt(imgs[i].thumbHeight) * thisWaterFall.imgWidth/parseInt(imgs[i].thumbWidth))
-                        });
+                        divTag.css('height', Math.ceil(parseInt(imgs[i].thumbHeight) * thisWaterFall.imgWidth/parseInt(imgs[i].thumbWidth)));
 
                         divTag.append(aTag);
 
@@ -190,16 +199,11 @@ define(function (require) {
                     }
                 }
 
-                thisWaterFall.loading.css('display', 'none');
-
                 thisWaterFall.flag = true;
-
-            },
-            error: function() {
 
             }
         });
-        return ajax;
+        return thisWaterFall.ajax;
     };
 
     /*

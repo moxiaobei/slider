@@ -17,7 +17,6 @@ define(function (require) {
         this.page = 1;
         this.imgsInfo = null;
         this.sugguestionImgLis = null;
-        // this.waterfallDone = null;
         this.ajax = null;
         this.recognition = null;
     }
@@ -31,8 +30,6 @@ define(function (require) {
         this.sliderLis = $('.slider-section .slider-img');
 
         this.sugguestionImgLis = $('#sugguestion-waterfall li');
-
-        // this.waterfallDone = $('.waterfall-done');
 
         this.introductionTitle = $('.slider-introduction .introduction-title');
         this.introductionTitle.html(option.imgsInfo[0].title);
@@ -54,7 +51,7 @@ define(function (require) {
         this.imgsInfo = option.imgsInfo;
 
         // 根据图片宽度来设置section的高度
-        this.sliderSection.css('height', Math.ceil(this.screenWidth * option.imgsInfo[0].imageOriginHeight / option.imgsInfo[0].imageOriginWidth));
+        this.sliderSection.css('height', Math.ceil(this.screenWidth * option.imgsInfo[0].imageOriginHeight / option.imgsInfo[0].imageOriginWidth) );
 
         //根据轮播的图片的数量设置ul的宽度
         this.sliderUl.css('width', option.imgsInfo.length * this.screenWidth);
@@ -96,6 +93,7 @@ define(function (require) {
             var touch = e.changedTouches[0];
             startPosition = touch.pageX;
             startTime = (new Date()).getTime();
+            
             // console.log(startPosition);
         });
 
@@ -103,12 +101,12 @@ define(function (require) {
             var touch = e.changedTouches[0];
             endPosition = touch.pageX;
             endTime = (new Date()).getTime();
-            // console.log(endPosition);
-            // console.log(endTime - startTime);
-            if( startPosition - endPosition  > 0) {
+            var timeDis = endTime - startTime;
+
+            if( startPosition - endPosition  > thisSlide.screenWidth/2 || (timeDis < 300 && startPosition - endPosition > 30)) {
                 leftMove();
             }
-            else if (endPosition - startPosition > 0) {
+            else if (endPosition - startPosition > thisSlide.screenWidth/2 || (timeDis < 300 && endPosition - startPosition >30)) {
                 rightMove();
             }
         });
@@ -126,7 +124,6 @@ define(function (require) {
                 thisSlide.sliderSection.css('height', Math.ceil(thisSlide.screenWidth * thisSlide.imgsInfo[thisSlide.page].imageOriginHeight / thisSlide.imgsInfo[thisSlide.page].imageOriginWidth));
 
                 thisSlide.sugguestionImgLis.html('');
-                // thisSlide.waterfallDone.css('display','none');
 
                 thisSlide.ajax.abort();
 
@@ -177,7 +174,9 @@ define(function (require) {
                 thisSlide.sliderUl.css('left', -thisSlide.screenWidth * (thisSlide.page - 1));
 
                 thisSlide.ajax.abort();
-                
+
+                thisSlide.sugguestionImgLis.html('');
+
                  $.ajax({
                     type: 'POST',
                     data: {
@@ -198,9 +197,6 @@ define(function (require) {
                         thisSlide.ajax = wf.getImages();
                     }
                 });
-
-                thisSlide.sugguestionImgLis.html('');
-                // thisSlide.waterfallDone.css('display','none');
 
             }
 
