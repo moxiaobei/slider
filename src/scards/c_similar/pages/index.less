@@ -13,7 +13,6 @@ body {
 
 .slider-container {
     background-color: #fff;
-    width: 100%;
 
     .slider-section {
         position: relative;
@@ -58,13 +57,21 @@ body {
     }
 
     .introduction-link {
-        .ellipsis();
+        width: 100%;
+        word-break:break-all;
+        overflow: hidden;
+        word-wrap: break-word;
+        text-overflow: ellipsis;
+
         color: #1D2F9A;
         font-size: 0.9rem;
         display: block;
         font-weight: 200;
+<<<<<<< HEAD
         word-wrap: break-word;
         letter-spacing: 1px;
+=======
+>>>>>>> aa0fd23cfa215633317a16ae123e575f74f67f6d
     }
 
     .buttons {
