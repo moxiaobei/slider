@@ -34,9 +34,9 @@ define(function (require, exports) {
 
             // 隐藏
             setTimeout(function () {
-                // that.el.removeClass('toast-ld-show toast-ld-txt');
-                // that.el.attr('style', '');
-                // that.el.html(tmpl);
+                that.el.removeClass('toast-ld-show toast-ld-txt');
+                that.el.attr('style', '');
+                that.el.html(tmpl);
             }, duration);
         },
 
