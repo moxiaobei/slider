@@ -21,11 +21,11 @@ require(['common/widget/Waterfall'], function (waterfall) {
 
 require(['common/widget/backtop/backtop', 'zepto'] ,function (backtop, $) {
 
-    $(document.body).append('<div id="backtop"></div>');
+    $(document.body).append('<div class="backtop" id="backtop"></div>');
 
     $(window).on('scroll', function() {
 
-        if( $(window).scrollTop() > 0) {
+        if( $(window).scrollTop() > 100) {
             backtop.show();
         }
         else {

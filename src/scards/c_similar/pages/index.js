@@ -50,19 +50,19 @@ define(function (require) {
             }
             return false;
         });
-
-        $(document.body).append('<div id="backtop"></div>');
+        var $body = $(window.top.document.body);
+        $body.append('<div class="backtop" id="backtop1"></div>');
         var backtop = require('common/widget/backtop/backtop');
         $(window).on('touchmove', function() {
 
             if( $(window).scrollTop() > 100) {
-                backtop.show();
+                backtop.show('#backtop1');
             }
             else {
-                backtop.hide();
+                backtop.hide('#backtop1');
             }
 
-            $('#backtop').on('click', function() {
+            $body.find('#backtop1').on('click', function() {
                 $(window).scrollTop(0);
             });
 

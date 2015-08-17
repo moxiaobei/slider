@@ -11,7 +11,34 @@
 
 {%block name="content"%}{%strip%}
     <style>
-        .c-similar .waterfall-container {
+        .imgsave-container {
+  z-index: 10001;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #222;
+  width: 100%;
+  height: 100%;
+}
+.imgsave-container .tip {
+  height: 5%;
+  margin-top: 5%;
+  text-align: center;
+  font-size: 16px;
+  color: #fff;
+}
+.imgsave-container .img-wrap {
+  margin-top: 10%;
+  width: 100%;
+  height: 70%;
+  overflow: hidden;
+}
+.imgsave-container .img-wrap img {
+  vertical-align: middle;
+  width: 100%;
+  height: auto;
+}
+.c-similar .waterfall-container {
   position: relative;
   margin-bottom: 10px;
 }
@@ -156,9 +183,9 @@
 });
 
 require([ "common/widget/backtop/backtop", "zepto" ], function(backtop, $) {
-    $(document.body).append('<div id="backtop"></div>');
+    $(document.body).append('<div class="backtop" id="backtop"></div>');
     $(window).on("scroll", function() {
-        if ($(window).scrollTop() > 0) {
+        if ($(window).scrollTop() > 100) {
             backtop.show();
         } else {
             backtop.hide();

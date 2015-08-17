@@ -5,14 +5,18 @@
 
  define(function (require) {
     var zepto = require('zepto');
+    var $body = $(window.top.document.body);
+    // $body.append('<div id="backtop"></div>');
 
     var backtop = {
         idName: 'backtop',
-        show: function() {
-            $('#'+this.idName).show();
+        show: function(ele) {
+            ele = ele || '#backtop';
+            $body.find(ele).show();
         },
-        hide: function() {
-            $('#'+this.idName).hide();
+        hide: function(ele) {
+            ele = ele || '#backtop';
+            $body.find(ele).hide();
         }
     };
 
