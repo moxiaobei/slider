@@ -111,7 +111,7 @@ define(function (require) {
     };
 
 
-   
+
 
 
     /*
@@ -169,7 +169,7 @@ define(function (require) {
                                     $(window).off('scroll');
                                     // thisWaterFall.ajax.abort();
 
-                                    
+
                                     //在iframe中打开结果页
                                     var iframe = $('<iframe></iframe>');
                                     iframe.css('width', '100%');
