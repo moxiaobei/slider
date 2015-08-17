@@ -53,9 +53,47 @@ define(function (require) {
 
         this.container = $('#' + option.containerId);
 
-        this.listenScroll();
-
+        if(env.os.ios && window.top === window || !env.os.ios) {
+            this.listenScroll();
+        }
     };
+
+    function scroll(e) {
+  //      e.preventDefault();
+    //    e.stopPropagation();
+        var liIndex = this.getShortLi();
+
+        var oLi = this.lis.eq(liIndex);
+
+        if($(window).scrollTop() + $(window).height() > oLi.height() + oLi.offset().top) {
+
+      //  if($('#loading-btn')[0].getBoundingClientRect().top < $(window).height()) {
+        //    alert(this.maxPages + "   " + this.pages);
+   //      if(window.top !== window) {
+    //        alert($(window.to).scrollTop());
+    //     }
+
+            if(this.flag === true) {
+
+                this.flag = false;
+
+                this.pages++;
+
+                this.getImages();
+            }
+
+            if(this.done === true) {
+
+                if(window === window.top) {
+                    $(window).off('scroll', scroll);
+                }
+                else {
+                    $(window).off('touchmove', scroll);
+                }
+                // $(window).off('scroll', scroll);
+            }
+        }
+    }
 
     /*
         监听window的scroll事件
@@ -63,53 +101,14 @@ define(function (require) {
 
     WaterFall.prototype.listenScroll = function () {
 
-        var thisWaterFall = this;
-
         if(window === window.top) {
-            $(window).on('scroll', scroll);
+            $(window).on('scroll.wf', $.proxy(scroll, this));
         }
         else {
-            $(window).on('touchmove', scroll);
-        }
-        function scroll(e) {
-      //      e.preventDefault();
-        //    e.stopPropagation();
-            var liIndex = thisWaterFall.getShortLi();
-
-            var oLi = thisWaterFall.lis.eq(liIndex);
-
-            if($(window).scrollTop() + $(window).height() > oLi.height() + oLi.offset().top) {
-
-          //  if($('#loading-btn')[0].getBoundingClientRect().top < $(window).height()) {
-            //    alert(thisWaterFall.maxPages + "   " + thisWaterFall.pages);
-       //      if(window.top !== window) {
-        //        alert($(window.to).scrollTop());
-        //     }
-
-                if(thisWaterFall.flag === true) {
-
-                    thisWaterFall.flag = false;
-
-                    thisWaterFall.pages++;
-
-                    thisWaterFall.getImages();
-                }
-
-                if(thisWaterFall.done === true) {
-
-                    if(window === window.top) {
-                        $(window).off('scroll', scroll);
-                    }
-                    else {
-                        $(window).off('touchmove', scroll);
-                    }
-                    // $(window).off('scroll', scroll);
-                }
-            }
+            $(window).on('touchmove.wf', $.proxy(scroll, this));
         }
 
     };
-
 
 
 
@@ -166,14 +165,14 @@ define(function (require) {
                                 e.preventDefault();
                                 if(window.top === window) {
 
-                                    $(window).off('scroll');
+                                    $(window).off('scroll.wf');
                                     // thisWaterFall.ajax.abort();
 
 
                                     //在iframe中打开结果页
                                     var iframe = $('<iframe></iframe>');
                                     iframe.css('width', '100%');
-                                    iframe.css('height','110%');
+                                    iframe.css('height','100%');
                                     iframe.attr('src', $(this).attr('href'));
                                     iframe.css('frameborder','0');
 
@@ -190,35 +189,7 @@ define(function (require) {
                                         iframeWrapper.remove();
                                         thisWaterFall.container.show();
                                         $(document.body).scrollTop(scrollTop);
-                                        $(window).on('scroll', scroll);
-
-                                        function scroll(e) {
-                                            var liIndex = thisWaterFall.getShortLi();
-
-                                            var oLi = thisWaterFall.lis.eq(liIndex);
-
-                                            if($(window).scrollTop() + $(window).height() > oLi.height() + oLi.offset().top) {
-
-                                                if(thisWaterFall.flag === true) {
-
-                                                    thisWaterFall.flag = false;
-
-                                                    thisWaterFall.pages++;
-
-                                                    thisWaterFall.getImages();
-                                                }
-
-                                                if(thisWaterFall.done === true) {
-
-                                                    if(window === window.top) {
-                                                        $(window).off('scroll', scroll);
-                                                    }
-                                                    else {
-                                                        $(window).off('touchmove', scroll);
-                                                    }
-                                                }
-                                            }
-                                        }
+                                        $(window).on('scroll.wf', $.proxy(scroll,thisWaterFall));
                                     };
                                 }
                                 else {
@@ -241,6 +212,9 @@ define(function (require) {
                 }
 
                 thisWaterFall.flag = true;
+                if(env.os.ios && window.top!==window) {
+                    thisWaterFall.loading.css('display','none');
+                }
 
             }
         });

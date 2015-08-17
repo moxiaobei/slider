@@ -50,23 +50,27 @@ define(function (require) {
             }
             return false;
         });
-        var $body = $(window.top.document.body);
-        $body.append('<div class="backtop" id="backtop1"></div>');
-        var backtop = require('common/widget/backtop/backtop');
-        $(window).on('touchmove', function() {
+        var env = require('common/lib/env');
+        if(env.os.ios) {
+            var $body = $(window.top.document.body);
+            $body.append('<div class="backtop" id="backtop1"></div>');
+            var backtop = require('common/widget/backtop/backtop');
+            $(window).on('touchmove', function() {
 
-            if( $(window).scrollTop() > 100) {
-                backtop.show('#backtop1');
-            }
-            else {
-                backtop.hide('#backtop1');
-            }
+                if( $(window).scrollTop() > 100) {
+                    backtop.show('#backtop1');
+                }
+                else {
+                    backtop.hide('#backtop1');
+                }
 
-            $body.find('#backtop1').on('click', function() {
-                $(window).scrollTop(0);
+                $body.find('#backtop').on('click', function() {
+                    $(window).scrollTop(0);
+                });
+
             });
-
-        });
+        }
+        
     };
 
     return exports;
