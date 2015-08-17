@@ -57,6 +57,7 @@
         {%block name="main"%}
         {%/block%}
     </div>
+    
 </body>
 {%* master模块：该模块构建后将会打包common/ui/* common/lib/**等模块，在此完全加载，避免后续模块单独加载已打包模块 *%}
 <script src="{%$feRoot%}/src/common/master.js"></script>

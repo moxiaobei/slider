@@ -31,6 +31,23 @@ define(function(require) {
             toast.makeText('请长按图片保存');
             return false;
         });
+
+        $(document.body).append('<div id="backtop"></div>');
+        var backtop = require('common/widget/backtop/backtop');
+        $(window).on('touchmove', function() {
+
+            if( $(window).scrollTop() > 100) {
+                backtop.show();
+            }
+            else {
+                backtop.hide();
+            }
+
+            $('#backtop').on('click', function() {
+                $(window).scrollTop(0);
+            });
+
+        });
     };
 
     return exports;

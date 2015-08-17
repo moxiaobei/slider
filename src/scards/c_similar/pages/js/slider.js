@@ -52,7 +52,7 @@ define(function (require) {
         this.imgsInfo = option.imgsInfo;
 
         // 根据图片宽度来设置section的高度
-        this.sliderSection.css('height', Math.ceil(this.screenWidth * option.imgsInfo[0].imageOriginHeight / option.imgsInfo[0].imageOriginWidth) );
+        this.sliderSection.css('height', Math.ceil(this.screenWidth * option.imgsInfo[0].thumbHeight / option.imgsInfo[0].thumbWidth) );
 
         //根据轮播的图片的数量设置ul的宽度
         this.sliderUl.css('width', option.imgsInfo.length * this.screenWidth);
@@ -63,7 +63,7 @@ define(function (require) {
             li.addClass('slider-img');
             li.css('width', this.screenWidth);
             var img = $('<img />');
-            img.attr('src', option.imgsInfo[i].objUrl);
+            img.attr('src', option.imgsInfo[i].thumbUrl);
             img.css('width', this.screenWidth);
             li.append(img);
             this.sliderUl.append(li);
@@ -121,7 +121,7 @@ define(function (require) {
 
                 thisSlide.introductionLink.html(thisSlide.imgsInfo[thisSlide.page].fromUrl);
 
-                thisSlide.sliderSection.css('height', Math.ceil(thisSlide.screenWidth * thisSlide.imgsInfo[thisSlide.page].imageOriginHeight / thisSlide.imgsInfo[thisSlide.page].imageOriginWidth));
+                thisSlide.sliderSection.css('height', Math.ceil(thisSlide.screenWidth * thisSlide.imgsInfo[thisSlide.page].thumbHeight / thisSlide.imgsInfo[thisSlide.page].thumbWidth));
 
                 thisSlide.sugguestionImgLis.html('');
 
@@ -131,7 +131,7 @@ define(function (require) {
                 $.ajax({
                     type: 'POST',
                     data: {
-                        image: encodeURIComponent(thisSlide.imgsInfo[thisSlide.page].objUrl),
+                        image: encodeURIComponent(thisSlide.imgsInfo[thisSlide.page].thumbUrl),
                         carousel: 2,
                         tn: 'wise'
                     },
@@ -170,7 +170,7 @@ define(function (require) {
 
                 thisSlide.introductionLink.html(thisSlide.imgsInfo[thisSlide.page - 1].fromUrl);
 
-                thisSlide.sliderSection.css('height', Math.ceil(thisSlide.screenWidth * thisSlide.imgsInfo[thisSlide.page - 1].imageOriginHeight / thisSlide.imgsInfo[thisSlide.page - 1].imageOriginWidth));
+                thisSlide.sliderSection.css('height', Math.ceil(thisSlide.screenWidth * thisSlide.imgsInfo[thisSlide.page - 1].thumbHeight / thisSlide.imgsInfo[thisSlide.page - 1].thumbWidth));
 
                 thisSlide.sliderUl.css('left', -thisSlide.screenWidth * (thisSlide.page - 1));
 
@@ -181,7 +181,7 @@ define(function (require) {
                  $.ajax({
                     type: 'POST',
                     data: {
-                        image: encodeURIComponent(thisSlide.imgsInfo[thisSlide.page - 1].objUrl),
+                        image: encodeURIComponent(thisSlide.imgsInfo[thisSlide.page - 1].thumbUrl),
                         carousel: 2,
                         tn: 'wise'
                     },

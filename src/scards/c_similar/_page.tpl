@@ -32,6 +32,7 @@
         A.init(function () {
             var simAjaxUrl = '{%$tplData.simAjaxUrl|escape:"javascript"%}';
             {%*include file="page.js"*%}
+
         });
 
     </script>

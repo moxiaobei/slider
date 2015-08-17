@@ -5,6 +5,7 @@
 */
 
 
+
 require(['common/widget/Waterfall'], function (waterfall) {
 
     var wf = new waterfall();
@@ -16,4 +17,24 @@ require(['common/widget/Waterfall'], function (waterfall) {
     });
 
     wf.getImages();
+});
+
+require(['common/widget/backtop/backtop', 'zepto'] ,function (backtop, $) {
+
+    $(document.body).append('<div id="backtop"></div>');
+
+    $(window).on('scroll', function() {
+
+        if( $(window).scrollTop() > 0) {
+            backtop.show();
+        }
+        else {
+            backtop.hide();
+        }
+
+        $('#backtop').on('click', function() {
+            $(window).scrollTop(0);
+        });
+
+    });
 });
