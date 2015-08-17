@@ -12,13 +12,11 @@
             </ul>
         </div>
         <div class="slider-introduction clearfix">
-            <p class="introduction-title"></p>
+            <a class="introduction-title"></a>
             <p class="introduction-content"></p>
             <a class="introduction-link" href="javascript: void 0;"></a>
-
             <a class="buttons recognition" href="javascript: void 0;"><i class="icon icon-map"></i><span>识图</span></a>
             <a class="buttons download" href="javascript: void 0;"><i class="icon icon-download"></i><span>下载</span></a>
-
         </div>
         <div class="slider-waterfall" id="sugguestion-waterfall">
             <p>推荐给你的图片</p>

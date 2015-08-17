@@ -1,6 +1,6 @@
 /**
 * @file Waterfall瀑布流
-* @author Dong Hualei(donghualei@baidu.com)
+* @author Dong Hualei (donghualei@baidu.com)
 * @date 2015-8-4
 */
 
@@ -78,14 +78,14 @@ define(function (require) {
 
             var oLi = thisWaterFall.lis.eq(liIndex);
 
-          if($(window).scrollTop() + $(window).height() > oLi.height() + oLi.offset().top) {
+            if($(window).scrollTop() + $(window).height() > oLi.height() + oLi.offset().top) {
 
           //  if($('#loading-btn')[0].getBoundingClientRect().top < $(window).height()) {
             //    alert(thisWaterFall.maxPages + "   " + thisWaterFall.pages);
        //      if(window.top !== window) {
         //        alert($(window.to).scrollTop());
         //     }
-//
+
                 if(thisWaterFall.flag === true) {
 
                     thisWaterFall.flag = false;
@@ -96,6 +96,7 @@ define(function (require) {
                 }
 
                 if(thisWaterFall.done === true) {
+
                     if(window === window.top) {
                         $(window).off('scroll', scroll);
                     }
@@ -165,7 +166,7 @@ define(function (require) {
                                 e.preventDefault();
                                 if(window.top === window) {
 
-                                  //  $(window).off('scroll');
+                                    $(window).off('scroll');
                                     // thisWaterFall.ajax.abort();
 
 
@@ -189,7 +190,35 @@ define(function (require) {
                                         iframeWrapper.remove();
                                         thisWaterFall.container.show();
                                         $(document.body).scrollTop(scrollTop);
-                                   //     $(window).on('scroll', $.proxy(scroll, thisWaterFall));
+                                        $(window).on('scroll', scroll);
+
+                                        function scroll(e) {
+                                            var liIndex = thisWaterFall.getShortLi();
+
+                                            var oLi = thisWaterFall.lis.eq(liIndex);
+
+                                            if($(window).scrollTop() + $(window).height() > oLi.height() + oLi.offset().top) {
+
+                                                if(thisWaterFall.flag === true) {
+
+                                                    thisWaterFall.flag = false;
+
+                                                    thisWaterFall.pages++;
+
+                                                    thisWaterFall.getImages();
+                                                }
+
+                                                if(thisWaterFall.done === true) {
+
+                                                    if(window === window.top) {
+                                                        $(window).off('scroll', scroll);
+                                                    }
+                                                    else {
+                                                        $(window).off('touchmove', scroll);
+                                                    }
+                                                }
+                                            }
+                                        }
                                     };
                                 }
                                 else {
