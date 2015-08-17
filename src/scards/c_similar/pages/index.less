@@ -100,16 +100,6 @@ body {
         }
     }
 
-    .recognition {
-        margin-right: 2%;
-        float: left;
-    }
-
-    .download {
-        margin-left: 2%;
-        float: right;
-    }
-
     .slider-waterfall {
         width: 100%;
         background: #EEE;
@@ -187,6 +177,31 @@ body {
         content: '';
         clear: both;
         height: 0;
+    }
+}
+
+.os-android {
+    .slider-container {
+        .recognition {
+            float: left;
+        }
+
+        .download {
+            margin-left: 2%;
+            float: right;
+        }
+    }
+}
+
+.os-ios {
+    .slider-container {
+        .recognition {
+            width: 100%;
+        }
+
+        .download {
+            display: none !important;
+        }
     }
 }
 

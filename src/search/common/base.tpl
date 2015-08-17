@@ -24,7 +24,7 @@
     </script>
 
     {%*************** 搜索结果页的通用初始化，如检测当前系统并添加标识到html标签 *****************%}
-    <script>{%include file="./js/initenv.js"%}</script>
+    <script>{%include file="../../common/ui/initenv.js"%}</script>
 
     {%*************** 搜索结果页的卡片环境的初始化，为卡片的js提供运行环境 *****************%}
     <script>{%include file="./js/initscardenv.js"%}</script>

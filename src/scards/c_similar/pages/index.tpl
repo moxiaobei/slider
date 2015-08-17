@@ -2,6 +2,12 @@
 {%block name="style"%}
     <link rel="stylesheet" href="{%$feRoot%}/src/scards/c_similar/pages/index.css?v={edp-variable:version}"/>
 {%/block%}
+
+{%block name="head_js" append%}
+    {%*************** 搜索结果页的通用初始化，如检测当前系统并添加标识到html标签 *****************%}
+    <script>{%include file="../../../common/ui/initenv.js"%}</script>
+{%/block%}
+
 {%block name="main"%}
 {%strip%}
     <div class="slider-container">

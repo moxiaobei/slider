@@ -6,17 +6,21 @@
  define(function (require) {
     var zepto = require('zepto');
     var $body = $(window.top.document.body);
-    // $body.append('<div id="backtop"></div>');
 
     var backtop = {
-        idName: 'backtop',
-        show: function(ele) {
-            ele = ele || '#backtop';
-            $body.find(ele).show();
+        init: function (opt) {
+            $body.append('<div class="backtop" id="' + opt.ele + '"></div>');
+            this.ele = $body.find('#' + opt.ele);
+
+            this.ele.on('click', function() {
+                $(window).scrollTop(0);
+            });
         },
-        hide: function(ele) {
-            ele = ele || '#backtop';
-            $body.find(ele).hide();
+        show: function() {
+            this.ele.css('display', 'block');
+        },
+        hide: function() {
+            this.ele.css('display', 'none');
         }
     };
 

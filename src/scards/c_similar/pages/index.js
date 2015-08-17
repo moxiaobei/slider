@@ -27,22 +27,41 @@ define(function (require) {
             return false;
         });
 
+        $('.slider-list').on('click','img', function (e) {
+            var $img = $(e.currentTarget);
+            var doc = window.top.document;
+            var html = [
+                '<div class="imgsave-container">',
+                '  <div class="img-wrap">',
+                '  <img src="' + $img.attr('src') + '">',
+                '  </div>',
+                '</div>'
+            ].join('');
+            $(doc).find('body').append(html);
+            $(doc).find('.imgsave-container').one('click', function () {
+                $(doc).find('.imgsave-container').css('display', 'none');
+                $(doc).find('.imgsave-container').remove();
+            });
+
+            return false;
+        });
+
         $('.download').on('click', function () {
             if (env.os.ios) {
-                var doc = window.top.document;
-                var html = [
-                    '<div class="imgsave-container">',
-                    '  <div  class="tip">请长按图片保存</div>',
-                    '  <div class="img-wrap">',
-                    '  <img src="' + $(this).attr('href') + '">',
-                    '  </div>',
-                    '</div>'
-                ].join('');
-                $(doc).find('body').append(html);
-                $(doc).find('.imgsave-container').one('click', function () {
-                    $(doc).find('.imgsave-container').css('display', 'none');
-                    $(doc).find('.imgsave-container').remove();
-                });
+                // var doc = window.top.document;
+                // var html = [
+                //     '<div class="imgsave-container">',
+                //     '  <div  class="tip">请长按图片保存</div>',
+                //     '  <div class="img-wrap">',
+                //     '  <img src="' + $(this).attr('href') + '">',
+                //     '  </div>',
+                //     '</div>'
+                // ].join('');
+                // $(doc).find('body').append(html);
+                // $(doc).find('.imgsave-container').one('click', function () {
+                //     $(doc).find('.imgsave-container').css('display', 'none');
+                //     $(doc).find('.imgsave-container').remove();
+                // });
             }
             else {
                 toast.makeText('请长按图片保存');
@@ -50,22 +69,19 @@ define(function (require) {
             }
             return false;
         });
-        var $body = $(window.top.document.body);
-        $body.append('<div class="backtop" id="backtop1"></div>');
-        var backtop = require('common/widget/backtop/backtop');
-        $(window).on('touchmove', function() {
 
-            if( $(window).scrollTop() > 100) {
-                backtop.show('#backtop1');
+        var backtop = require('common/widget/backtop/backtop');
+        backtop.init({
+            ele: 'backtop-detail'
+        });
+        $(window).on('touchmove', function() {
+            // $('.slider-introduction').append($(window).scrollTop());
+            if($(window).scrollTop() > 100) {
+                backtop.show();
             }
             else {
-                backtop.hide('#backtop1');
+                backtop.hide();
             }
-
-            $body.find('#backtop1').on('click', function() {
-                $(window).scrollTop(0);
-            });
-
         });
     };
 

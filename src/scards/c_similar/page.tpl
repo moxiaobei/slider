@@ -21,16 +21,13 @@
   height: 100%;
 }
 .imgsave-container .tip {
-  height: 5%;
-  margin-top: 5%;
   text-align: center;
   font-size: 16px;
   color: #fff;
 }
 .imgsave-container .img-wrap {
-  margin-top: 10%;
   width: 100%;
-  height: 70%;
+  height: 100%;
   overflow: hidden;
 }
 .imgsave-container .img-wrap img {
@@ -183,19 +180,17 @@
 });
 
 require([ "common/widget/backtop/backtop", "zepto" ], function(backtop, $) {
-    $(document.body).append('<div class="backtop" id="backtop"></div>');
+    backtop.init({
+        ele: "backtop"
+    });
     $(window).on("scroll", function() {
         if ($(window).scrollTop() > 100) {
             backtop.show();
         } else {
             backtop.hide();
         }
-        $("#backtop").on("click", function() {
-            $(window).scrollTop(0);
-        });
     });
 });
-
 
         });
 
