@@ -29,22 +29,24 @@ define(function (require) {
         });
 
         $('.slider-list').on('click','img', function (e) {
-            // var $img = $(e.currentTarget);
-            // var doc = window.top.document;
-            // var html = [
-            //     '<div class="imgsave-container">',
-            //     '  <div class="img-wrap">',
-            //     '  <img src="' + $img.attr('src') + '">',
-            //     '  </div>',
-            //     '</div>'
-            // ].join('');
-            // $(doc).find('body').append(html);
-            // $(doc).find('.imgsave-container').one('click', function () {
-            //     $(doc).find('.imgsave-container').css('display', 'none');
-            //     $(doc).find('.imgsave-container').remove();
-            // });
+            var $img = $(e.currentTarget);
+            var doc = window.top.document;
+            var html = [
+                '<div class="imgpreview-container">',
+                '  <div class="img-wrap">',
+                '  <img src="' + $img.attr('src') + '">',
+                '  </div>',
+                '</div>'
+            ].join('');
+            $(doc).find('body').append(html);
+            $preview = $(doc).find('.imgpreview-container');
+            $preview.css('line-height', $(window.top).height() + 'px');
+            $preview .one('click', function () {
+                $preview.css('display', 'none');
+                $preview.remove();
+            });
 
-            // return false;
+            return false;
         });
 
         $('.download').on('click', function () {
