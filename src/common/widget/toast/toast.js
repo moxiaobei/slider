@@ -5,6 +5,8 @@
 
 define(function (require, exports) {
     var $ = require('zepto');
+    var win = window.top;
+    var doc = $(win.document);
     var toast = {
         /**
          * 默认样式
@@ -28,7 +30,7 @@ define(function (require, exports) {
             this.el.addClass('toast-ld-show toast-ld-txt');
 
             // 居中
-            this.el.css('margin-left', ($('.toast-ld').width() / -2) + 'px');
+            this.el.css('margin-left', (doc.find('.toast-ld').width() / -2) + 'px');
 
             // 隐藏
             setTimeout(function () {
@@ -81,8 +83,10 @@ define(function (require, exports) {
          */
         initialize: function () {
             this.el = $(this.html);
+
+
             // console.log(this.el);
-            this.el.appendTo('body');
+            this.el.appendTo(doc.find('body'));
         }
     };
 
