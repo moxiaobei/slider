@@ -43,7 +43,7 @@ define(function (require) {
         this.introductionLink.attr('href', option.imgsInfo[0].fromUrl);
 
         this.down = $('.slider-introduction .download');
-        this.down.attr('href', option.imgsInfo[0].downloadUrl);
+        this.down.attr('href', option.imgsInfo[0].objUrl);
 
         this.recognition = $('.slider-introduction .recognition');
         this.recognition.attr('href', option.imgsInfo[0].regzUrl);
