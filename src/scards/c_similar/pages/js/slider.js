@@ -41,6 +41,9 @@ define(function (require) {
         this.introductionLink.html(option.imgsInfo[0].fromUrl);
         this.introductionLink.attr('href', option.imgsInfo[0].fromUrl);
 
+        this.down = $('.slider-introduction .download');
+        this.down.attr('href', option.imgsInfo[0].downloadUrl);
+
         this.recognition = $('.slider-introduction .recognition');
         this.recognition.attr('href', option.imgsInfo[0].regzUrl);
 
@@ -125,7 +128,7 @@ define(function (require) {
 
                 thisSlide.ajax.abort();
 
-
+                thisSlide.down.attr('href', thisSlide.imgsInfo[thisSlide.page].downloadUrl);
                 $.ajax({
                     type: 'POST',
                     data: {
@@ -136,8 +139,10 @@ define(function (require) {
                     url: '/details',
                     dataType: 'json',
                     success: function(res) {
+
                         var data = res.data;
                         thisSlide.recognition.attr('href', data.regzUrl);
+
 
                         var wf = new waterfall();
                         wf.init({
@@ -175,6 +180,7 @@ define(function (require) {
 
                 thisSlide.sugguestionImgLis.html('');
 
+                thisSlide.down.attr('href', thisSlide.imgsInfo[thisSlide.page - 1].downloadUrl);
                  $.ajax({
                     type: 'POST',
                     data: {
@@ -184,8 +190,10 @@ define(function (require) {
                     },
                     url: '/details',
                     success: function(res) {
+
                         var data = res.data;
                         thisSlide.recognition.attr('href', data.regzUrl);
+
 
                         var wf = new waterfall();
                         wf.init({

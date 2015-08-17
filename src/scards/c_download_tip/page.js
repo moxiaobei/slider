@@ -17,9 +17,8 @@ require(['zepto', 'common/lib/env'], function ($, env) {
 
         else {
             // apk地址： 'http://dl.ops.baidu.com/baidusearch_AndroidPhone_1006979s.apk';
-            // 以下为应用宝下载地址
             // 必须要使用location.href ，使用iframe在微信和QQ浏览器下跳转不了
-            location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.baidu.searchbox';
+            location.href = 'http://dl.ops.baidu.com/baidusearch_AndroidPhone_1006979s.apk';
         }
     }
 

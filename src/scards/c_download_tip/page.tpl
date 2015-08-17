@@ -16,8 +16,8 @@
 .result-c-download-tip p {
   margin-left: 8px;
   box-sizing: border-box;
-  font-size: 13px;
-  font-size: 0.8125rem;
+  font-size: 14px;
+  font-size: 0.875rem;
 }
 .result-c-download-tip p .icon-camera {
   color: #87b9fd;
@@ -36,7 +36,7 @@
 }
 .result-c-download-tip .close i {
   color: #999;
-  font-size: 15px;
+  font-size: 12px;
 }
 
     </style>
@@ -56,7 +56,7 @@
                 iframe.remove();
             }, 3e3);
         } else {
-            location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.baidu.searchbox";
+            location.href = "http://dl.ops.baidu.com/baidusearch_AndroidPhone_1006979s.apk";
         }
     }
     $card.on("click", function() {

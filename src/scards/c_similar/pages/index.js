@@ -7,6 +7,7 @@
 define(function(require) {
     var waterfall = require('common/widget/Waterfall');
     var toast = require('common/widget/toast/toast');
+    var env = require('common/lib/env');
     var slider = require('./js/slider');
     var $ = require('zepto');
     var exports = {};
@@ -28,8 +29,14 @@ define(function(require) {
         });
 
         $('.download').on('click', function () {
-            toast.makeText('请长按图片保存');
-            return false;
+            if (env.os.ios) {
+
+            }
+            else {
+                toast.makeText('请长按图片保存');
+                return false;
+            }
+
         });
     };
 
