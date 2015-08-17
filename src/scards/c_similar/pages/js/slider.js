@@ -133,7 +133,7 @@ define(function (require) {
                         carousel: 2,
                         tn: 'wise'
                     },
-                    url: '/upload',
+                    url: '/details',
                     dataType: 'json',
                     success: function(res) {
                         var data = res.data;
@@ -182,7 +182,7 @@ define(function (require) {
                         carousel: 2,
                         tn: 'wise'
                     },
-                    url: '/upload',
+                    url: '/details',
                     success: function(res) {
                         var data = res.data;
                         thisSlide.recognition.attr('href', data.regzUrl);
