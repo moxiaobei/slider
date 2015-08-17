@@ -130,7 +130,7 @@ define(function (require) {
 
                 thisSlide.ajax.abort();
 
-                thisSlide.down.attr('href', thisSlide.imgsInfo[thisSlide.page].downloadUrl);
+                thisSlide.down.attr('href', thisSlide.imgsInfo[thisSlide.page].objUrl);
                 $.ajax({
                     type: 'POST',
                     data: {
@@ -183,7 +183,7 @@ define(function (require) {
 
                 thisSlide.sugguestionImgLis.html('');
 
-                thisSlide.down.attr('href', thisSlide.imgsInfo[thisSlide.page - 1].downloadUrl);
+                thisSlide.down.attr('href', thisSlide.imgsInfo[thisSlide.page - 1].objUrl);
                  $.ajax({
                     type: 'POST',
                     data: {
