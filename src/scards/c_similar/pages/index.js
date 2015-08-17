@@ -8,6 +8,7 @@ define(function (require) {
     var toast = require('common/widget/toast/toast');
     var env = require('common/lib/env');
     var slider = require('./js/slider');
+    var feedback = require('common/widget/feedback/feedback');
     var $ = require('zepto');
     var exports = {};
 
@@ -28,22 +29,22 @@ define(function (require) {
         });
 
         $('.slider-list').on('click','img', function (e) {
-            var $img = $(e.currentTarget);
-            var doc = window.top.document;
-            var html = [
-                '<div class="imgsave-container">',
-                '  <div class="img-wrap">',
-                '  <img src="' + $img.attr('src') + '">',
-                '  </div>',
-                '</div>'
-            ].join('');
-            $(doc).find('body').append(html);
-            $(doc).find('.imgsave-container').one('click', function () {
-                $(doc).find('.imgsave-container').css('display', 'none');
-                $(doc).find('.imgsave-container').remove();
-            });
+            // var $img = $(e.currentTarget);
+            // var doc = window.top.document;
+            // var html = [
+            //     '<div class="imgsave-container">',
+            //     '  <div class="img-wrap">',
+            //     '  <img src="' + $img.attr('src') + '">',
+            //     '  </div>',
+            //     '</div>'
+            // ].join('');
+            // $(doc).find('body').append(html);
+            // $(doc).find('.imgsave-container').one('click', function () {
+            //     $(doc).find('.imgsave-container').css('display', 'none');
+            //     $(doc).find('.imgsave-container').remove();
+            // });
 
-            return false;
+            // return false;
         });
 
         $('.download').on('click', function () {
@@ -65,24 +66,14 @@ define(function (require) {
             }
             else {
                 toast.makeText('请长按图片保存');
-
             }
             return false;
         });
 
-        var backtop = require('common/widget/backtop/backtop');
-        backtop.init({
-            ele: 'backtop-detail'
-        });
-        $(window).on('touchmove', function() {
-            // $('.slider-introduction').append($(window).scrollTop());
-            if($(window).scrollTop() > 100) {
-                backtop.show();
-            }
-            else {
-                backtop.hide();
-            }
-        });
+
+        // feedback
+        feedback.init();
+
     };
 
     return exports;
