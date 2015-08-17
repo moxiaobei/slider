@@ -65,37 +65,52 @@ define(function (require) {
 
         var thisWaterFall = this;
 
-        $(window).on('scroll', $.proxy(thisWaterFall.scroll, thisWaterFall));
+        if(window === window.top) {
+            $(window).on('scroll', scroll);
+        }
+        else {
+            $(window).on('touchmove', scroll);
+        }
+        function scroll(e) {
+      //      e.preventDefault();
+        //    e.stopPropagation();
+            var liIndex = thisWaterFall.getShortLi();
+
+            var oLi = thisWaterFall.lis.eq(liIndex);
+
+          if($(window).scrollTop() + $(window).height() > oLi.height() + oLi.offset().top) {
+
+          //  if($('#loading-btn')[0].getBoundingClientRect().top < $(window).height()) {
+            //    alert(thisWaterFall.maxPages + "   " + thisWaterFall.pages);
+       //      if(window.top !== window) {
+        //        alert($(window.to).scrollTop());
+        //     }
+// 
+                if(thisWaterFall.flag === true) {
+
+                    thisWaterFall.flag = false;
+
+                    thisWaterFall.pages++;
+
+                    thisWaterFall.getImages();
+                }
+
+                if(thisWaterFall.done === true) {
+                    if(window === window.top) {
+                        $(window).off('scroll', scroll);
+                    }
+                    else {
+                        $(window).off('touchmove', scroll);
+                    }
+                    // $(window).off('scroll', scroll);
+                }
+            }
+        }
+
     };
 
 
-    WaterFall.prototype.scroll = function (e) {
-        var thisWaterFall = this;
-
-        var liIndex = thisWaterFall.getShortLi();
-
-        var oLi = thisWaterFall.lis.eq(liIndex);
-
-        if($(window).scrollTop() + $(window).height() > oLi.height() + oLi.offset().top) {
-
-         //   alert(thisWaterFall.maxPages + "   " + thisWaterFall.pages);
-
-            if(thisWaterFall.flag === true) {
-
-                thisWaterFall.flag = false;
-
-                thisWaterFall.pages++;
-
-                thisWaterFall.getImages();
-            }
-
-            if(thisWaterFall.done === true) {
-
-                $(window).off('scroll', scroll);
-            }
-        }
-    }
-
+   
 
 
     /*
@@ -148,17 +163,16 @@ define(function (require) {
                         if(env.os.ios) {
                             aTag.on('click', function (e) {
                                 e.preventDefault();
-
                                 if(window.top === window) {
 
-                                    $(window).off('scroll');
-                                    thisWaterFall.ajax.abort();
+                                  //  $(window).off('scroll');
+                                    // thisWaterFall.ajax.abort();
 
-                                    // thisWaterFall.isIframe = true;
+                                    
                                     //在iframe中打开结果页
                                     var iframe = $('<iframe></iframe>');
                                     iframe.css('width', '100%');
-                                    iframe.css('height','100%');
+                                    iframe.css('height','110%');
                                     iframe.attr('src', $(this).attr('href'));
                                     iframe.css('frameborder','0');
 
@@ -166,21 +180,19 @@ define(function (require) {
                                     iframeWrapper.addClass('iframe-wrapper');
                                     iframeWrapper.append(iframe);
                                     $(document.body).append(iframeWrapper);
-                                    thisWaterFall.container.hide();
                                     var scrollTop = $(document.body).scrollTop();
+                                    thisWaterFall.container.hide();
                                     var pathname = $(this).attr('href').match(/http\:\/\/[\w\-\.\:]*([\/\-\w]*)/)[1];
                                     history.pushState({},"相似图",pathname);
 
                                     window.onpopstate = function(event) {
                                         iframeWrapper.remove();
-                                    //    thisWaterFall.isIframe = false;
                                         thisWaterFall.container.show();
                                         $(document.body).scrollTop(scrollTop);
-                                        $(window).on('scroll', $.proxy(thisWaterFall.scroll, thisWaterFall));
-                                    }
+                                   //     $(window).on('scroll', $.proxy(scroll, thisWaterFall));
+                                    };
                                 }
                                 else {
-                                    // console.log(2);
                                     window.location.href = $(this).attr('href');
 
                                 }

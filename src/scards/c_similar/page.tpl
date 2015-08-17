@@ -11,19 +11,9 @@
 
 {%block name="content"%}{%strip%}
     <style>
-        .iframe-wrapper {
-  width: 100%;
-  position: relative;
-  overflow-x: hidden;
-}
-.iframe-wrapper iframe {
-  width: 100%;
-  overflow-x: hidden;
-}
-.c-similar .waterfall-container {
+        .c-similar .waterfall-container {
   position: relative;
   margin-bottom: 10px;
-  width: 100%;
 }
 .c-similar .waterfall-container ul {
   width: 100%;
@@ -78,7 +68,7 @@
   height: 0;
 }
 .iframe-wrapper {
-  position: absolute;
+  position: relative;
   top: 0;
   right: 0;
   bottom: 0;
@@ -147,7 +137,7 @@
                 <li class="col-2">
                 </li>
             </ul>
-            <div class="waterfall-loading"><i class="icon icon-loading"></i>&nbsp;正在加载,请稍后</div>
+            <div class="waterfall-loading" id="loading-btn"><i class="icon icon-loading"></i>&nbsp;正在加载,请稍后</div>
         </div>
     </div>
 
@@ -166,6 +156,7 @@
 });
 
         });
+
     </script>
 {%/strip%}{%/block%}
 

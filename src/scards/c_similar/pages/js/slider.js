@@ -93,8 +93,6 @@ define(function (require) {
             var touch = e.changedTouches[0];
             startPosition = touch.pageX;
             startTime = (new Date()).getTime();
-            
-            // console.log(startPosition);
         });
 
         this.sliderUl.on('touchend', function(e) {
@@ -135,7 +133,7 @@ define(function (require) {
                         carousel: 2,
                         tn: 'wise'
                     },
-                    url: '/details',
+                    url: '/upload',
                     dataType: 'json',
                     success: function(res) {
                         var data = res.data;

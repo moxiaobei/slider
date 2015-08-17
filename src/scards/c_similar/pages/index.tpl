@@ -5,8 +5,8 @@
 {%block name="main"%}
 {%strip%}
     <div class="slider-container">
-        <div class="slider-section" id="iSlider">
-            <ul class="slider-list clearfix" id="iSlider">
+        <div class="slider-section">
+            <ul class="slider-list clearfix">
                 <!--li class="slider-img">
                 </li-->
             </ul>
@@ -14,10 +14,10 @@
         <div class="slider-introduction clearfix">
             <p class="introduction-title"></p>
             <p class="introduction-content"></p>
-            <a class="introduction-link" href=""></a>
+            <a class="introduction-link" href="javascript: void 0;"></a>
 
-            <a class="buttons recognition" href=""><i class="icon icon-map"></i><span>识图</span></a>
-            <a class="buttons download" href=""><i class="icon icon-download"></i><span>下载</span></a>
+            <a class="buttons recognition" href="javascript: void 0;"><i class="icon icon-map"></i><span>识图</span></a>
+            <a class="buttons download" href="javascript: void 0;"><i class="icon icon-download"></i><span>下载</span></a>
 
         </div>
         <div class="slider-waterfall" id="sugguestion-waterfall">
@@ -31,7 +31,7 @@
                 <li class="col-2">
                 </li>
             </ul>
-            <div class="waterfall-loading">
+            <div class="waterfall-loading" id="loading-btn">
                 <i class="icon icon-loading"></i>&nbsp;正在加载,请稍后
             </div>
         </div>
@@ -46,7 +46,6 @@
 {%/block%}
 
 {%block name='js'%}
-
 <script>
 
     define('common/data', {
