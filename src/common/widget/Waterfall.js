@@ -74,7 +74,6 @@ define(function (require) {
         function scroll(e) {
       //      e.preventDefault();
         //    e.stopPropagation();
-            alert('scroll');
             var liIndex = thisWaterFall.getShortLi();
 
             var oLi = thisWaterFall.lis.eq(liIndex);
@@ -86,7 +85,7 @@ define(function (require) {
        //      if(window.top !== window) {
         //        alert($(window.to).scrollTop());
         //     }
-// 
+
                 if(thisWaterFall.flag === true) {
 
                     thisWaterFall.flag = false;
@@ -167,7 +166,7 @@ define(function (require) {
                                 e.preventDefault();
                                 if(window.top === window) {
 
-                                  //  $(window).off('scroll');
+                                    $(window).off('scroll');
                                     // thisWaterFall.ajax.abort();
 
                                     
@@ -191,7 +190,35 @@ define(function (require) {
                                         iframeWrapper.remove();
                                         thisWaterFall.container.show();
                                         $(document.body).scrollTop(scrollTop);
-                                   //     $(window).on('scroll', $.proxy(scroll, thisWaterFall));
+                                        $(window).on('scroll', scroll);
+
+                                        function scroll(e) {
+                                            var liIndex = thisWaterFall.getShortLi();
+
+                                            var oLi = thisWaterFall.lis.eq(liIndex);
+
+                                            if($(window).scrollTop() + $(window).height() > oLi.height() + oLi.offset().top) {
+
+                                                if(thisWaterFall.flag === true) {
+
+                                                    thisWaterFall.flag = false;
+
+                                                    thisWaterFall.pages++;
+
+                                                    thisWaterFall.getImages();
+                                                }
+
+                                                if(thisWaterFall.done === true) {
+
+                                                    if(window === window.top) {
+                                                        $(window).off('scroll', scroll);
+                                                    }
+                                                    else {
+                                                        $(window).off('touchmove', scroll);
+                                                    }
+                                                }
+                                            }
+                                        }
                                     };
                                 }
                                 else {

@@ -154,6 +154,7 @@
     });
     wf.getImages();
 });
+
         });
 
     </script>
