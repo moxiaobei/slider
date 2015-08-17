@@ -135,6 +135,7 @@ define(function (require) {
 
             success: function (data) {
                 var imgs = data.data;
+                alert(data);
 
                 if(imgs.length === 0) {
 
