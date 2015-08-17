@@ -1,6 +1,6 @@
 /**
 * @file Waterfall瀑布流
-* @author Dong Hualei(donghualei@baidu.com)
+* @author Dong Hualei (donghualei@baidu.com)
 * @date 2015-8-4
 */
 
@@ -74,11 +74,12 @@ define(function (require) {
         function scroll(e) {
       //      e.preventDefault();
         //    e.stopPropagation();
+            alert('scroll');
             var liIndex = thisWaterFall.getShortLi();
 
             var oLi = thisWaterFall.lis.eq(liIndex);
 
-          if($(window).scrollTop() + $(window).height() > oLi.height() + oLi.offset().top) {
+            if($(window).scrollTop() + $(window).height() > oLi.height() + oLi.offset().top) {
 
           //  if($('#loading-btn')[0].getBoundingClientRect().top < $(window).height()) {
             //    alert(thisWaterFall.maxPages + "   " + thisWaterFall.pages);
@@ -96,6 +97,7 @@ define(function (require) {
                 }
 
                 if(thisWaterFall.done === true) {
+
                     if(window === window.top) {
                         $(window).off('scroll', scroll);
                     }

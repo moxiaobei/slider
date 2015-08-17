@@ -1,6 +1,6 @@
 /**
-* @file 轮播
-* @author Dong Hualei(donghualei@baidu.com)
+* @file 落地页初始化
+* @author Dong Hualei (donghualei@baidu.com)
 * @date 2015-8-5
 **/
 

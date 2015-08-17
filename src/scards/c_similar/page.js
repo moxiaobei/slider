@@ -1,6 +1,6 @@
 /**
 * @file Waterfall瀑布流
-* @author Dong Hualei(donghualei@baidu.com)
+* @author Dong Hualei (donghualei@baidu.com)
 * @date 2015-8-4
 */
 
