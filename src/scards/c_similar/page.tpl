@@ -11,26 +11,26 @@
 
 {%block name="content"%}{%strip%}
     <style>
-        .imgsave-container {
+        .imgpreview-container {
   z-index: 10001;
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #222;
+  background-color: rgba(0, 0, 0, 0.8);
   width: 100%;
   height: 100%;
 }
-.imgsave-container .tip {
+.imgpreview-container .tip {
   text-align: center;
   font-size: 16px;
   color: #fff;
 }
-.imgsave-container .img-wrap {
+.imgpreview-container .img-wrap {
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
-.imgsave-container .img-wrap img {
+.imgpreview-container .img-wrap img {
   vertical-align: middle;
   width: 100%;
   height: auto;
